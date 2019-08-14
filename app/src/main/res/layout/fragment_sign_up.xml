@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.SignUp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/signUpTextId"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorBlack"
+            android:text="아이디"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/signUpEditId"
+            android:layout_width="272dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="이메일 주소"
+            android:inputType="textPersonName"
+            android:textSize="5pt"
+            app:layout_constraintStart_toStartOf="@+id/signUpTextId"
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextId" />
+
+        <Button
+            android:id="@+id/signUpButtonDuplicate"
+            android:layout_width="83dp"
+            android:layout_height="38dp"
+            android:background="@drawable/btn_line_rect_border"
+            android:textColor="@color/colorBlack"
+            android:text="중복확인"
+            app:layout_constraintBottom_toBottomOf="@+id/signUpEditId"
+            app:layout_constraintStart_toEndOf="@+id/signUpEditId"
+            app:layout_constraintTop_toTopOf="@+id/signUpEditId"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/signUpTextPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorBlack"
+            android:text="비밀번호"
+            app:layout_constraintStart_toStartOf="@+id/signUpEditId"
+            app:layout_constraintTop_toBottomOf="@+id/signUpEditId" />
+
+        <EditText
+            android:id="@+id/signUpEditPassword"
+            android:layout_width="362dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="비밀번호 입력"
+            android:inputType="textPersonName"
+            android:textSize="5pt"
+            app:layout_constraintStart_toStartOf="@+id/signUpTextPassword"
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextPassword" />
+
+        <TextView
+            android:id="@+id/signUpTextCheckPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorBlack"
+            android:text="비밀번호 재확인"
+            app:layout_constraintStart_toStartOf="@+id/signUpEditPassword"
+            app:layout_constraintTop_toBottomOf="@+id/signUpEditPassword" />
+
+        <EditText
+            android:id="@+id/signUpEditCheckPassword"
+            android:layout_width="362dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="비밀번호 입력"
+            android:inputType="textPersonName"
+            android:textSize="5pt"
+            app:layout_constraintStart_toStartOf="@+id/signUpTextCheckPassword"
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextCheckPassword" />
+
+        <TextView
+            android:id="@+id/signUpTextName"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorBlack"
+            android:text="이름"
+            app:layout_constraintStart_toStartOf="@+id/signUpEditCheckPassword"
+            app:layout_constraintTop_toBottomOf="@+id/signUpEditCheckPassword" />
+
+        <EditText
+            android:id="@+id/signUpEditName"
+            android:layout_width="362dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="실명을 입력해 주세요."
+            android:inputType="textPersonName"
+            android:textSize="5pt"
+            app:layout_constraintStart_toStartOf="@+id/signUpTextName"
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextName" />
+
+        <TextView
+            android:id="@+id/signUpTextSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorBlack"
+            android:text="학교"
+            app:layout_constraintStart_toStartOf="@+id/signUpEditName"
+            app:layout_constraintTop_toBottomOf="@+id/signUpEditName" />
+
+        <EditText
+            android:id="@+id/signUpEditSchool"
+            android:layout_width="272dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint=""
+            android:inputType="textPersonName"
+            android:textSize="5pt"
+            app:layout_constraintStart_toStartOf="@+id/signUpTextSchool"
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextSchool" />
+
+        <Button
+            android:id="@+id/signUpButtonSchool"
+            android:layout_width="83dp"
+            android:layout_height="38dp"
+            android:background="@drawable/btn_line_rect_border"
+            android:textColor="@color/colorBlack"
+            android:text="학교찾기"
+            app:layout_constraintBottom_toBottomOf="@+id/signUpEditSchool"
+            app:layout_constraintStart_toEndOf="@+id/signUpEditSchool"
+            app:layout_constraintTop_toTopOf="@+id/signUpEditSchool"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/signUpTextBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorBlack"
+            android:text="생년월일"
+            app:layout_constraintStart_toStartOf="@+id/signUpEditSchool"
+            app:layout_constraintTop_toBottomOf="@+id/signUpEditSchool" />
+
+        <EditText
+            android:id="@+id/signUpEditBirth"
+            android:layout_width="362dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="8자리입력"
+            android:inputType="textPersonName"
+            android:textSize="5pt"
+            app:layout_constraintStart_toStartOf="@+id/signUpTextBirth"
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextBirth" />
+
+        <TextView
+            android:id="@+id/signUpTextSex"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorBlack"
+            android:text="성별"
+            app:layout_constraintStart_toStartOf="@+id/signUpEditBirth"
+            app:layout_constraintTop_toBottomOf="@+id/signUpEditBirth" />
+
+        <RadioGroup
+            android:id="@+id/signUpRadioGroupSex"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/signUpTextSex"
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextSex">
+
+            <RadioButton
+                android:id="@+id/signUpRadioFemale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="여자" />
+
+            <RadioButton
+                android:id="@+id/signUpRadioMale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="남자" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/signUpButtonCommit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="회원가입"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/btn_border_rect_purple"
+            app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
+
