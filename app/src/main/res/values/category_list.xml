@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinnerArray">
+        <item>카테고리를 선택하세요.</item>
+        <item> 책 / 문제집</item>
+        <item> 의류 </item>
+        <item> 전자제품</item>
+        <item> 음식 </item>
+        <item> 취미 </item>
+        <item> 화장품 </item>
+        <item> 학용품 </item>
+        <item> 스포츠 용품 </item>
+        <item> 티켓 / 상품권</item>
+    </string-array>
+</resources>
