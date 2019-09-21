@@ -4,11 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.wedontanything.usedmarket.Adapter.RecentlyAddAdapter;
+import com.wedontanything.usedmarket.Data.RecentlyAddItem;
+import com.wedontanything.usedmarket.Data.RecommandProductItem;
+import com.wedontanything.usedmarket.Adapter.RecommendProductAdapter;
 import com.wedontanything.usedmarket.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +36,12 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recentlyAddRecyclerView, recommendRecyclerView;
+    private RecentlyAddAdapter lastAddAdapter;
+    private RecommendProductAdapter recommendAdapter;
+    private ArrayList<RecentlyAddItem> recentlyList = new ArrayList<>();
+    private ArrayList<RecommandProductItem> recommendList = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,17 +70,39 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_main, container, false);
+        recentlyAddRecyclerView = v.findViewById(R.id.mainRecyclerViewRecentlyAddList);
+        recommendRecyclerView = v.findViewById(R.id.mainRecyclerViewRecommendList);
+
+        recentlyList = RecentlyAddItem.createContactsList(5);
+        recommendList = RecommandProductItem.createContactsList(5);
+
+        recentlyAddRecyclerView.setHasFixedSize(true);
+        lastAddAdapter = new RecentlyAddAdapter(getActivity());
+        lastAddAdapter.setItem(recentlyList);
+        recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
+        recentlyAddRecyclerView.setAdapter(lastAddAdapter);
+        lastAddAdapter.notifyDataSetChanged();
+
+        recommendRecyclerView.setHasFixedSize(true);
+        recommendAdapter = new RecommendProductAdapter(getActivity(), new RecommendProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position, boolean isUser) {
+
+            }
+        });
+        recommendAdapter.setItem(recommendList);
+        recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recommendRecyclerView.setAdapter(recommendAdapter);
+        recommendAdapter.notifyDataSetChanged();
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -88,6 +125,7 @@ public class MainFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

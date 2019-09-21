@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.wedontanything.usedmarket.R;
 
@@ -27,6 +31,10 @@ public class MyPageFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    EditText schoolName, userName;
+    ImageView userImage;
+    Button modifyBtn;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,6 +73,12 @@ public class MyPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        userName = container.findViewById(R.id.myPageEditUserName);
+        schoolName = container.findViewById(R.id.myPageEditSchoolName);
+
+        userName.setEnabled(false);
+        schoolName.setEnabled(false);
+
         return inflater.inflate(R.layout.fragment_my_page, container, false);
     }
 

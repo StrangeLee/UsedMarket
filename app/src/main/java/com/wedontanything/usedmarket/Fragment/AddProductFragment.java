@@ -7,8 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.wedontanything.usedmarket.R;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +32,8 @@ public class AddProductFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Spinner categorySpinner;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,8 +71,15 @@ public class AddProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_product, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_product, container, false);
+        categorySpinner = v.findViewById(R.id.addSpinnerCategory);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this.getActivity(),
+                android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.spinnerArray));
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        categorySpinner.setAdapter(spinnerAdapter);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

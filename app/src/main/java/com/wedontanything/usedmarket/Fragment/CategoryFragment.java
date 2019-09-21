@@ -7,8 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import com.wedontanything.usedmarket.Adapter.CategoryAdapter;
+import com.wedontanything.usedmarket.Data.CategoryListItem;
 import com.wedontanything.usedmarket.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,6 +36,10 @@ public class CategoryFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    ListView listView;
+    CategoryAdapter categoryAdapter;
+    ArrayList<CategoryListItem> categoryItem;
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,7 +79,20 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        View v = inflater.inflate(R.layout.fragment_category, container, false);
+
+        listView = v.findViewById(R.id.categoryList);
+        categoryItem = new ArrayList<CategoryListItem>();
+
+        categoryItem.add(new CategoryListItem("스포츠", R.drawable.ic_action_sports));
+        categoryItem.add(new CategoryListItem("스포츠", R.drawable.ic_action_sports));
+        categoryItem.add(new CategoryListItem("스포츠", R.drawable.ic_action_sports));
+        categoryItem.add(new CategoryListItem("스포츠", R.drawable.ic_action_sports));
+
+        categoryAdapter = new CategoryAdapter(getActivity(), categoryItem);
+        listView.setAdapter(categoryAdapter);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

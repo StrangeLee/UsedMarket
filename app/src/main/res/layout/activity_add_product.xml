@@ -2,19 +2,19 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity">
+    tools:context=".Activity.AddProductActivity">
 
     <FrameLayout
-        android:id="@+id/mainFrameLayout"
+        android:id="@+id/addFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="8dp" />
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/mainNavigation"
+        android:id="@+id/addNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"

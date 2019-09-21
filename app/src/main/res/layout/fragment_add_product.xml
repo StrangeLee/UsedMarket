@@ -1,14 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.AddProductFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="add" />
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/addEditProductName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:hint="상품 이름"
+            android:textSize="8pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/addEditProductPrice"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="bottom"
+            android:hint="상품 가격"
+            android:textSize="8pt"
+            app:layout_constraintEnd_toEndOf="@+id/addEditProductName"
+            app:layout_constraintStart_toStartOf="@+id/addEditProductName"
+            app:layout_constraintTop_toBottomOf="@+id/addEditProductName" />
+
+        <EditText
+            android:id="@+id/addEditSellerCall"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:hint="판매자 연락처"
+            android:textSize="8pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addEditProductPrice" />
+
+        <Spinner
+            android:id="@+id/addSpinnerCategory"
+            style="?android:attr/spinnerItemStyle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/addEditSellerCall"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/addEditSellerCall"
+            app:layout_constraintTop_toBottomOf="@+id/addEditSellerCall">
+
+        </Spinner>
+
+        <EditText
+            android:id="@+id/addEditProductContents"
+            android:layout_width="378dp"
+            android:layout_height="177dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_line"
+            android:gravity="top"
+            android:hint="설명을 적어주세요."
+            android:textSize="8pt"
+            app:layout_constraintStart_toStartOf="@+id/addSpinnerCategory"
+            app:layout_constraintTop_toBottomOf="@+id/addSpinnerCategory" />
+
+        <EditText
+            android:id="@+id/addEditHashTag"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="68dp"
+            android:background="@drawable/edit_text_line"
+            android:hint="해시태그를 입력해주세요."
+            android:textSize="8pt"
+            app:layout_constraintEnd_toEndOf="@+id/addEditProductContents"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/addEditProductContents"
+            app:layout_constraintTop_toBottomOf="@+id/addEditProductContents" />
+
+        <ListView
+            android:layout_width="379dp"
+            android:layout_height="103dp"
+            android:layout_marginTop="8dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/addEditHashTag"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/addEditHashTag"
+            app:layout_constraintTop_toBottomOf="@+id/addEditHashTag">
+
+        </ListView>
+
+        <Button
+            android:id="@+id/addButtonImage"
+            android:layout_width="90dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_line_rect_border"
+            android:text="이미지 추가"
+            app:layout_constraintBottom_toBottomOf="@+id/addButtonCommit"
+            app:layout_constraintEnd_toStartOf="@+id/addButtonCommit"
+            app:layout_constraintTop_toTopOf="@+id/addButtonCommit"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/addButtonCommit"
+            android:layout_width="90dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="256dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/btn_line_rect_border"
+            android:text="상품 등록"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="296dp" />
+
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>
