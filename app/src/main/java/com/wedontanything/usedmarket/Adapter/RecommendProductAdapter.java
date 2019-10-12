@@ -20,7 +20,7 @@ import com.wedontanything.usedmarket.Data.ProductData;
 import com.wedontanything.usedmarket.Data.RecommandProductItem;
 import com.wedontanything.usedmarket.Fragment.ShowProductFragment;
 import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
-import com.wedontanything.usedmarket.Product.Product;
+import com.wedontanything.usedmarket.Product.GetProduct;
 import com.wedontanything.usedmarket.R;
 
 import java.util.ArrayList;
@@ -31,13 +31,13 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
     MainActivity main = new MainActivity();
     ShowProductFragment showFragment = new ShowProductFragment();
     private RecyclerViewClickListener clickListener;
-    private ArrayList<Product> mData = new ArrayList<>();
+    private ArrayList<GetProduct> mData = new ArrayList<>();
 
     public RecommendProductAdapter(FragmentActivity activity, RecyclerViewClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
-    public void updateData(List<Product> data) {
+    public void updateData(List<GetProduct> data) {
         mData.clear();
         mData.addAll(data);
         notifyDataSetChanged();
@@ -59,9 +59,9 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         holder.productImg.setImageResource(R.drawable.ic_image);
-        holder.productPrice.setText(mData.get(i).getPrice().toString());
-        holder.productSeller.setText(mData.get(i).getSeller());
-        holder.productName.setText(mData.get(i).getProductName());
+        holder.productPrice.setText("b");
+        holder.productSeller.setText("A");
+        holder.productName.setText("C");
 
     }
 

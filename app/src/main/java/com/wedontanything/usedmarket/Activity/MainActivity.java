@@ -13,7 +13,6 @@ import com.wedontanything.usedmarket.Fragment.CategoryFragment;
 import com.wedontanything.usedmarket.Fragment.ChatFragment;
 import com.wedontanything.usedmarket.Fragment.MainFragment;
 import com.wedontanything.usedmarket.Fragment.MyPageFragment;
-import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.R;
 
 import java.util.ArrayList;

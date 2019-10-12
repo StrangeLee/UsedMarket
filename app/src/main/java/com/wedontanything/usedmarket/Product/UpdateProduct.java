@@ -1,6 +1,8 @@
 package com.wedontanything.usedmarket.Product;
 
-public class Product {
+public class UpdateProduct {
+    private Integer id;
+
     private String productName;
 
     private String description;
@@ -9,7 +11,15 @@ public class Product {
 
     private String hashtag;
 
-    private String seller;
+    private Integer state;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getProductName() {
         return productName;
@@ -43,11 +53,11 @@ public class Product {
         this.hashtag = hashtag;
     }
 
-    public String getSeller() {
-        return seller;
+    public Integer getState() {
+        return state;
     }
 
-    public void setSeller(String seller) {
-        this.seller = seller;
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

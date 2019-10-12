@@ -2,8 +2,6 @@ package com.wedontanything.usedmarket.Data;
 
 import android.net.Uri;
 
-import com.wedontanything.usedmarket.Product.Product;
-
 import java.util.ArrayList;
 
 public class RecentlyAddItem {
