@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.wedontanything.usedmarket.DataBase.TokenManager;
 import com.wedontanything.usedmarket.Interface.UserService;
 import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Response.Response;
+import com.wedontanything.usedmarket.User.LoginData;
 import com.wedontanything.usedmarket.User.User;
 import com.wedontanything.usedmarket.Utils;
 
@@ -29,10 +31,14 @@ public class LoginActivity extends AppCompatActivity {
 
     UserService service = Utils.RETROFIT.create(UserService.class);
 
+    private TokenManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_login);
+
+        manager = TokenManager.getInstance(this);
 
         loginButton = findViewById(R.id.loginButtonLogin);
         signupButton = findViewById(R.id.loginButtonSignUp);
@@ -67,15 +73,15 @@ public class LoginActivity extends AppCompatActivity {
         id = findViewById(R.id.loginEditId);
         pw = findViewById(R.id.loginEditPassword);
 
-        Call<retrofit2.Response<Response<User>>> postLogin = service.postLogin(id.getText().toString(),
+        Call<Response<LoginData>> postLogin = service.postLogin(id.getText().toString(),
                 pw.getText().toString());
 
-        postLogin.enqueue(new Callback<retrofit2.Response<Response<User>>>() {
+        postLogin.enqueue(new Callback<Response<LoginData>>() {
             @Override
-            public void onResponse(Call<retrofit2.Response<Response<User>>> call, retrofit2.Response<retrofit2.Response<Response<User>>> response) {
-                //User user = response.body();
+            public void onResponse(Call<Response<LoginData>> call, retrofit2.Response<Response<LoginData>> response) {
+                manager.setToken(response.body().getData().getToken().getToken());
+                Log.d("성공", "onResponse: " + response.message() + response.body().getData().getToken().getToken() + " " + manager.getToken().getToken());
 
-                Log.d("성공", "onResponse: " + response.message());
 
                 if (response.code() == 200) {
                     Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다.", Toast.LENGTH_LONG).show();
@@ -85,19 +91,64 @@ public class LoginActivity extends AppCompatActivity {
                 else if(response.code() == 401) {
 
                 }
-
-
-//                if (user != null)
-//                {
-//                    Log.d("null", "onResponse: null ");
-//                }
             }
 
             @Override
-            public void onFailure(Call<retrofit2.Response<Response<User>>> call, Throwable t) {
-                Log.d("실패", "onFailure: " + t.toString());
+            public void onFailure(Call<Response<LoginData>> call, Throwable t) {
+
             }
         });
+
+//        postLogin.enqueue(new Callback<retrofit2.Response<Response<LoginData>>>() {
+//            @Override
+//            public void onResponse(Call<retrofit2.Response<Response<LoginData>>> call, retrofit2.Response<retrofit2.Response<Response<LoginData>>> response) {
+//                Log.d("성공", "onResponse: " + response.message() + response.body());
+//
+//                if (response.code() == 200) {
+//                    Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다.", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                }
+//                else if(response.code() == 401) {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<retrofit2.Response<Response<LoginData>>> call, Throwable t) {
+//                Log.d("실패", "onFailure: " + t.toString());
+//            }
+//        });
+
+//        postLogin.enqueue(new Callback<retrofit2.Response<Response<User>>>() {
+//            @Override
+//            public void onResponse(Call<retrofit2.Response<Response<User>>> call, retrofit2.Response<retrofit2.Response<Response<User>>> response) {
+//                //User user = response.body();
+//
+////                manager.setToken(response.body().body().getData().getToken());
+//                Log.d("성공", "onResponse: " + response.message());
+//
+//                if (response.code() == 200) {
+//                    Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다.", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                }
+//                else if(response.code() == 401) {
+//
+//                }
+//
+//
+////                if (user != null)
+////                {
+////                    Log.d("null", "onResponse: null ");
+////                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<retrofit2.Response<Response<User>>> call, Throwable t) {
+//                Log.d("실패", "onFailure: " + t.toString());
+//            }
+//        });
 
 
     }

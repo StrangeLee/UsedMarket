@@ -9,13 +9,11 @@ public class User {
 
     private String email;
 
-    private String phone_number;
+    private String phoneNumber;
 
-    private String school_name;
+    private String schoolName;
 
     private String permission;
-
-    private String token;
 
     public String getId() {
         return id;
@@ -49,28 +47,20 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getSchool_name() {
-        return school_name;
+    public String getSchoolName() {
+        return schoolName;
     }
 
-    public void setSchool_name(String school_name) {
-        this.school_name = school_name;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 
     public String getPermission() {

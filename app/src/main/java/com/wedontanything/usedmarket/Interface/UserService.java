@@ -1,6 +1,7 @@
 package com.wedontanything.usedmarket.Interface;
 
 import com.wedontanything.usedmarket.Response.Response;
+import com.wedontanything.usedmarket.User.LoginData;
 import com.wedontanything.usedmarket.User.UpdateEmail;
 import com.wedontanything.usedmarket.User.UpdatePhoneNumber;
 import com.wedontanything.usedmarket.User.UpdateSchoolName;
@@ -76,7 +77,7 @@ public interface UserService {
 
     @FormUrlEncoded
     @POST("/api/user/login")
-    Call<retrofit2.Response<Response<User>>> postLogin(
+    Call<Response<LoginData>> postLogin(
             @Field("id") String id,
             @Field("password") String password
     );

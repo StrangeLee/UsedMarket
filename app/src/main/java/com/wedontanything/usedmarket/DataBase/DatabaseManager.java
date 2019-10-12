@@ -10,7 +10,7 @@ public final class DatabaseManager {
     static String getCreateTableToken() {
         return "CREATE TABLE " + TABLE_TOKEN + " ( "
                 + "idx INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                + "token String, "
+                + "token STRING"
                 + ");";
     }
 }

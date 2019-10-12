@@ -23,8 +23,12 @@ public class TokenManager {
         return INSTANCE;
     }
 
+    public Token getToken() {
+        return helper.getToken();
+    }
+
     public void setToken(Token token) {
-        helper.insert
+        helper.insert(DatabaseManager.TABLE_TOKEN, token.getToken());
     }
 
     public void setToken(String tokenString) {
