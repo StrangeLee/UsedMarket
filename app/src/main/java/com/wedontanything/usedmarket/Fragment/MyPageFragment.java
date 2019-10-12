@@ -12,9 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.wedontanything.usedmarket.Activity.MyProductListActivity;
+import com.wedontanything.usedmarket.Interface.UserService;
 import com.wedontanything.usedmarket.R;
+import com.wedontanything.usedmarket.Response.Response;
+import com.wedontanything.usedmarket.User.UserInfo;
+import com.wedontanything.usedmarket.Utils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +45,8 @@ public class MyPageFragment extends Fragment {
     EditText schoolName, userName;
     ImageView userImage;
     Button modifyBtn, productListBtn;
+
+    UserService service = Utils.RETROFIT.create(UserService.class);
 
     private OnFragmentInteractionListener mListener;
 
@@ -80,6 +90,33 @@ public class MyPageFragment extends Fragment {
         userName = v.findViewById(R.id.myPageEditUserName);
         schoolName = v.findViewById(R.id.myPageEditSchoolName);
         productListBtn = v.findViewById(R.id.myPageButtonProductList);
+
+        Call<Response<UserInfo>> userInfo = service.getUserInfo();
+
+        System.out.println("a");
+        userInfo.enqueue(new Callback<Response<UserInfo>>() {
+            @Override
+            public void onResponse(Call<Response<UserInfo>> call, retrofit2.Response<Response<UserInfo>> response) {
+
+                Log.d("성공", "" + response.body());
+//                userName.setText(response.body().getData().getName());
+//                schoolName.setText(response.body().getData().getSchoolName());
+
+                if (response.code() == 200) {
+                    Log.d("성공", "");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Response<UserInfo>> call, Throwable t) {
+                Log.d("실패", "");
+            }
+        });
+
+
+        userName = v.findViewById(R.id.myPageEditUserName);
+        schoolName = v.findViewById(R.id.myPageEditSchoolName);
 
         productListBtn.setOnClickListener(e -> {
 

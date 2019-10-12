@@ -19,10 +19,18 @@ import com.wedontanything.usedmarket.Adapter.RecentlyAddAdapter;
 import com.wedontanything.usedmarket.Data.RecentlyAddItem;
 import com.wedontanything.usedmarket.Data.RecommandProductItem;
 import com.wedontanything.usedmarket.Adapter.RecommendProductAdapter;
+import com.wedontanything.usedmarket.DataBase.TokenManager;
+import com.wedontanything.usedmarket.Interface.ProductService;
 import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
+import com.wedontanything.usedmarket.Product.GetAllProduct;
 import com.wedontanything.usedmarket.R;
+import com.wedontanything.usedmarket.Response.Response;
+import com.wedontanything.usedmarket.Utils;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +55,11 @@ public class MainFragment extends Fragment {
     private RecommendProductAdapter recommendAdapter;
     private ArrayList<RecentlyAddItem> recentlyList = new ArrayList<>();
     private ArrayList<RecommandProductItem> recommendList = new ArrayList<>();
+
+    ProductService service = Utils.RETROFIT.create(ProductService.class);
+
+    TokenManager manager;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -76,6 +89,7 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        manager = TokenManager.getInstance(getActivity().getApplicationContext());
     }
 
     @Override
@@ -87,6 +101,23 @@ public class MainFragment extends Fragment {
 
         recentlyList = RecentlyAddItem.createContactsList(5);
         recommendList = RecommandProductItem.createContactsList(5);
+
+        Call<Response<GetAllProduct>> getAllProduct = service.getAllProduct(manager.getToken().getToken());
+
+        getAllProduct.enqueue(new Callback<Response<GetAllProduct>>() {
+            @Override
+            public void onResponse(Call<Response<GetAllProduct>> call, retrofit2.Response<Response<GetAllProduct>> response) {
+                for (int i = 0; i < response.body().getData().getProducts().size(); i++) {
+                    // recommendList.add(response.body().getData().getProducts().get(i));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Response<GetAllProduct>> call, Throwable t) {
+
+            }
+        });
 
         recentlyAddRecyclerView.setHasFixedSize(true);
         lastAddAdapter = new RecentlyAddAdapter(getActivity());
@@ -103,6 +134,8 @@ public class MainFragment extends Fragment {
             transaction.replace(R.id.mainFrameLayout, new ShowProductFragment());
             transaction.commit();
         };
+
+
 
         recommendRecyclerView.setHasFixedSize(true);
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

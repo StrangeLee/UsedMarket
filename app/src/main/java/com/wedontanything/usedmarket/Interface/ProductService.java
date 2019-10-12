@@ -1,6 +1,10 @@
 package com.wedontanything.usedmarket.Interface;
 
+import com.wedontanything.usedmarket.Product.GetAllProduct;
+import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.Response.Response;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -22,6 +26,11 @@ public interface ProductService {
             @Field("description") String description,
             @Field("price") int price,
             @Field("hashtag") String hashtag
+    );
+
+    @GET("/api/product/all")
+    Call<Response<GetAllProduct>> getAllProduct (
+           @Header("token") String token
     );
 
     @FormUrlEncoded

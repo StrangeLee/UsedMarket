@@ -50,7 +50,6 @@
             android:layout_marginStart="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             app:layout_constraintBottom_toBottomOf="@+id/myPageTextUserName"
             app:layout_constraintStart_toEndOf="@+id/myPageTextUserName"
             app:layout_constraintTop_toTopOf="@+id/myPageTextUserName" />
@@ -74,7 +73,6 @@
             android:layout_marginStart="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             app:layout_constraintBottom_toBottomOf="@+id/myPageTextSchoolName"
             app:layout_constraintStart_toEndOf="@+id/myPageTextSchoolName"
             app:layout_constraintTop_toTopOf="@+id/myPageTextSchoolName" />

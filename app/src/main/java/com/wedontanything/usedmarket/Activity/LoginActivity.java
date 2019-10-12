@@ -29,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText id;
     private EditText pw;
 
+    private EditText name;
+
     UserService service = Utils.RETROFIT.create(UserService.class);
 
     private TokenManager manager;
@@ -78,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         id = findViewById(R.id.loginEditId);
         pw = findViewById(R.id.loginEditPassword);
 
+        name = findViewById(R.id.myPageEditUserName);
+
         Call<Response<LoginData>> postLogin = service.postLogin(id.getText().toString(),
                 pw.getText().toString());
 
@@ -85,6 +89,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Response<LoginData>> call, retrofit2.Response<Response<LoginData>> response) {
                 manager.setToken(response.body().getData().getToken().getToken());
+
+                name.setText(response.body().getData().getUser().getName());
                 Log.d("성공", "onResponse: " + response.message() + response.body().getData().getToken().getToken() + " " + manager.getToken().getToken());
 
 

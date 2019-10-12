@@ -6,10 +6,12 @@ import com.wedontanything.usedmarket.User.UpdateEmail;
 import com.wedontanything.usedmarket.User.UpdatePhoneNumber;
 import com.wedontanything.usedmarket.User.UpdateSchoolName;
 import com.wedontanything.usedmarket.User.User;
+import com.wedontanything.usedmarket.User.UserInfo;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
@@ -39,6 +41,9 @@ public interface UserService {
             @Field("id") String id,
             @Field("updatePassword") String updatePassword
     );
+
+    @GET("/api/user/userInfo")
+    Call<Response<UserInfo>> getUserInfo();
 
 //    @PUT("/api/register/updatePassword")
 //    Call<UpdatePassword> putUpdatePassword (
