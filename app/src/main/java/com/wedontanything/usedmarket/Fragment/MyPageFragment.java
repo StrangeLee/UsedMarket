@@ -73,8 +73,10 @@ public class MyPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        userName = container.findViewById(R.id.myPageEditUserName);
-        schoolName = container.findViewById(R.id.myPageEditSchoolName);
+        View v = inflater.inflate(R.layout.fragment_my_page, container, false);
+
+        userName = v.findViewById(R.id.myPageEditUserName);
+        schoolName = v.findViewById(R.id.myPageEditSchoolName);
 
         userName.setEnabled(false);
         schoolName.setEnabled(false);

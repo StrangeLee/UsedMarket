@@ -2,6 +2,8 @@ package com.wedontanything.usedmarket.Data;
 
 import android.net.Uri;
 
+import com.wedontanything.usedmarket.Product.Product;
+
 import java.util.ArrayList;
 
 public class RecentlyAddItem {
@@ -9,8 +11,8 @@ public class RecentlyAddItem {
     public String productName;
     public String productPrice;
 
-    public RecentlyAddItem (Uri productUri, String productName, String productPrice) {
-        this.productUri = productUri;
+    public RecentlyAddItem (Uri uri, String productName, String productPrice) {
+        this.productUri = uri;
         this.productName = productName;
         this.productPrice = productPrice;
     }
@@ -18,8 +20,8 @@ public class RecentlyAddItem {
     public static ArrayList<RecentlyAddItem> createContactsList (int numContacts) {
         ArrayList<RecentlyAddItem> contacts = new ArrayList<>();
 
-        for (int i = 1; i <= numContacts; i++) {
-            contacts.add(new RecentlyAddItem(null, "셔츠", "10,000원"));
+        for (int i = 1; i < numContacts; i++) {
+            contacts.add(new RecentlyAddItem(null, "A", "d"));
         }
 
         return contacts;

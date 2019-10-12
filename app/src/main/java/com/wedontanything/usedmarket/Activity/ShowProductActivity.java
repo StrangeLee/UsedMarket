@@ -14,11 +14,17 @@ import java.util.HashMap;
 
 public class ShowProductActivity extends AppCompatActivity {
 
+    String schoolName;
+    String callNum;
+    int price;
+    String productName;
+    String discription;
+    String hashTag;
+    int mode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_product);
-
-
     }
 }

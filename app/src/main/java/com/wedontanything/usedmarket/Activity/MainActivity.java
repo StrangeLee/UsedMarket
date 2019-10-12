@@ -13,6 +13,7 @@ import com.wedontanything.usedmarket.Fragment.CategoryFragment;
 import com.wedontanything.usedmarket.Fragment.ChatFragment;
 import com.wedontanything.usedmarket.Fragment.MainFragment;
 import com.wedontanything.usedmarket.Fragment.MyPageFragment;
+import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.R;
 
 import java.util.ArrayList;
@@ -72,12 +73,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-    }
-
-    private void prepareData() {
-        list.add(new RecentlyAddItem(null, "셔츠", "10,000원"));
-        list.add(new RecentlyAddItem(null, "셔츠2", "10,000원"));
-        list.add(new RecentlyAddItem(null, "셔츠3", "10,000원"));
     }
 
 }

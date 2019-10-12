@@ -26,7 +26,7 @@ public class UserRequest {
         this.email = email;
         this.phone_number = phone_number;
         this.school_name = school_name;
-    }
+}
 
     public String getId() {
         return id;
