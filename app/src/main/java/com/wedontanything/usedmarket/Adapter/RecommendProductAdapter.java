@@ -51,7 +51,7 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_recommend_product_item, viewGroup, false);
-        Holder holder = new Holder(view);
+        Holder holder = new Holder(view, clickListener);
 
         return holder;
     }
@@ -79,8 +79,10 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
 
         private RecyclerViewClickListener listener;
 
-        public Holder(@NonNull View itemView) {
+        public Holder(@NonNull View itemView, RecyclerViewClickListener listener) {
             super(itemView);
+            this.listener = listener;
+            itemView.setOnClickListener(this);
 
             productImg = itemView.findViewById(R.id.mainProductImageRecommendItem);
             productName = itemView.findViewById(R.id.mainTextProductNameRecommendItem);

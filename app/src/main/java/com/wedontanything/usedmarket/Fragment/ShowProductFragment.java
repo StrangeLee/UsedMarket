@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.wedontanything.usedmarket.Activity.MainActivity;
 import com.wedontanything.usedmarket.Data.ProductData;
 import com.wedontanything.usedmarket.R;
 
@@ -23,7 +26,7 @@ import com.wedontanything.usedmarket.R;
  * Use the {@link ShowProductFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShowProductFragment extends Fragment {
+public class ShowProductFragment extends Fragment implements MainActivity.OnKeyBackPressedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -80,19 +83,21 @@ public class ShowProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        schoolName = container.findViewById(R.id.showTextSchoolName);
-        productSeller = container.findViewById(R.id.showTextSellerName);
-        productPrice = container.findViewById(R.id.showTextProductPrice);
-        schoolName = container.findViewById(R.id.showTextSchoolName);
-        productName = container.findViewById(R.id.showTextProductName);
-        productContents = container.findViewById(R.id.showTextContents);
-        productHashTag = container.findViewById(R.id.showTextHashTag);
+        View v = inflater.inflate(R.layout.fragment_show_product, container, false);
 
-        productSeller.setText(data.getSeller());
-        productName.setText(data.getProductName());
-        productPrice.setText(data.getProductPrice());
+        schoolName = v.findViewById(R.id.showTextSchoolName);
+        productSeller = v.findViewById(R.id.showTextSellerName);
+        productPrice = v.findViewById(R.id.showTextProductPrice);
+        schoolName = v.findViewById(R.id.showTextSchoolName);
+        productName = v.findViewById(R.id.showTextProductName);
+        productContents = v.findViewById(R.id.showTextContents);
+        productHashTag = v.findViewById(R.id.showTextHashTag);
 
-        return inflater.inflate(R.layout.fragment_show_product, container, false);
+        productSeller.setText("곽현준");
+        productName.setText("그냥 물건");
+        productPrice.setText("10000원");
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,12 +110,7 @@ public class ShowProductFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        ((MainActivity)context).setOnKeyBackPressedListener(this);
     }
 
     @Override
@@ -118,6 +118,15 @@ public class ShowProductFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onBackKey() {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.showFrameLayout, new MainFragment());
+        transaction.commit();
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

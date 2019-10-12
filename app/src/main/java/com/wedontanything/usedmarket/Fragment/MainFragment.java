@@ -1,9 +1,12 @@
 package com.wedontanything.usedmarket.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -94,19 +97,19 @@ public class MainFragment extends Fragment {
 
         RecyclerViewClickListener listener = (view, position) -> {
             Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
+
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.mainFrameLayout, new ShowProductFragment());
+            transaction.commit();
         };
 
         recommendRecyclerView.setHasFixedSize(true);
-        recommendAdapter = new RecommendProductAdapter(getActivity(), listener);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recommendRecyclerView.setLayoutManager(layoutManager);
-
-
-
-        recommendAdapter.setItem(recommendList);
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        recommendAdapter = new RecommendProductAdapter(getActivity(), listener);
+        recommendAdapter.setItem(recommendList);
         recommendRecyclerView.setAdapter(recommendAdapter);
-        recommendAdapter.notifyDataSetChanged();
 
         return v;
     }

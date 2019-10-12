@@ -1,6 +1,7 @@
 package com.wedontanything.usedmarket.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.wedontanything.usedmarket.Activity.MyProductListActivity;
 import com.wedontanything.usedmarket.R;
 
 /**
@@ -34,7 +36,7 @@ public class MyPageFragment extends Fragment {
 
     EditText schoolName, userName;
     ImageView userImage;
-    Button modifyBtn;
+    Button modifyBtn, productListBtn;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,6 +79,11 @@ public class MyPageFragment extends Fragment {
 
         userName = v.findViewById(R.id.myPageEditUserName);
         schoolName = v.findViewById(R.id.myPageEditSchoolName);
+        productListBtn = v.findViewById(R.id.myPageButtonProductList);
+
+        productListBtn.setOnClickListener(e -> {
+
+        });
 
         userName.setEnabled(false);
         schoolName.setEnabled(false);

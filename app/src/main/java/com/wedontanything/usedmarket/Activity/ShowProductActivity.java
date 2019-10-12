@@ -48,6 +48,11 @@ public class ShowProductActivity extends AppCompatActivity {
         hashTagText.setText(hashTag);
     }
 
+    public ShowProductActivity() {
+
+    }
+
+
     public ShowProductActivity(String schoolName, String sellerName, int price, String productName, String discription, String hashTag, int mode) {
         this.schoolName = schoolName;
         this.sellerName = sellerName;

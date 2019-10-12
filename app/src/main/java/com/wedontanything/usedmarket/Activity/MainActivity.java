@@ -1,10 +1,12 @@
 package com.wedontanything.usedmarket.Activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 
 import com.wedontanything.usedmarket.Data.RecentlyAddItem;
@@ -27,14 +29,26 @@ public class MainActivity extends AppCompatActivity {
     private MyPageFragment myPageFragment = new MyPageFragment();
     private ChatFragment chatFragment = new ChatFragment();
 
+    Context context;
+
     private ArrayList<RecentlyAddItem> list = new ArrayList<>();
+
+    public interface OnKeyBackPressedListener {
+        public void onBackKey();
+    }
+
+    private  OnKeyBackPressedListener mOnKeyBackPressedListener;
+
+    public void setOnKeyBackPressedListener(OnKeyBackPressedListener listener) {
+        mOnKeyBackPressedListener = listener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //prepareData();
+
 
         // BottomNavigation 생성
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
@@ -75,4 +89,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mOnKeyBackPressedListener != null) {
+            mOnKeyBackPressedListener.onBackKey();
+        } else {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                Toast.makeText(getApplicationContext(), "종료하려면 한번 더 누르세요.", Toast.LENGTH_LONG).show();
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
 }

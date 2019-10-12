@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wedontanything.usedmarket">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,12 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.ShowProductActivity"></activity>
+        <activity android:name=".Activity.MyProductListActivity"></activity>
+        <activity android:name=".Activity.ShowProductActivity" />
         <activity android:name=".Activity.CategoryActivity" />
         <activity android:name=".Activity.AddProductActivity" />
-        <activity android:name=".Activity.MainActivity"/>
-        <activity android:name=".Activity.PasswordFindActivity"/>
-        <activity android:name=".Activity.SignUpActivity"/>
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.PasswordFindActivity" />
+        <activity android:name=".Activity.SignUpActivity" />
         <activity
             android:name=".Activity.LoginActivity"
             android:label="로그인">
@@ -26,7 +29,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
