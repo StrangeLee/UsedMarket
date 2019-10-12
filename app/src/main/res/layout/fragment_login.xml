@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.LoginFragment">
+    tools:context=".Activity.LoginActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -93,6 +93,19 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/loginButtonLogin"
             app:layout_constraintTop_toBottomOf="@+id/loginButtonLogin" />
+
+        <Button
+            android:id="@+id/passwordFind"
+            android:layout_width="295dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_gray_rect_border"
+            android:text="비밀번호 찾기"
+            app:layout_constraintEnd_toEndOf="@+id/loginButtonSignUp"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/loginButtonSignUp"
+            app:layout_constraintTop_toBottomOf="@+id/loginButtonSignUp" />
 
         <ImageView
             android:id="@+id/loginImage"

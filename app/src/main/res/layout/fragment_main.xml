@@ -38,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="153dp"
                 android:orientation="horizontal"
+                tools:listitem=""
                 app:layout_constraintStart_toStartOf="@+id/mainTextRecentlyAddList"
                 app:layout_constraintTop_toBottomOf="@+id/mainTextRecentlyAddList">
 
