@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.wedontanything.usedmarket.Adapter.RecentlyAddAdapter;
 import com.wedontanything.usedmarket.Data.RecentlyAddItem;
 import com.wedontanything.usedmarket.Data.RecommandProductItem;
 import com.wedontanything.usedmarket.Adapter.RecommendProductAdapter;
+import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
 import com.wedontanything.usedmarket.R;
 
 import java.util.ArrayList;
@@ -91,12 +93,13 @@ public class MainFragment extends Fragment {
         lastAddAdapter.notifyDataSetChanged();
 
         recommendRecyclerView.setHasFixedSize(true);
-        recommendAdapter = new RecommendProductAdapter(getActivity(), new RecommendProductAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position, boolean isUser) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recommendRecyclerView.setLayoutManager(layoutManager);
+        RecyclerViewClickListener listener = (view, position) -> {
+            Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
+        };
 
-            }
-        });
+
         recommendAdapter.setItem(recommendList);
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recommendRecyclerView.setAdapter(recommendAdapter);

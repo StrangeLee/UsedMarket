@@ -9,6 +9,8 @@ public class Product {
 
     private String hashtag;
 
+    private String seller;
+
     public String getProductName() {
         return productName;
     }
@@ -39,5 +41,13 @@ public class Product {
 
     public void setHashtag(String hashtag) {
         this.hashtag = hashtag;
+    }
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
     }
 }

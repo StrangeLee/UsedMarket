@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         // BottomNavigation 생성
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
 
+
         // fragment 객체 생성
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.mainFrameLayout, mainFragment);
