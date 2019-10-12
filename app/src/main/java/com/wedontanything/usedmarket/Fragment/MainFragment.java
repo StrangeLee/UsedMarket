@@ -92,12 +92,15 @@ public class MainFragment extends Fragment {
         recentlyAddRecyclerView.setAdapter(lastAddAdapter);
         lastAddAdapter.notifyDataSetChanged();
 
-        recommendRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recommendRecyclerView.setLayoutManager(layoutManager);
         RecyclerViewClickListener listener = (view, position) -> {
             Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
         };
+
+        recommendRecyclerView.setHasFixedSize(true);
+        recommendAdapter = new RecommendProductAdapter(getActivity(), listener);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recommendRecyclerView.setLayoutManager(layoutManager);
+
 
 
         recommendAdapter.setItem(recommendList);

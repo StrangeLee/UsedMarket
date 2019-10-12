@@ -59,7 +59,7 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         holder.productImg.setImageResource(R.drawable.ic_image);
-        holder.productPrice.setText(mData.get(i).getPrice());
+        holder.productPrice.setText(mData.get(i).getPrice().toString());
         holder.productSeller.setText(mData.get(i).getSeller());
         holder.productName.setText(mData.get(i).getProductName());
 
