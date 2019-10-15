@@ -1,5 +1,7 @@
 package com.wedontanything.usedmarket.Product;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +24,10 @@ public class TestResponse {
 
     public void setData(List<Product> data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

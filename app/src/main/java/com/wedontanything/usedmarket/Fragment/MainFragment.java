@@ -27,6 +27,7 @@ import com.wedontanything.usedmarket.Interface.ProductService;
 import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
 import com.wedontanything.usedmarket.Product.GetAllProduct;
 import com.wedontanything.usedmarket.Product.Product;
+import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Response.Response;
 import com.wedontanything.usedmarket.Utils;
@@ -98,58 +99,11 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-
-        manager = TokenManager.getInstance(getActivity().getApplicationContext());
-
-        Call<Response<List<Product>>> getAllProduct = service.getAllProduct(manager.getToken().getToken());
-
-        getAllProduct.enqueue(new Callback<Response<List<Product>>>() {
-            @Override
-            public void onResponse(Call<Response<List<Product>>> call, retrofit2.Response<Response<List<Product>>> response) {
-                Log.d("success", "" + response.isSuccessful());
-                Log.d("string body", "" + response.body().toString());
-                Log.d("token", "" + manager.getToken().getToken());
-                Log.d("body", "" + response.body().getData());
-
-                Gson gson = new Gson();
-                String successResponse = gson.toJson(response.body());
-                Log.d("success resonse", successResponse);
-
-                List<Product> productList = response.body().getData();
-                ArrayList<RecommandProductItem> recommanditemlist = new ArrayList<>();
-
-//                for (int i = 0; i < response.body().getData().size(); i++) {
-//                    recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProduct_name(), productList.get(i).getMember_id(),
-//                            new DecimalFormat("#,##0원").format(productList.get(i).getMoney())));
-//                }
-                recommendAdapter.setItem(productList);
-               // recommendAdapter.notifyDataSetChanged();
-
-//                for (int i = 0; i < response.body().getData().getProducts().size(); i++) {
-//                    System.out.println(response.body().getData().getProducts().get(i).toString());
-//                    productList.add(response.body().getData().getProducts().get(i));
-//
-//                    recommendAdapter.setItem(productList);
-//                }
-
-//                for (Product product : productList) {
-//
-//                }
-            }
-
-            @Override
-            public void onFailure(Call<Response<List<Product>>> call, Throwable t) {
-
-            }
-        });
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -162,23 +116,41 @@ public class MainFragment extends Fragment {
         recentlyList = RecentlyAddItem.createContactsList(5);
         recommendList = RecommandProductItem.createContactsList(5);
 
-//        Call<Response<GetAllProduct>> getAllProduct = service.getAllProduct(manager.getToken().getToken());
+        //------------------------------------------------------------------------------
+        manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
-//        getAllProduct.enqueue(new Callback<Response<GetAllProduct>>() {
-//            @Override
-//            public void onResponse(Call<Response<GetAllProduct>> call, retrofit2.Response<Response<GetAllProduct>> response) {
-////                for (int i = 0; i < response.body().getData().getProducts().size(); i++) {
-//                    // recommendList.add(response.body().getData().getProducts().get(i));
-//  //              }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Response<GetAllProduct>> call, Throwable t) {
-//
-//            }
-//        });
+        Call<TestResponse> getAllProduct = service.getAllProduct(manager.getToken().getToken());
 
+        getAllProduct.enqueue(new Callback<TestResponse>() {
+            @Override
+            public void onResponse(Call<TestResponse> call, retrofit2.Response<TestResponse> response) {
+                Log.d("success", "" + response.isSuccessful());
+                Log.d("string body", "" + response.body().toString());
+                Log.d("token", "" + manager.getToken().getToken());
+                Log.d("body", "" + response.body().getData());
+
+                Toast.makeText(getActivity(), new Gson().toJson(new TestResponse()), Toast.LENGTH_SHORT).show();
+
+                Gson gson = new Gson();
+                String successResponse = gson.toJson(response.body());
+                Log.d("success resonse", successResponse);
+
+                List<Product> productList = response.body().getData();
+                ArrayList<RecommandProductItem> recommanditemlist = new ArrayList<>();
+
+//                for (int i = 0; i < response.body().getData().size(); i++) {
+//                    recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProduct_name(), productList.get(i).getMember_id(),
+//                            new DecimalFormat("#,##0원").format(productList.get(i).getMoney())));
+//                }
+//                recommendAdapter.setItem(productList);
+            }
+
+            @Override
+            public void onFailure(Call<TestResponse> call, Throwable t) {
+
+            }
+        });
+        //------------------------------------------------------------------
         recentlyAddRecyclerView.setHasFixedSize(true);
         lastAddAdapter = new RecentlyAddAdapter(getActivity());
         lastAddAdapter.setItem(recentlyList);
