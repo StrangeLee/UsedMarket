@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.wedontanything.usedmarket.Adapter.RecentlyAddAdapter;
 import com.wedontanything.usedmarket.Data.RecentlyAddItem;
 import com.wedontanything.usedmarket.Data.RecommandProductItem;
@@ -29,8 +31,10 @@ import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Response.Response;
 import com.wedontanything.usedmarket.Utils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -94,16 +98,33 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        List<Product> productList = new ArrayList<Product>();
+
 
         manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
-        Call<Response<GetAllProduct>> getAllProduct = service.getAllProduct(manager.getToken().getToken());
+        Call<Response<List<Product>>> getAllProduct = service.getAllProduct(manager.getToken().getToken());
 
-        getAllProduct.enqueue(new Callback<Response<GetAllProduct>>() {
+        getAllProduct.enqueue(new Callback<Response<List<Product>>>() {
             @Override
-            public void onResponse(Call<Response<GetAllProduct>> call, retrofit2.Response<Response<GetAllProduct>> response) {
+            public void onResponse(Call<Response<List<Product>>> call, retrofit2.Response<Response<List<Product>>> response) {
+                Log.d("success", "" + response.isSuccessful());
+                Log.d("string body", "" + response.body().toString());
+                Log.d("token", "" + manager.getToken().getToken());
+                Log.d("body", "" + response.body().getData());
 
+                Gson gson = new Gson();
+                String successResponse = gson.toJson(response.body());
+                Log.d("success resonse", successResponse);
+
+                List<Product> productList = response.body().getData();
+                ArrayList<RecommandProductItem> recommanditemlist = new ArrayList<>();
+
+//                for (int i = 0; i < response.body().getData().size(); i++) {
+//                    recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProduct_name(), productList.get(i).getMember_id(),
+//                            new DecimalFormat("#,##0원").format(productList.get(i).getMoney())));
+//                }
+                recommendAdapter.setItem(productList);
+               // recommendAdapter.notifyDataSetChanged();
 
 //                for (int i = 0; i < response.body().getData().getProducts().size(); i++) {
 //                    System.out.println(response.body().getData().getProducts().get(i).toString());
@@ -118,7 +139,7 @@ public class MainFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Response<GetAllProduct>> call, Throwable t) {
+            public void onFailure(Call<Response<List<Product>>> call, Throwable t) {
 
             }
         });

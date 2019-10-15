@@ -2,6 +2,8 @@ package com.wedontanything.usedmarket.Interface;
 
 import com.wedontanything.usedmarket.Product.GetAllProduct;
 import com.wedontanything.usedmarket.Product.Product;
+import com.wedontanything.usedmarket.Product.TestResponse;
+import com.wedontanything.usedmarket.Response.ProductResponse;
 import com.wedontanything.usedmarket.Response.Response;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public interface ProductService {
     );
 
     @GET("/api/product/all")
-    Call<Response<GetAllProduct>> getAllProduct (
+    Call<Response<List<Product>>> getAllProduct (
            @Header("token") String token
     );
 

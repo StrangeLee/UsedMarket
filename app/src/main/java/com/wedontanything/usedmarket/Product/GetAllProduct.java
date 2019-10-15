@@ -3,7 +3,7 @@ package com.wedontanything.usedmarket.Product;
 import java.util.List;
 
 public class GetAllProduct {
-    List<Product> products;
+    private List<Product> products;
 
     public List<Product> getProducts() {
         return products;
