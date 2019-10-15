@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.wedontanything.usedmarket.Activity.MyProductListActivity;
+import com.wedontanything.usedmarket.DataBase.TokenManager;
 import com.wedontanything.usedmarket.Interface.UserService;
 import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Response.Response;
@@ -48,6 +50,8 @@ public class MyPageFragment extends Fragment {
 
     UserService service = Utils.RETROFIT.create(UserService.class);
 
+    TokenManager manager;
+
     private OnFragmentInteractionListener mListener;
 
     public MyPageFragment() {
@@ -73,12 +77,45 @@ public class MyPageFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+//        manager = TokenManager.getInstance(getActivity().getApplicationContext());
+//
+//        Call<Response<UserInfo>> userInfo = service.getUserInfo(manager.getToken().getToken());
+//
+//        System.out.println("a");
+//        userInfo.enqueue(new Callback<Response<UserInfo>>() {
+//            @Override
+//            public void onResponse(Call<Response<UserInfo>> call, retrofit2.Response<Response<UserInfo>> response) {
+//                Log.d("토큰", "" + manager.getToken().getToken());
+//                System.out.println("b");
+//
+//
+//                Log.d("성공", "" + response.code()
+//                        + " " + response.body().getData().getName());
+////                userName.setText(response.body().getData().getName());
+////                schoolName.setText(response.body().getData().getSchoolName());
+//
+//                if (response.code() == 200) {
+//                    Log.d("성공", "");
+//                    userName.setText(response.body().getData().getName().toString());
+//                    schoolName.setText(response.body().getData().getSchoolName());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Response<UserInfo>> call, Throwable t) {
+//                Log.d("실패", "");
+//            }
+//        });
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -91,19 +128,29 @@ public class MyPageFragment extends Fragment {
         schoolName = v.findViewById(R.id.myPageEditSchoolName);
         productListBtn = v.findViewById(R.id.myPageButtonProductList);
 
-        Call<Response<UserInfo>> userInfo = service.getUserInfo();
+        userName.setText("A");
+
+        manager = TokenManager.getInstance(getActivity().getApplicationContext());
+
+        Call<Response<UserInfo>> userInfo = service.getUserInfo(manager.getToken().getToken());
 
         System.out.println("a");
         userInfo.enqueue(new Callback<Response<UserInfo>>() {
             @Override
             public void onResponse(Call<Response<UserInfo>> call, retrofit2.Response<Response<UserInfo>> response) {
+                Log.d("토큰", "" + manager.getToken().getToken());
+                System.out.println("b");
 
-                Log.d("성공", "" + response.body());
-//                userName.setText(response.body().getData().getName());
-//                schoolName.setText(response.body().getData().getSchoolName());
+
+                Log.d("성공", "" + response.code()
+                        + " " + response.body().getData().getName());
+                userName.setText(response.body().getData().getName());
+                schoolName.setText(response.body().getData().getSchoolName());
 
                 if (response.code() == 200) {
                     Log.d("성공", "");
+                    userName.setText(response.body().getData().getName().toString());
+                    schoolName.setText(response.body().getData().getSchoolName());
                 }
 
             }
@@ -114,10 +161,6 @@ public class MyPageFragment extends Fragment {
             }
         });
 
-
-        userName = v.findViewById(R.id.myPageEditUserName);
-        schoolName = v.findViewById(R.id.myPageEditSchoolName);
-
         productListBtn.setOnClickListener(e -> {
 
         });
@@ -125,7 +168,7 @@ public class MyPageFragment extends Fragment {
         userName.setEnabled(false);
         schoolName.setEnabled(false);
 
-        return inflater.inflate(R.layout.fragment_my_page, container, false);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -46,10 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.loginButtonSignUp);
         passwordFindButton = findViewById(R.id.passwordFind);
 
-        if (manager.getToken().getToken() != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
+//        if (manager.getToken().getToken() != null) {
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//        }
 
        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +75,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("TEST", "로그인 끝");
+    }
+
     private void login() {
 
         id = findViewById(R.id.loginEditId);
@@ -90,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Response<LoginData>> call, retrofit2.Response<Response<LoginData>> response) {
                 manager.setToken(response.body().getData().getToken().getToken());
 
-                name.setText(response.body().getData().getUser().getName());
+//                name.setText(response.body().getData().getUser().getName());
                 Log.d("성공", "onResponse: " + response.message() + response.body().getData().getToken().getToken() + " " + manager.getToken().getToken());
 
 
@@ -109,6 +115,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 //        postLogin.enqueue(new Callback<retrofit2.Response<Response<LoginData>>>() {
 //            @Override

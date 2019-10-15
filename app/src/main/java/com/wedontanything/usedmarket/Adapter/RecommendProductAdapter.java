@@ -1,26 +1,19 @@
 package com.wedontanything.usedmarket.Adapter;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wedontanything.usedmarket.Activity.MainActivity;
-import com.wedontanything.usedmarket.Data.ProductData;
-import com.wedontanything.usedmarket.Data.RecommandProductItem;
 import com.wedontanything.usedmarket.Fragment.ShowProductFragment;
 import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
 import com.wedontanything.usedmarket.Product.GetProduct;
+import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.R;
 
 import java.util.ArrayList;
@@ -31,7 +24,7 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
     MainActivity main = new MainActivity();
     ShowProductFragment showFragment = new ShowProductFragment();
     private RecyclerViewClickListener clickListener;
-    private ArrayList<GetProduct> mData = new ArrayList<>();
+    private List<Product> mData;
 
     public RecommendProductAdapter(FragmentActivity activity, RecyclerViewClickListener clickListener) {
         this.clickListener = clickListener;
@@ -39,13 +32,14 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
 
     public void updateData(List<GetProduct> data) {
         mData.clear();
-        mData.addAll(data);
+        //mData.addAll(data);
         notifyDataSetChanged();
     }
 
 
-    public void setItem(ArrayList list) {
+    public void setItem(List<Product> list) {
             this.mData = list;
+            notifyDataSetChanged();
     }
 
     @Override
@@ -59,16 +53,21 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         holder.productImg.setImageResource(R.drawable.ic_image);
-        holder.productPrice.setText("b");
-        holder.productSeller.setText("A");
-        holder.productName.setText("C");
+//        holder.productPrice.setText("b");
+//        holder.productSeller.setText("A");
+//        holder.productName.setText("C");
 
     }
 
     @Override
     public int getItemCount() {
+        if(mData == null) {
+            return 0;
+        }
+        else {
             return mData.size();
         }
+    }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
