@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wedontanything.usedmarket.Activity.MainActivity;
+import com.wedontanything.usedmarket.Data.RecommandProductItem;
 import com.wedontanything.usedmarket.Fragment.ShowProductFragment;
 import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
 import com.wedontanything.usedmarket.Product.GetProduct;
 import com.wedontanything.usedmarket.Product.Product;
+import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.R;
 
 import java.util.ArrayList;
@@ -21,24 +23,21 @@ import java.util.List;
 
 public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProductAdapter.Holder> {
 
-    MainActivity main = new MainActivity();
-    ShowProductFragment showFragment = new ShowProductFragment();
     private RecyclerViewClickListener clickListener;
-    private List<Product> mData;
+    private List<RecommandProductItem> mData = new ArrayList<>();
 
-    public RecommendProductAdapter(FragmentActivity activity, RecyclerViewClickListener clickListener) {
+    public RecommendProductAdapter(RecyclerViewClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
-    public void updateData(List<GetProduct> data) {
-        mData.clear();
-        //mData.addAll(data);
-        notifyDataSetChanged();
-    }
-
-
-    public void setItem(List<Product> list) {
+    public void setItem(List<RecommandProductItem> list) {
             this.mData = list;
+            if (mData.size() == 0) {
+                System.out.println("mData의 값은 0입니다.");
+            }
+            for (int i = 0; i < mData.size(); i++) {
+                System.out.println(mData.get(i).productName);
+            }
             notifyDataSetChanged();
     }
 
@@ -53,20 +52,15 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         holder.productImg.setImageResource(R.drawable.ic_image);
-//        holder.productPrice.setText("b");
-//        holder.productSeller.setText("A");
-//        holder.productName.setText("C");
-
+        holder.productPrice.setText(mData.get(i).productPrice);
+        System.out.println(mData.get(i).productPrice + " i = " + i);
+        holder.productSeller.setText(mData.get(i).productSeller);
+        holder.productName.setText(mData.get(i).productName);
     }
 
     @Override
     public int getItemCount() {
-        if(mData == null) {
-            return 0;
-        }
-        else {
-            return mData.size();
-        }
+        return mData.size();
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {

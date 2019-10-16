@@ -64,6 +64,7 @@ public class MainFragment extends Fragment {
     private RecommendProductAdapter recommendAdapter;
     private ArrayList<RecentlyAddItem> recentlyList = new ArrayList<>();
     private ArrayList<RecommandProductItem> recommendList = new ArrayList<>();
+    private ArrayList<RecommandProductItem> recommanditemlist = new ArrayList<>();
 
 
     ProductService service = Utils.RETROFIT.create(ProductService.class);
@@ -115,54 +116,6 @@ public class MainFragment extends Fragment {
         recommendList = RecommandProductItem.createContactsList(5);
 
         //------------------------------------------------------------------------------
-        manager = TokenManager.getInstance(getActivity().getApplicationContext());
-
-        Call<TestResponse> getAllProduct = service.getAllProduct(manager.getToken().getToken());
-
-        getAllProduct.enqueue(new Callback<TestResponse>() {
-            @Override
-            public void onResponse(Call<TestResponse> call, retrofit2.Response<TestResponse> response) {
-                Log.d("success", "" + response.isSuccessful());
-                Log.d("string body", "" + response.body().toString());
-                Log.d("token", "" + manager.getToken().getToken());
-                Log.d("body", "" + response.body().getData());
-
-                Toast.makeText(getActivity(), new Gson().toJson(new TestResponse()), Toast.LENGTH_SHORT).show();
-
-                Gson gson = new Gson();
-                String successResponse = gson.toJson(response.body());
-                Log.d("success resonse", successResponse);
-
-                List<TestResponse.TestProduct> productList = response.body().getData();
-                ArrayList<RecommandProductItem> recommanditemlist = new ArrayList<>();
-
-//                if (response.body().getData() == null) {it
-//                    Toast.makeText(getActivity(), "데이터가 들어오지 않음", Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(getActivity(), MainActivity.class);
-//                    startActivity(intent);
-//                    return;
-//                }
-
-//                for (int i = 0; i < response.body().getData().size(); i++) {
-//                    recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProduct_name(), productList.get(i).getMember_id(),
-//                            new DecimalFormat("#,##0원").format(productList.get(i).getMoney())));
-//                }
-//                recommendAdapter.setItem(productList);
-            }
-
-            @Override
-            public void onFailure(Call<TestResponse> call, Throwable t) {
-
-            }
-        });
-        //------------------------------------------------------------------
-        recentlyAddRecyclerView.setHasFixedSize(true);
-        lastAddAdapter = new RecentlyAddAdapter(getActivity());
-        lastAddAdapter.setItem(recentlyList);
-        recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
-        recentlyAddRecyclerView.setAdapter(lastAddAdapter);
-        lastAddAdapter.notifyDataSetChanged();
-
         RecyclerViewClickListener listener = (view, position) -> {
             Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
 
@@ -171,13 +124,57 @@ public class MainFragment extends Fragment {
             transaction.replace(R.id.mainFrameLayout, new ShowProductFragment());
             transaction.commit();
         };
+        //------------------------------------------------------------------------------
+        manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
-        recommendRecyclerView.setHasFixedSize(true);
-        recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Call<TestResponse> getAllProduct = service.getAllProduct(manager.getToken().getToken());
 
-        recommendAdapter = new RecommendProductAdapter(getActivity(), listener);
-       // recommendAdapter.setItem(recommendList);
-        recommendRecyclerView.setAdapter(recommendAdapter);
+        getAllProduct.enqueue(new Callback<TestResponse>() {
+            @Override
+            public void onResponse(Call<TestResponse> call, retrofit2.Response<TestResponse> response) {
+//                Log.d("success", "" + response.isSuccessful());
+//                Log.d("string body", "" + response.body().toString());
+//                Log.d("token", "" + manager.getToken().getToken());
+//                Log.d("body", "" + response.body().getData());
+
+                Toast.makeText(getActivity(), response.body().getProductList().toString(), Toast.LENGTH_SHORT).show();
+
+//                Gson gson = new Gson();
+//                String successResponse = gson.toJson(response.body());
+//                Log.d("success resonse", successResponse);
+
+                List<TestResponse.TestProduct> productList = response.body().getProductList();
+
+                for (int i = 0; i < productList.size(); i++) {
+                    recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProductName(), productList.get(i).getUserId(),
+                            new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
+                }
+
+                recommendRecyclerView.setHasFixedSize(true);
+                recommendAdapter = new RecommendProductAdapter(listener);
+                recommendAdapter.setItem(recommanditemlist);
+                recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recommendRecyclerView.setAdapter(recommendAdapter);
+                recommendAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<TestResponse> call, Throwable t) {
+
+            }
+        });
+        //------------------------------------------------------------------
+
+        System.out.println("mData 갯수 ");
+
+        recentlyAddRecyclerView.setHasFixedSize(true);
+        lastAddAdapter = new RecentlyAddAdapter(getActivity());
+        lastAddAdapter.setItem(recentlyList);
+        recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
+        recentlyAddRecyclerView.setAdapter(lastAddAdapter);
+        lastAddAdapter.notifyDataSetChanged();
+
+        System.out.println("mData 갯수 ");
 
         return v;
     }
