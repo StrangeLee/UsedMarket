@@ -18,6 +18,7 @@ import android.widget.Toast;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.wedontanything.usedmarket.Activity.MainActivity;
 import com.wedontanything.usedmarket.Adapter.RecentlyAddAdapter;
 import com.wedontanything.usedmarket.Data.RecentlyAddItem;
 import com.wedontanything.usedmarket.Data.RecommandProductItem;
@@ -69,7 +70,6 @@ public class MainFragment extends Fragment {
 
     TokenManager manager;
 
-
     private OnFragmentInteractionListener mListener;
 
     public MainFragment() {
@@ -94,11 +94,9 @@ public class MainFragment extends Fragment {
         return fragment;
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     @Override
@@ -135,8 +133,15 @@ public class MainFragment extends Fragment {
                 String successResponse = gson.toJson(response.body());
                 Log.d("success resonse", successResponse);
 
-                List<Product> productList = response.body().getData();
+                List<TestResponse.TestProduct> productList = response.body().getData();
                 ArrayList<RecommandProductItem> recommanditemlist = new ArrayList<>();
+
+//                if (response.body().getData() == null) {it
+//                    Toast.makeText(getActivity(), "데이터가 들어오지 않음", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(getActivity(), MainActivity.class);
+//                    startActivity(intent);
+//                    return;
+//                }
 
 //                for (int i = 0; i < response.body().getData().size(); i++) {
 //                    recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProduct_name(), productList.get(i).getMember_id(),
@@ -166,8 +171,6 @@ public class MainFragment extends Fragment {
             transaction.replace(R.id.mainFrameLayout, new ShowProductFragment());
             transaction.commit();
         };
-
-
 
         recommendRecyclerView.setHasFixedSize(true);
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

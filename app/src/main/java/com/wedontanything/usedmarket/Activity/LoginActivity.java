@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else if(response.code() == 401) {
-
+                    Toast.makeText(LoginActivity.this, "아이디나 비밀번호를 확인해 주세요.", Toast.LENGTH_LONG).show();
                 }
             }
 

@@ -8,7 +8,7 @@ import java.util.List;
 public class TestResponse {
     private Integer status;
 
-    private List<Product> data;
+    private List<TestProduct> data;
 
     public Integer getStatus() {
         return status;
@@ -18,11 +18,11 @@ public class TestResponse {
         this.status = status;
     }
 
-    public List<Product> getData() {
+    public List<TestProduct> getData() {
         return data;
     }
 
-    public void setData(List<Product> data) {
+    public void setData(List<TestProduct> data) {
         this.data = data;
     }
 
@@ -30,4 +30,26 @@ public class TestResponse {
     public String toString() {
         return new Gson().toJson(this);
     }
+
+    public class TestProduct {
+        int id;
+        String productName;
+        String description;
+        int price;
+        Integer heart;
+        String hashtag;
+        String category;
+        String updateDay;
+        int state;
+        String UserId;
+        List<TestImage> Images;
+    }
+
+    public class TestImage{
+        int id;
+        String productName;
+        String src;
+        int ProductId;
+    }
+
 }

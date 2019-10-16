@@ -30,7 +30,7 @@ public interface ProductService {
             @Field("hashtag") String hashtag
     );
 
-    @GET("api/product/all")
+    @GET("/api/product/all")
     Call<TestResponse> getAllProduct (
            @Header("token") String token
     );
