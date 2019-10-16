@@ -66,6 +66,14 @@ public class MainFragment extends Fragment {
     private ArrayList<RecommandProductItem> recommendList = new ArrayList<>();
     private ArrayList<RecommandProductItem> recommanditemlist = new ArrayList<>();
 
+    RecyclerViewClickListener listener = (view, position) -> {
+        Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.mainFrameLayout, new ShowProductFragment());
+        transaction.commit();
+    };
 
     ProductService service = Utils.RETROFIT.create(ProductService.class);
 
@@ -77,14 +85,6 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MainFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static MainFragment newInstance(String param1, String param2) {
         MainFragment fragment = new MainFragment();
@@ -113,35 +113,27 @@ public class MainFragment extends Fragment {
         recommendRecyclerView = v.findViewById(R.id.mainRecyclerViewRecommendList);
 
         recentlyList = RecentlyAddItem.createContactsList(5);
-        recommendList = RecommandProductItem.createContactsList(5);
+//        recommendList = RecommandProductItem.createContactsList(5);
 
         //------------------------------------------------------------------------------
-        RecyclerViewClickListener listener = (view, position) -> {
-            Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
 
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.mainFrameLayout, new ShowProductFragment());
-            transaction.commit();
-        };
-        //------------------------------------------------------------------------------
+        // 서버 API 받아오기-----------------------------------------------------------------------------
         manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
         Call<TestResponse> getAllProduct = service.getAllProduct(manager.getToken().getToken());
 
+        //------------------------------------------------------------------
+        // 최근 본 상품
+        recentlyAddRecyclerView.setHasFixedSize(true);
+        lastAddAdapter = new RecentlyAddAdapter(getActivity());
+        lastAddAdapter.setItem(recentlyList);
+        recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
+        recentlyAddRecyclerView.setAdapter(lastAddAdapter);
+        lastAddAdapter.notifyDataSetChanged();
+
         getAllProduct.enqueue(new Callback<TestResponse>() {
             @Override
             public void onResponse(Call<TestResponse> call, retrofit2.Response<TestResponse> response) {
-//                Log.d("success", "" + response.isSuccessful());
-//                Log.d("string body", "" + response.body().toString());
-//                Log.d("token", "" + manager.getToken().getToken());
-//                Log.d("body", "" + response.body().getData());
-
-                Toast.makeText(getActivity(), response.body().getProductList().toString(), Toast.LENGTH_SHORT).show();
-
-//                Gson gson = new Gson();
-//                String successResponse = gson.toJson(response.body());
-//                Log.d("success resonse", successResponse);
 
                 List<TestResponse.TestProduct> productList = response.body().getProductList();
 
@@ -150,11 +142,8 @@ public class MainFragment extends Fragment {
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
                 }
 
-                recommendRecyclerView.setHasFixedSize(true);
                 recommendAdapter = new RecommendProductAdapter(listener);
                 recommendAdapter.setItem(recommanditemlist);
-                recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recommendRecyclerView.setAdapter(recommendAdapter);
                 recommendAdapter.notifyDataSetChanged();
             }
 
@@ -163,18 +152,11 @@ public class MainFragment extends Fragment {
 
             }
         });
-        //------------------------------------------------------------------
 
-        System.out.println("mData 갯수 ");
-
-        recentlyAddRecyclerView.setHasFixedSize(true);
-        lastAddAdapter = new RecentlyAddAdapter(getActivity());
-        lastAddAdapter.setItem(recentlyList);
-        recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
-        recentlyAddRecyclerView.setAdapter(lastAddAdapter);
-        lastAddAdapter.notifyDataSetChanged();
-
-        System.out.println("mData 갯수 ");
+        // 추천 상품
+        recommendRecyclerView.setHasFixedSize(true);
+        recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recommendRecyclerView.setAdapter(recommendAdapter);
 
         return v;
     }
