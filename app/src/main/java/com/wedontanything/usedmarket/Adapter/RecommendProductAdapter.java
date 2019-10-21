@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wedontanything.usedmarket.Activity.MainActivity;
 import com.wedontanything.usedmarket.Data.RecommandProductItem;
 import com.wedontanything.usedmarket.Fragment.ShowProductFragment;
@@ -17,6 +18,7 @@ import com.wedontanything.usedmarket.Product.GetProduct;
 import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.R;
+import com.wedontanything.usedmarket.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +34,6 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
 
     public void setItem(List<RecommandProductItem> list) {
             this.mData = list;
-            if (mData.size() == 0) {
-                System.out.println("mData의 값은 0입니다.");
-            }
-            for (int i = 0; i < mData.size(); i++) {
-                System.out.println(mData.get(i).productName);
-            }
             notifyDataSetChanged();
     }
 
@@ -51,9 +47,9 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
-        holder.productImg.setImageResource(R.drawable.ic_image);
+        Picasso.get().load(Utils.HOST_URL + mData.get(i).productUri).into(holder.productImg);
+        //holder.productImg.setImageResource(R.drawable.ic_image);
         holder.productPrice.setText(mData.get(i).productPrice);
-        System.out.println(mData.get(i).productPrice + " i = " + i);
         holder.productSeller.setText(mData.get(i).productSeller);
         holder.productName.setText(mData.get(i).productName);
     }

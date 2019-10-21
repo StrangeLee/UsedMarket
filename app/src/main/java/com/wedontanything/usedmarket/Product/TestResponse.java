@@ -40,7 +40,7 @@ public class TestResponse {
         String hashtag;
         String category;
         String updateDay;
-        int state;
+        String state;
         String UserId;
         List<TestImage> Images;
 
@@ -76,7 +76,7 @@ public class TestResponse {
             return updateDay;
         }
 
-        public int getState() {
+        public String getState() {
             return state;
         }
 
@@ -91,9 +91,20 @@ public class TestResponse {
 
     public class TestImage{
         int id;
-        String productName;
         String src;
         int ProductId;
+
+        public int getId() {
+            return id;
+        }
+
+        public String getSrc() {
+            return src;
+        }
+
+        public int getProductId() {
+            return ProductId;
+        }
     }
 
 }

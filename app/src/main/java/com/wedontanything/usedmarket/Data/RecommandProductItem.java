@@ -5,12 +5,12 @@ import android.net.Uri;
 import java.util.ArrayList;
 
 public class RecommandProductItem {
-    public Uri productUri;
+    public String productUri;
     public String productName;
     public String productPrice;
     public String productSeller;
 
-    public RecommandProductItem (Uri productUri, String productName, String productSeller, String productPrice) {
+    public RecommandProductItem (String productUri, String productName, String productSeller, String productPrice) {
         this.productUri = productUri;
         this.productName = productName;
         this.productPrice = productPrice;

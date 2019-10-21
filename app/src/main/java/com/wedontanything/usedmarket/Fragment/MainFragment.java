@@ -1,7 +1,7 @@
 package com.wedontanything.usedmarket.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,15 +10,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.wedontanything.usedmarket.Activity.MainActivity;
 import com.wedontanything.usedmarket.Adapter.RecentlyAddAdapter;
 import com.wedontanything.usedmarket.Data.RecentlyAddItem;
 import com.wedontanything.usedmarket.Data.RecommandProductItem;
@@ -26,11 +24,8 @@ import com.wedontanything.usedmarket.Adapter.RecommendProductAdapter;
 import com.wedontanything.usedmarket.DataBase.TokenManager;
 import com.wedontanything.usedmarket.Interface.ProductService;
 import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
-import com.wedontanything.usedmarket.Product.GetAllProduct;
-import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.R;
-import com.wedontanything.usedmarket.Response.Response;
 import com.wedontanything.usedmarket.Utils;
 
 import java.text.DecimalFormat;
@@ -62,10 +57,13 @@ public class MainFragment extends Fragment {
     private RecyclerView recentlyAddRecyclerView, recommendRecyclerView;
     private RecentlyAddAdapter lastAddAdapter;
     private RecommendProductAdapter recommendAdapter;
-    private List<RecentlyAddItem> recentlyList = new ArrayList<>();
-    private List<RecommandProductItem> recommendList = new ArrayList<>();
-    private List<RecommandProductItem> recommanditemlist = new ArrayList<>();
+    private List<RecommandProductItem> recommendItemList = new ArrayList<>();
+    private List<RecentlyAddItem> recentlyItemList = new ArrayList<>();
 
+    // 이미지
+    Bitmap bitmap;
+
+    // RecyclerView Listener 구현
     RecyclerViewClickListener listener = (view, position) -> {
         Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
 
@@ -111,10 +109,6 @@ public class MainFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         recentlyAddRecyclerView = v.findViewById(R.id.mainRecyclerViewRecentlyAddList);
         recommendRecyclerView = v.findViewById(R.id.mainRecyclerViewRecommendList);
-
-        recentlyList = RecentlyAddItem.createContactsList(5);
-        recommendList = RecommandProductItem.createContactsList(5);
-
         //------------------------------------------------------------------------------
 
         // 서버 API 받아오기-----------------------------------------------------------------------------
@@ -124,38 +118,43 @@ public class MainFragment extends Fragment {
 
         //------------------------------------------------------------------
         // 최근 본 상품
+        lastAddAdapter = new RecentlyAddAdapter();
         recentlyAddRecyclerView.setHasFixedSize(true);
-        lastAddAdapter = new RecentlyAddAdapter(getActivity());
-        lastAddAdapter.setItem(recentlyList);
         recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
         recentlyAddRecyclerView.setAdapter(lastAddAdapter);
-        lastAddAdapter.notifyDataSetChanged();
 
         // 추천 상품
         recommendAdapter = new RecommendProductAdapter(listener);
+        recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false));
+        recommendRecyclerView.setAdapter(recommendAdapter);
+        recommendRecyclerView.setHasFixedSize(true);
 
         getAllProduct.enqueue(new Callback<TestResponse>() {
             @Override
             public void onResponse(Call<TestResponse> call, retrofit2.Response<TestResponse> response) {
+                Toast.makeText(getActivity(), "성공", Toast.LENGTH_SHORT).show();
 
                 List<TestResponse.TestProduct> productList = response.body().getProductList();
 
                 for (int i = 0; i < productList.size(); i++) {
-                    recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProductName(), productList.get(i).getUserId(),
+                    recommendItemList.add(new RecommandProductItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), productList.get(i).getUserId(),
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
+
+                    recentlyItemList.add(new RecentlyAddItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
+                    if (recentlyItemList.size() == 0) {
+                        Log.d("TAG", "아이템이 없음");
+                    } else {
+                        Log.d("TAG", "아이템이 있음");
+                    }
                 }
-                recommendAdapter.setItem(recommanditemlist);
-                recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
-                recommendRecyclerView.setAdapter(recommendAdapter);
-                recommendAdapter.notifyDataSetChanged();
+                lastAddAdapter.setItem(recentlyItemList);
+                recommendAdapter.setItem(recommendItemList);
             }
             @Override
             public void onFailure(Call<TestResponse> call, Throwable t) {
-
+                Toast.makeText(getActivity(), "실패", Toast.LENGTH_SHORT).show();
             }
         });
-
-        Log.d("TAG", "" + recommendAdapter.getItemCount());
 
         return v;
     }
