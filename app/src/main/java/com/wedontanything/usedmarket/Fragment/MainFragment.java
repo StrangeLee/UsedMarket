@@ -62,9 +62,9 @@ public class MainFragment extends Fragment {
     private RecyclerView recentlyAddRecyclerView, recommendRecyclerView;
     private RecentlyAddAdapter lastAddAdapter;
     private RecommendProductAdapter recommendAdapter;
-    private ArrayList<RecentlyAddItem> recentlyList = new ArrayList<>();
-    private ArrayList<RecommandProductItem> recommendList = new ArrayList<>();
-    private ArrayList<RecommandProductItem> recommanditemlist = new ArrayList<>();
+    private List<RecentlyAddItem> recentlyList = new ArrayList<>();
+    private List<RecommandProductItem> recommendList = new ArrayList<>();
+    private List<RecommandProductItem> recommanditemlist = new ArrayList<>();
 
     RecyclerViewClickListener listener = (view, position) -> {
         Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
@@ -113,7 +113,7 @@ public class MainFragment extends Fragment {
         recommendRecyclerView = v.findViewById(R.id.mainRecyclerViewRecommendList);
 
         recentlyList = RecentlyAddItem.createContactsList(5);
-//        recommendList = RecommandProductItem.createContactsList(5);
+        recommendList = RecommandProductItem.createContactsList(5);
 
         //------------------------------------------------------------------------------
 
@@ -133,7 +133,6 @@ public class MainFragment extends Fragment {
 
         // 추천 상품
         recommendAdapter = new RecommendProductAdapter(listener);
-        Log.d("TAG", "" + recommendAdapter.getItemCount());
 
         getAllProduct.enqueue(new Callback<TestResponse>() {
             @Override
@@ -145,16 +144,16 @@ public class MainFragment extends Fragment {
                     recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProductName(), productList.get(i).getUserId(),
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
                 }
-
-                recommendAdapter.setItem(recommanditemlist);
-                recommendAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onFailure(Call<TestResponse> call, Throwable t) {
 
             }
         });
+        recommendAdapter.setItem(recommanditemlist);
+        recommendAdapter.notifyDataSetChanged();
+
+        Log.d("TAG", "" + recommendAdapter.getItemCount());
 
         recommendRecyclerView.setHasFixedSize(true);
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

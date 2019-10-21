@@ -13,16 +13,17 @@ import com.wedontanything.usedmarket.Data.RecentlyAddItem;
 import com.wedontanything.usedmarket.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecentlyAddAdapter extends RecyclerView.Adapter<RecentlyAddAdapter.Holder> {
 
-    private ArrayList<RecentlyAddItem> list = new ArrayList<>();
+    private List<RecentlyAddItem> list = new ArrayList<>();
 
     public RecentlyAddAdapter(FragmentActivity activity) {
 
     }
 
-    public void setItem(ArrayList list) {
+    public void setItem(List<RecentlyAddItem> list) {
         this.list = list;
     }
 
