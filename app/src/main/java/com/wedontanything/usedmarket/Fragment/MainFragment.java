@@ -131,6 +131,10 @@ public class MainFragment extends Fragment {
         recentlyAddRecyclerView.setAdapter(lastAddAdapter);
         lastAddAdapter.notifyDataSetChanged();
 
+        // 추천 상품
+        recommendAdapter = new RecommendProductAdapter(listener);
+        Log.d("TAG", "" + recommendAdapter.getItemCount());
+
         getAllProduct.enqueue(new Callback<TestResponse>() {
             @Override
             public void onResponse(Call<TestResponse> call, retrofit2.Response<TestResponse> response) {
@@ -142,7 +146,6 @@ public class MainFragment extends Fragment {
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
                 }
 
-                recommendAdapter = new RecommendProductAdapter(listener);
                 recommendAdapter.setItem(recommanditemlist);
                 recommendAdapter.notifyDataSetChanged();
             }
@@ -153,7 +156,6 @@ public class MainFragment extends Fragment {
             }
         });
 
-        // 추천 상품
         recommendRecyclerView.setHasFixedSize(true);
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recommendRecyclerView.setAdapter(recommendAdapter);
