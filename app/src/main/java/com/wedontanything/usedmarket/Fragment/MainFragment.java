@@ -144,20 +144,18 @@ public class MainFragment extends Fragment {
                     recommanditemlist.add(new RecommandProductItem(null, productList.get(i).getProductName(), productList.get(i).getUserId(),
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
                 }
+                recommendAdapter.setItem(recommanditemlist);
+                recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
+                recommendRecyclerView.setAdapter(recommendAdapter);
+                recommendAdapter.notifyDataSetChanged();
             }
             @Override
             public void onFailure(Call<TestResponse> call, Throwable t) {
 
             }
         });
-        recommendAdapter.setItem(recommanditemlist);
-        recommendAdapter.notifyDataSetChanged();
 
         Log.d("TAG", "" + recommendAdapter.getItemCount());
-
-        recommendRecyclerView.setHasFixedSize(true);
-        recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recommendRecyclerView.setAdapter(recommendAdapter);
 
         return v;
     }
