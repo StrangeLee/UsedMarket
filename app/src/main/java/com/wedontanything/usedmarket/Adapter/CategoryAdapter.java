@@ -1,32 +1,27 @@
 package com.wedontanything.usedmarket.Adapter;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wedontanything.usedmarket.Data.CategoryListItem;
 import com.wedontanything.usedmarket.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryAdapter extends BaseAdapter {
 
     LayoutInflater inflater = null;
-    Context context;
-    ArrayList<CategoryListItem> categoryList = new ArrayList<>();
+    List<CategoryListItem> categoryList;
 
     TextView categoryName;
     ImageView categoryImage;
 
-    public CategoryAdapter(Context context, ArrayList<CategoryListItem> categoryList) {
-        this.context = context;
+    public CategoryAdapter(List<CategoryListItem> categoryList) {
         this.categoryList = categoryList;
     }
 

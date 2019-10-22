@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,19 +37,38 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
 
     ProductData data = new ProductData();
 
-    TextView schoolName;
-    TextView productSeller;
-    TextView productPrice;
-    TextView productName;
-    TextView productContents;
-    TextView productHashTag;
+    TextView schoolNameText;
+    TextView productSellerText;
+    TextView productPriceText;
+    TextView productNameText;
+    TextView productContentsText;
+    TextView productHashTagText;
 
     Button tradeCommit;
     Button heart;
+
+    String schoolName, seller, price, productName, productContents, hashTag;
+
     private OnFragmentInteractionListener mListener;
 
     public ShowProductFragment() {
-        // Required empty public constructor
+
+    }
+
+    public static ShowProductFragment newInstance(String schoolName, String seller, String price, String productName, String productContents, String hashTag) {
+        ShowProductFragment sf = new ShowProductFragment();
+        Bundle bundle = new Bundle();
+
+        bundle.putString("schoolName1", schoolName);
+        bundle.putString("seller", seller);
+        bundle.putString("price", price);
+        bundle.putString("productName", productName);
+        bundle.putString("productContents", productContents);
+        bundle.putString("hashTag", hashTag);
+
+        sf.setArguments(bundle);
+
+        return sf;
     }
 
     /**
@@ -84,18 +102,19 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_show_product, container, false);
+        Bundle args = new Bundle();
 
-        schoolName = v.findViewById(R.id.showTextSchoolName);
-        productSeller = v.findViewById(R.id.showTextSellerName);
-        productPrice = v.findViewById(R.id.showTextProductPrice);
-        schoolName = v.findViewById(R.id.showTextSchoolName);
-        productName = v.findViewById(R.id.showTextProductName);
-        productContents = v.findViewById(R.id.showTextContents);
-        productHashTag = v.findViewById(R.id.showTextHashTag);
+        schoolNameText = v.findViewById(R.id.showTextSchoolName);
+        productSellerText = v.findViewById(R.id.showTextSellerName);
+        productPriceText = v.findViewById(R.id.showTextProductPrice);
+        schoolNameText = v.findViewById(R.id.showTextSchoolName);
+        productNameText = v.findViewById(R.id.showTextProductName);
+        productContentsText = v.findViewById(R.id.showTextContents);
+        productHashTagText = v.findViewById(R.id.showTextHashTag);
 
-        productSeller.setText("곽현준");
-        productName.setText("그냥 물건");
-        productPrice.setText("10000원");
+        productSellerText.setText("곽현준");
+        productNameText.setText("그냥 물건");
+        productPriceText.setText("10000원");
 
         return v;
     }
@@ -126,7 +145,6 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         transaction.replace(R.id.showFrameLayout, new MainFragment());
         transaction.commit();
     }
-
 
     /**
      * This interface must be implemented by activities that contain this

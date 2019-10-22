@@ -1,23 +1,19 @@
 package com.wedontanything.usedmarket.Fragment;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.wedontanything.usedmarket.Adapter.CategoryAdapter;
 import com.wedontanything.usedmarket.Data.CategoryListItem;
 import com.wedontanything.usedmarket.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,9 +25,8 @@ public class CategoryFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    GridView categoryGrid;
+    ListView categoryList;
     CategoryAdapter categoryAdapter;
-    ArrayList<CategoryListItem> categoryItem;
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,12 +58,12 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_category, container, false);
-        categoryGrid = getActivity().findViewById(R.id.categoryGridView);
+        categoryList = getActivity().findViewById(R.id.categoryListView);
 
+        // category item 생성
         ArrayList<String> names = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.spinnerArray)));
-        ArrayList<CategoryListItem> categoryList = new ArrayList<>();
+        List<CategoryListItem> categoryListItems = new ArrayList<>();
         List<Integer> images = Arrays.asList(
-                R.drawable.ic_action_sports,
                 R.drawable.ic_action_book,
                 R.drawable.ic_action_clothes,
                 R.drawable.ic_action_digital,
@@ -76,15 +71,18 @@ public class CategoryFragment extends Fragment {
                 R.drawable.ic_action_hobby,
                 R.drawable.ic_action_makeup,
                 R.drawable.ic_action_schoolsupplies,
+                R.drawable.ic_action_sports,
                 R.drawable.ic_action_ticket
         );
 
         for (int i = 0; i < names.size() - 1; i++) {
-            categoryList.add(new CategoryListItem(names.get(i + 1), images.get(i)));
+            categoryListItems.add(new CategoryListItem(names.get(i + 1), images.get(i)));
+            Log.d("List", categoryListItems.get(i).getCategoryName());
         }
+        //--------------------------------------------------------------
 
-//        categoryAdapter = new CategoryAdapter(getContext(), categoryList);
-//        categoryGrid.setAdapter(categoryAdapter);
+        categoryAdapter = new CategoryAdapter(categoryListItems);
+        categoryList.setAdapter(categoryAdapter);
 
         return v;
     }
