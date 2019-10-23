@@ -35,7 +35,6 @@ public class ShowProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_product);
 
         dealButton = findViewById(R.id.showButtonRequest);
-        schoolNameText = findViewById(R.id.showTextSchoolName);
         sellerNameText = findViewById(R.id.showTextSellerName);
         productNameText = findViewById(R.id.showTextProductName);
         discriptionText = findViewById(R.id.showTextContents);

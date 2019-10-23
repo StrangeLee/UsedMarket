@@ -3,23 +3,26 @@ package com.wedontanything.usedmarket.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wedontanything.usedmarket.Activity.MainActivity;
 import com.wedontanything.usedmarket.Data.ProductData;
 import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.R;
+import com.wedontanything.usedmarket.Utils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -40,7 +43,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     private String mParam1;
     private String mParam2;
 
-    private ArrayList<Integer> showProductList = new ArrayList<>();
+    private Product showProduct;
 
     ProductData data = new ProductData();
 
@@ -50,6 +53,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     TextView productNameText;
     TextView productContentsText;
     TextView productHashTagText;
+    ImageView productImage;
 
     Button tradeCommit;
     Button heart;
@@ -65,28 +69,27 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ShowProductFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ShowProductFragment newInstance(String param1, String param2) {
+    public static ShowProductFragment newInstance(Product productList) {
         ShowProductFragment fragment = new ShowProductFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("LIST", productList);
 
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            showProduct = getArguments().getParcelable("LIST");
+        } else {
+            showProduct = new Product(1, "a", "A", "a", 1, 1, "a", "a", "A", "a");
+            // TODO: 다이얼로그 표시
         }
     }
 
@@ -94,23 +97,21 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_show_product, container, false);
-        Bundle args = getArguments();
 
-        if (args != null) {
-            showProductList = args.getIntegerArrayList("LIST");
-        }
-
-        schoolNameText = v.findViewById(R.id.showTextSchoolName);
         productSellerText = v.findViewById(R.id.showTextSellerName);
         productPriceText = v.findViewById(R.id.showTextProductPrice);
-        schoolNameText = v.findViewById(R.id.showTextSchoolName);
         productNameText = v.findViewById(R.id.showTextProductName);
         productContentsText = v.findViewById(R.id.showTextContents);
         productHashTagText = v.findViewById(R.id.showTextHashTag);
+        productImage = v.findViewById(R.id.showImageProduct);
 
-        productSellerText.setText(showProductList.get);
-        productNameText.setText("그냥 물건");
-        productPriceText.setText("10000원");
+        productSellerText.setText(showProduct.getMember_id());
+        productNameText.setText(showProduct.getProduct_name());
+        productPriceText.setText(new DecimalFormat("#,##0원").format(showProduct.getMoney()));
+        productContentsText.setText(showProduct.getDescription());
+        //var hashtag = showProduct.getHashtag();
+        productHashTagText.setText(showProduct.getHashtag());
+        Picasso.get().load(Utils.HOST_URL + showProduct.getImage()).into(productImage);
 
         return v;
     }
@@ -136,10 +137,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
 
     @Override
     public void onBackKey() {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.showFrameLayout, new MainFragment());
-        transaction.commit();
+
     }
 
     /**

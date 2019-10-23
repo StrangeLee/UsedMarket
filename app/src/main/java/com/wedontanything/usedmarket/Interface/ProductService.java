@@ -1,21 +1,21 @@
 package com.wedontanything.usedmarket.Interface;
 
-import com.wedontanything.usedmarket.Product.GetAllProduct;
-import com.wedontanything.usedmarket.Product.Product;
+import android.media.Image;
+
 import com.wedontanything.usedmarket.Product.TestResponse;
-import com.wedontanything.usedmarket.Response.ProductResponse;
 import com.wedontanything.usedmarket.Response.Response;
 
-import java.util.List;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface ProductService {
@@ -36,15 +36,9 @@ public interface ProductService {
     );
 
     @FormUrlEncoded
-    @PUT("/api/product/updateProduct/:id")
+    @PATCH("/api/product/updateProduct/:id")
     Call<Response> putUpdateProduct(
-            @Header("token") String token,
-            @Field("id") String id,
-            @Field("userId") String userId,
-            @Field("productName") String productName,
-            @Field("description") String description,
-            @Field("price") int price,
-            @Field("hashtag") String hashtag
+            @FieldMap HashMap<String, Object> param
     );
 
     @DELETE("/api/product/deleteProduct/:id")

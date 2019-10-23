@@ -61,20 +61,19 @@ public class MainFragment extends Fragment {
     private RecommendProductAdapter recommendAdapter;
     private List<RecommandProductItem> recommendItemList = new ArrayList<>();
     private List<RecentlyAddItem> recentlyItemList = new ArrayList<>();
-    private List<Product> productAllList = new ArrayList<>();
+    private ArrayList<Product> productAllList = new ArrayList<>();
 
     // RecyclerView Listener 구현
     RecyclerViewClickListener listener = (view, position) -> {
         Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
-        ShowProductFragment sf = new ShowProductFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("LIST", (ArrayList<? extends Parcelable>) productAllList);
 
-        sf.setArguments(bundle);
+        ShowProductFragment sf = ShowProductFragment.newInstance(productAllList.get(position));
+        Log.d("TAG", productAllList.get(position).getProduct_name());
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.mainFrameLayout, new ShowProductFragment()).addToBackStack(null).commit();
+        transaction.replace(R.id.mainFrameLayout, sf);
+        transaction.commit();
     };
 
     ProductService service = Utils.RETROFIT.create(ProductService.class);
@@ -142,17 +141,13 @@ public class MainFragment extends Fragment {
                 for (int i = 0; i < productList.size(); i++) {
                     productAllList.add(new Product(productList.get(i).getId(), productList.get(i).getUserId(), productList.get(i).getProductName(),
                             productList.get(i).getDescription(), productList.get(i).getPrice(), productList.get(i).getHeart(), productList.get(i).getHashtag(),
-                            productList.get(i).getUpdateDay(), productList.get(i).getState()));
+                            productList.get(i).getUpdateDay(), productList.get(i).getState(), productList.get(i).getImages().get(0).getSrc()));
 
                     recommendItemList.add(new RecommandProductItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), productList.get(i).getUserId(),
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
 
                     recentlyItemList.add(new RecentlyAddItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
-                    if (recentlyItemList.size() == 0) {
-                        Log.d("TAG", "아이템이 없음");
-                    } else {
-                        Log.d("TAG", "아이템이 있음");
-                    }
+
                 }
                 lastAddAdapter.setItem(recentlyItemList);
                 recommendAdapter.setItem(recommendItemList);
