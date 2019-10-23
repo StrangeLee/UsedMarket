@@ -17,77 +17,18 @@ public class Product {
 
     private String update_day;
 
-    private Integer state;
+    private String state;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
+    public Product(Integer id, String member_id, String product_name, String description, Integer money, Integer heart_cnt, String hashtag, String update_day, String state) {
         this.id = id;
-    }
-
-    public String getMember_id() {
-        return member_id;
-    }
-
-    public void setMember_id(String member_id) {
         this.member_id = member_id;
-    }
-
-    public String getProduct_name() {
-        return product_name;
-    }
-
-    public void setProduct_name(String product_name) {
         this.product_name = product_name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getMoney() {
-        return money;
-    }
-
-    public void setMoney(Integer money) {
         this.money = money;
-    }
-
-    public Integer getHeart_cnt() {
-        return heart_cnt;
-    }
-
-    public void setHeart_cnt(Integer heart_cnt) {
         this.heart_cnt = heart_cnt;
-    }
-
-    public String getHashtag() {
-        return hashtag;
-    }
-
-    public void setHashtag(String hashtag) {
         this.hashtag = hashtag;
-    }
-
-    public String getUpdate_day() {
-        return update_day;
-    }
-
-    public void setUpdate_day(String update_day) {
         this.update_day = update_day;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
         this.state = state;
     }
+
 }

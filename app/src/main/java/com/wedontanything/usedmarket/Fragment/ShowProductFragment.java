@@ -3,6 +3,7 @@ package com.wedontanything.usedmarket.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,7 +15,11 @@ import android.widget.TextView;
 
 import com.wedontanything.usedmarket.Activity.MainActivity;
 import com.wedontanything.usedmarket.Data.ProductData;
+import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,6 +39,8 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private List<Product> showProductList = new ArrayList<>();
 
     ProductData data = new ProductData();
 
@@ -55,16 +62,11 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
 
     }
 
-    public static ShowProductFragment newInstance(String schoolName, String seller, String price, String productName, String productContents, String hashTag) {
+    public static ShowProductFragment newInstance(List<Product> productList) {
         ShowProductFragment sf = new ShowProductFragment();
         Bundle bundle = new Bundle();
 
-        bundle.putString("schoolName1", schoolName);
-        bundle.putString("seller", seller);
-        bundle.putString("price", price);
-        bundle.putString("productName", productName);
-        bundle.putString("productContents", productContents);
-        bundle.putString("hashTag", hashTag);
+        bundle.putParcelableArrayList("LIST", (ArrayList<? extends Parcelable>) productList);
 
         sf.setArguments(bundle);
 

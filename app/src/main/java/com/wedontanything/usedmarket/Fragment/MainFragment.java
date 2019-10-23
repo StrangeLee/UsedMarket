@@ -24,6 +24,7 @@ import com.wedontanything.usedmarket.Adapter.RecommendProductAdapter;
 import com.wedontanything.usedmarket.DataBase.TokenManager;
 import com.wedontanything.usedmarket.Interface.ProductService;
 import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
+import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Utils;
@@ -59,9 +60,7 @@ public class MainFragment extends Fragment {
     private RecommendProductAdapter recommendAdapter;
     private List<RecommandProductItem> recommendItemList = new ArrayList<>();
     private List<RecentlyAddItem> recentlyItemList = new ArrayList<>();
-
-    // 이미지
-    Bitmap bitmap;
+    private List<Product> productAllList = new ArrayList<>();
 
     // RecyclerView Listener 구현
     RecyclerViewClickListener listener = (view, position) -> {
@@ -70,6 +69,7 @@ public class MainFragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.mainFrameLayout, new ShowProductFragment());
+
         transaction.commit();
     };
 
@@ -137,6 +137,10 @@ public class MainFragment extends Fragment {
                 List<TestResponse.TestProduct> productList = response.body().getProductList();
 
                 for (int i = 0; i < productList.size(); i++) {
+                    productAllList.add(new Product(productList.get(i).getId(), productList.get(i).getUserId(), productList.get(i).getProductName(),
+                            productList.get(i).getDescription(), productList.get(i).getPrice(), productList.get(i).getHeart(), productList.get(i).getHashtag(),
+                            productList.get(i).getUpdateDay(), productList.get(i).getState()));
+
                     recommendItemList.add(new RecommandProductItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), productList.get(i).getUserId(),
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
 
