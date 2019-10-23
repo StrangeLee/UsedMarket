@@ -40,7 +40,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     private String mParam1;
     private String mParam2;
 
-    private List<Product> showProductList = new ArrayList<>();
+    private ArrayList<Integer> showProductList = new ArrayList<>();
 
     ProductData data = new ProductData();
 
@@ -62,17 +62,6 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
 
     }
 
-    public static ShowProductFragment newInstance(List<Product> productList) {
-        ShowProductFragment sf = new ShowProductFragment();
-        Bundle bundle = new Bundle();
-
-        bundle.putParcelableArrayList("LIST", (ArrayList<? extends Parcelable>) productList);
-
-        sf.setArguments(bundle);
-
-        return sf;
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -88,6 +77,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -104,7 +94,11 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_show_product, container, false);
-        Bundle args = new Bundle();
+        Bundle args = getArguments();
+
+        if (args != null) {
+            showProductList = args.getIntegerArrayList("LIST");
+        }
 
         schoolNameText = v.findViewById(R.id.showTextSchoolName);
         productSellerText = v.findViewById(R.id.showTextSellerName);
@@ -114,7 +108,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         productContentsText = v.findViewById(R.id.showTextContents);
         productHashTagText = v.findViewById(R.id.showTextHashTag);
 
-        productSellerText.setText("곽현준");
+        productSellerText.setText(showProductList.get);
         productNameText.setText("그냥 물건");
         productPriceText.setText("10000원");
 

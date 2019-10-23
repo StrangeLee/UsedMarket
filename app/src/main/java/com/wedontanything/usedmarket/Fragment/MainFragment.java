@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -65,16 +66,18 @@ public class MainFragment extends Fragment {
     // RecyclerView Listener 구현
     RecyclerViewClickListener listener = (view, position) -> {
         Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
+        ShowProductFragment sf = new ShowProductFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("LIST", (ArrayList<? extends Parcelable>) productAllList);
+
+        sf.setArguments(bundle);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.mainFrameLayout, new ShowProductFragment());
-
-        transaction.commit();
+        transaction.replace(R.id.mainFrameLayout, new ShowProductFragment()).addToBackStack(null).commit();
     };
 
     ProductService service = Utils.RETROFIT.create(ProductService.class);
-
     TokenManager manager;
 
     private OnFragmentInteractionListener mListener;
