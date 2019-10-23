@@ -47,9 +47,9 @@ public interface ProductService {
             @Field("id") Integer id
     );
 
-    @GET("/api/product/myProduct?member_id=")
-    Call<Response> getMyProduct(
-            @Query("member_id") String member_id
+    @GET("/api/product/myProduct")
+    Call<TestResponse> getMyProduct(
+            @Header("token") String token
     );
 
     @GET("/api/product/hashtag?hashtag=")

@@ -79,7 +79,7 @@
 
         <Button
             android:id="@+id/myPageButtonAsk"
-            android:layout_width="190dp"
+            android:layout_width="165dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -91,7 +91,7 @@
 
         <Button
             android:id="@+id/myPageButtonProductList"
-            android:layout_width="190dp"
+            android:layout_width="165dp"
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -103,7 +103,7 @@
 
         <Button
             android:id="@+id/myPageButtonTradeList"
-            android:layout_width="190dp"
+            android:layout_width="165dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
@@ -115,7 +115,7 @@
 
         <Button
             android:id="@+id/myPageButtonReport"
-            android:layout_width="190dp"
+            android:layout_width="165dp"
             android:layout_height="60dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"

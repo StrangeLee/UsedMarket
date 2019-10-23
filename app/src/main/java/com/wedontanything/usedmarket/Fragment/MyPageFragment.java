@@ -15,7 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.wedontanything.usedmarket.Activity.LoginActivity;
+import com.wedontanything.usedmarket.Activity.MyProductActivity;
 import com.wedontanything.usedmarket.Activity.MyProductListActivity;
+import com.wedontanything.usedmarket.Activity.PasswordFindActivity;
 import com.wedontanything.usedmarket.DataBase.TokenManager;
 import com.wedontanything.usedmarket.Interface.UserService;
 import com.wedontanything.usedmarket.R;
@@ -46,7 +49,7 @@ public class MyPageFragment extends Fragment {
 
     EditText schoolName, userName;
     ImageView userImage;
-    Button modifyBtn, productListBtn;
+    Button modifyBtn, productListBtn, myProductBtn;
 
     UserService service = Utils.RETROFIT.create(UserService.class);
 
@@ -128,6 +131,7 @@ public class MyPageFragment extends Fragment {
         schoolName = v.findViewById(R.id.myPageEditSchoolName);
         productListBtn = v.findViewById(R.id.myPageButtonProductList);
 
+
         userName.setText("A");
 
         manager = TokenManager.getInstance(getActivity().getApplicationContext());
@@ -149,7 +153,7 @@ public class MyPageFragment extends Fragment {
 
                 if (response.code() == 200) {
                     Log.d("성공", "");
-                    userName.setText(response.body().getData().getName().toString());
+                    userName.setText(response.body().getData().getName());
                     schoolName.setText(response.body().getData().getSchoolName());
                 }
 
@@ -162,7 +166,8 @@ public class MyPageFragment extends Fragment {
         });
 
         productListBtn.setOnClickListener(e -> {
-
+            Intent intent = new Intent(v.getContext(), MyProductActivity.class);
+            startActivity(intent);
         });
 
         userName.setEnabled(false);

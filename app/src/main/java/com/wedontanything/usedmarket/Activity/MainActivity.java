@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 
@@ -37,6 +39,26 @@ public class MainActivity extends AppCompatActivity {
         public void onBackKey();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+           // case R.id.:
+
+                default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
     private  OnKeyBackPressedListener mOnKeyBackPressedListener;
 
     public void setOnKeyBackPressedListener(OnKeyBackPressedListener listener) {
@@ -48,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+      //  setSupportActionBar(toolbar);
 
         // BottomNavigation 생성
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);

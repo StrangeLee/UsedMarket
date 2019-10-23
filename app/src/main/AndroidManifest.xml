@@ -19,6 +19,7 @@
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.PasswordFindActivity" />
         <activity android:name=".Activity.SignUpActivity" />
+        <activity android:name=".Activity.MyProductActivity"/>
         <activity
             android:name=".Activity.LoginActivity"
             android:label="로그인">
