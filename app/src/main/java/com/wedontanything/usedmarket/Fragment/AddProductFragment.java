@@ -19,11 +19,12 @@ import android.widget.Toast;
 import com.wedontanything.usedmarket.Activity.Basic;
 import com.wedontanything.usedmarket.DataBase.TokenManager;
 import com.wedontanything.usedmarket.Interface.ProductService;
+import com.wedontanything.usedmarket.Product.AddProduct;
 import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.R;
-import com.wedontanything.usedmarket.Response.Response;
 import com.wedontanything.usedmarket.Utils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,36 +115,47 @@ public class AddProductFragment extends Fragment {
         addPrice = getActivity().findViewById(R.id.addEditProductPrice);
         addDescription = getActivity().findViewById(R.id.addEditProductContents);
         addHashTag = getActivity().findViewById(R.id.addEditHashTag);
-        addProductName = getActivity().findViewById(R.id.addEditProductName);
 
         Basic basic = new Basic();
         List<String> errMsg = new ArrayList<>();
 
-        if (addButton.getText().toString().isEmpty()) {
-            errMsg.add(addButton.getText().toString());
-        } else if (addProductName.getText().toString().isEmpty()) {
-            errMsg.add(addProductName.getText().toString());
-        } else if (addPrice.getText().toString().isEmpty()) {
-            errMsg.add(addPrice.getText().toString());
-        } else if (addDescription.getText().toString().isEmpty()) {
-            errMsg.add(addDescription.getText().toString());
-        } else if (addHashTag.getText().toString().isEmpty()) {
-            errMsg.add(addHashTag.getText().toString());
-        } else if (categorySpinner.getSelectedItemPosition() == 0) {
-            errMsg.add("카테고리");
-        } else if (iamgeList.size() == 0) {
-            errMsg.add("사진");
-        }
+        errMsg.add(addProductName.getText().toString());
+        errMsg.add(addPrice.getText().toString());
+        errMsg.add(addDescription.getText().toString());
+        errMsg.add(addHashTag.getText().toString());
+        errMsg.add(categorySpinner.getSelectedItem().toString());
 
-        if (errMsg.size() > 0) {
-            //basic.showDialog(getActivity(), "Message", errMsg.get);
-        }
-        //----------------------------------------------------------------------------------------------------------
-        // data send to server
-        manager = TokenManager.getInstance(getActivity().getApplicationContext());
+        addButton.setOnClickListener(e -> {
+            for (int i = 0 ; i < 5; i ++) {
+                if (errMsg.get(i).isEmpty()) {
+                    basic.showDialog(getActivity(), "Message", errMsg.get(i));
+                    return;
+                }
+            }
+
+            //----------------------------------------------------------------------------------------------------------
+            // data send to server
+            manager = TokenManager.getInstance(getActivity().getApplicationContext());
+
+            Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(),
+                    errMsg.get(0), errMsg.get(2), Integer.parseInt(errMsg.get(1)), errMsg.get(3), errMsg.get(4), "A"
+            );
+
+            addProduct.enqueue(new Callback<AddProduct>() {
+                @Override
+                public void onResponse(Call<AddProduct> call, Response<AddProduct> response) {
+                    Log.d("TAG", "상품 추가 성공");
+                }
+
+                @Override
+                public void onFailure(Call<AddProduct> call, Throwable t) {
+
+                }
+            });
+        });
 
 
-        //Call<Response> updateProduct = service.putUpdateProduct()
+
 
         return v;
     }

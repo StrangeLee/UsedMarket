@@ -1,7 +1,6 @@
 package com.wedontanything.usedmarket.Interface;
 
-import android.media.Image;
-
+import com.wedontanything.usedmarket.Product.AddProduct;
 import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.Response.Response;
 
@@ -22,12 +21,14 @@ public interface ProductService {
 
     @FormUrlEncoded
     @POST("/api/product")
-    Call<Response> postProductApply(
+    Call<AddProduct> postProductApply(
             @Header("token") String token,
             @Field("productName") String productName,
             @Field("description") String description,
             @Field("price") int price,
-            @Field("hashtag") String hashtag
+            @Field("hashtag") String hashtag,
+            @Field("category") String category,
+            @Field("image") String image
     );
 
     @GET("/api/product/all")
