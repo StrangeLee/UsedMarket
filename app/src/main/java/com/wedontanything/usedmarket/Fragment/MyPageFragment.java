@@ -38,18 +38,9 @@ import retrofit2.Callback;
  * create an instance of this fragment.
  */
 public class MyPageFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     EditText schoolName, userName;
     ImageView userImage;
-    Button modifyBtn, productListBtn, myProductBtn;
+    Button modifyBtn, productListBtn, LogoutBtn;
 
     UserService service = Utils.RETROFIT.create(UserService.class);
 
@@ -59,60 +50,6 @@ public class MyPageFragment extends Fragment {
 
     public MyPageFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyPageFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MyPageFragment newInstance(String param1, String param2) {
-        MyPageFragment fragment = new MyPageFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-//        manager = TokenManager.getInstance(getActivity().getApplicationContext());
-//
-//        Call<Response<UserInfo>> userInfo = service.getUserInfo(manager.getToken().getToken());
-//
-//        System.out.println("a");
-//        userInfo.enqueue(new Callback<Response<UserInfo>>() {
-//            @Override
-//            public void onResponse(Call<Response<UserInfo>> call, retrofit2.Response<Response<UserInfo>> response) {
-//                Log.d("토큰", "" + manager.getToken().getToken());
-//                System.out.println("b");
-//
-//
-//                Log.d("성공", "" + response.code()
-//                        + " " + response.body().getData().getName());
-////                userName.setText(response.body().getData().getName());
-////                schoolName.setText(response.body().getData().getSchoolName());
-//
-//                if (response.code() == 200) {
-//                    Log.d("성공", "");
-//                    userName.setText(response.body().getData().getName().toString());
-//                    schoolName.setText(response.body().getData().getSchoolName());
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Response<UserInfo>> call, Throwable t) {
-//                Log.d("실패", "");
-//            }
-//        });
     }
 
     @Override
@@ -130,7 +67,7 @@ public class MyPageFragment extends Fragment {
         userName = v.findViewById(R.id.myPageEditUserName);
         schoolName = v.findViewById(R.id.myPageEditSchoolName);
         productListBtn = v.findViewById(R.id.myPageButtonProductList);
-
+        LogoutBtn = v.findViewById(R.id.myPageButtonLogout);
 
         userName.setText("A");
 
@@ -170,13 +107,18 @@ public class MyPageFragment extends Fragment {
             startActivity(intent);
         });
 
+        LogoutBtn.setOnClickListener(e -> {
+//            manager.setToken("");
+            Intent intent = new Intent(v.getContext(), LoginActivity.class);
+            startActivity(intent);
+        });
+
         userName.setEnabled(false);
         schoolName.setEnabled(false);
 
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -197,18 +139,7 @@ public class MyPageFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

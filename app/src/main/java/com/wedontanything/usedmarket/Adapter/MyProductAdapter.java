@@ -34,7 +34,7 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.Hold
     @Override
     public MyProductAdapter.Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_recommend_product_item, viewGroup, false);
-        MyProductAdapter.Holder holder = new MyProductAdapter.Holder(view, clickListener);
+        MyProductAdapter.Holder holder = new MyProductAdapter.Holder(view);
 
         return holder;
     }
@@ -53,19 +53,15 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.Hold
         return myProduct.size();
     }
 
-    public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class Holder extends RecyclerView.ViewHolder {
 
         public ImageView productImg;
         public TextView productName;
         public TextView productSeller;
         public TextView productPrice;
 
-        private RecyclerViewClickListener listener;
-
-        public Holder(@NonNull View itemView, RecyclerViewClickListener listener) {
+        public Holder(@NonNull View itemView) {
             super(itemView);
-            this.listener = listener;
-            itemView.setOnClickListener(this);
 
             productImg = itemView.findViewById(R.id.mainProductImageRecommendItem);
             productName = itemView.findViewById(R.id.mainTextProductNameRecommendItem);
@@ -73,9 +69,6 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.Hold
             productPrice = itemView.findViewById(R.id.mainTextProductPriceRecommendItem);
         }
 
-        @Override
-        public void onClick(View v) {
-            listener.onClick(v, getAdapterPosition());
-        }
+
     }
 }
