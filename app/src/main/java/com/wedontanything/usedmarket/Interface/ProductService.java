@@ -39,7 +39,14 @@ public interface ProductService {
     @FormUrlEncoded
     @PATCH("/api/product/updateProduct/:id")
     Call<Response> putUpdateProduct(
-            @FieldMap HashMap<String, Object> param
+            @Header("tokecn") String token,
+            @Field("productName") String productName,
+            @Field("description") String description,
+            @Field("price") int price,
+            @Field("hashtag") String hashtag,
+            @Field("category") String category,
+            @Field("state") String state,
+            @Field("image") String image
     );
 
     @DELETE("/api/product/deleteProduct/:id")

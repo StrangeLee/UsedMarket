@@ -46,10 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.loginButtonSignUp);
         passwordFindButton = findViewById(R.id.passwordFind);
 
-//        if (manager.getToken().getToken() != "") {
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
-//        }
+        if (manager.getToken().getToken() != "") {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
 
        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 else if(response.code() == 401) {
                     Toast.makeText(LoginActivity.this, "아이디나 비밀번호를 확인해 주세요.", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "서버 에러", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity. this, "서버 에러", Toast.LENGTH_LONG).show();
                 }
             }
 

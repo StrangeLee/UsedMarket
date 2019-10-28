@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.wedontanything.usedmarket.Data.RecentlyAddItem;
+import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
 import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Utils;
 
@@ -20,9 +21,10 @@ import java.util.List;
 public class RecentlyAddAdapter extends RecyclerView.Adapter<RecentlyAddAdapter.Holder> {
 
     private List<RecentlyAddItem> list = new ArrayList<>();
+    private RecyclerViewClickListener clickListener;
 
-    public RecentlyAddAdapter() {
-
+    public RecentlyAddAdapter(RecyclerViewClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     public void setItem(List<RecentlyAddItem> list) {
@@ -34,7 +36,7 @@ public class RecentlyAddAdapter extends RecyclerView.Adapter<RecentlyAddAdapter.
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_recently_add_item, viewGroup, false);
-        Holder holder = new Holder(view);
+        Holder holder = new Holder(view, clickListener);
 
         return holder;
     }
@@ -53,18 +55,27 @@ public class RecentlyAddAdapter extends RecyclerView.Adapter<RecentlyAddAdapter.
         return list.size();
     }
 
-    public class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView productImg;
         public TextView productText;
         public TextView productPrice;
 
-        public Holder(@NonNull View itemView) {
+        private RecyclerViewClickListener listener;
+
+        public Holder(@NonNull View itemView, RecyclerViewClickListener listener) {
             super(itemView);
+            this.listener = listener;
+            itemView.setOnClickListener(this);
 
             productImg = itemView.findViewById(R.id.mainProductImageRecentlyAddItem);
             productText = itemView.findViewById(R.id.mainTextProductNameRecentlyAddItem);
             productPrice = itemView.findViewById(R.id.mainTextProductPriceRecentlyAddItem);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onClick(v, getAdapterPosition());
         }
     }
 

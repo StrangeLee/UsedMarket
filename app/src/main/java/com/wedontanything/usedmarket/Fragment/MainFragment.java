@@ -94,16 +94,16 @@ public class MainFragment extends Fragment {
 
         //------------------------------------------------------------------
         // 최근 본 상품
-        lastAddAdapter = new RecentlyAddAdapter();
+        lastAddAdapter = new RecentlyAddAdapter(listener);
         recentlyAddRecyclerView.setHasFixedSize(true);
         recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
         recentlyAddRecyclerView.setAdapter(lastAddAdapter);
 
         // 추천 상품
         recommendAdapter = new RecommendProductAdapter(listener);
+        recommendRecyclerView.setHasFixedSize(true);
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false));
         recommendRecyclerView.setAdapter(recommendAdapter);
-        recommendRecyclerView.setHasFixedSize(true);
 
         getAllProduct.enqueue(new Callback<TestResponse>() {
             @Override
@@ -115,7 +115,7 @@ public class MainFragment extends Fragment {
                 for (int i = 0; i < productList.size(); i++) {
                     productAllList.add(new Product(productList.get(i).getId(), productList.get(i).getUserId(), productList.get(i).getProductName(),
                             productList.get(i).getDescription(), productList.get(i).getPrice(), productList.get(i).getHeart(), productList.get(i).getHashtag(),
-                            productList.get(i).getUpdateDay(), productList.get(i).getState(), productList.get(i).getImages().get(0).getSrc()));
+                            productList.get(i).getUpdateDay(), productList.get(i).getState(), productList.get(i).getImages().get(0).getSrc(), productList.get(i).getCategory()));
 
                     recommendItemList.add(new RecommandProductItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), productList.get(i).getUserId(),
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));

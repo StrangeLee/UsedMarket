@@ -25,6 +25,8 @@ public class Product implements Parcelable {
 
     private String image;
 
+    private String category;
+
     public static final Creator<Product> CREATOR = new Creator<Product>() {
         @Override
         public Product createFromParcel(Parcel in) {
@@ -81,7 +83,11 @@ public class Product implements Parcelable {
         this.image = image;
     }
 
-    public Product(Integer id, String member_id, String product_name, String description, Integer money, Integer heart_cnt, String hashtag, String update_day, String state, String image) {
+    public String getCategory() {
+        return category;
+    }
+
+    public Product(Integer id, String member_id, String product_name, String description, Integer money, Integer heart_cnt, String hashtag, String update_day, String state, String image, String category) {
         this.id = id;
         this.member_id = member_id;
         this.product_name = product_name;
@@ -92,6 +98,7 @@ public class Product implements Parcelable {
         this.update_day = update_day;
         this.state = state;
         this.image = image;
+        this.category = category;
     }
 
     public Product (Parcel dest) {
@@ -105,6 +112,7 @@ public class Product implements Parcelable {
         update_day = dest.readString();
         state = dest.readString();
         image = dest.readString();
+        category = dest.readString();
     }
 
     @Override
@@ -124,5 +132,6 @@ public class Product implements Parcelable {
         dest.writeString(update_day);
         dest.writeString(state);
         dest.writeString(image);
+        dest.writeString(category);
     }
 }

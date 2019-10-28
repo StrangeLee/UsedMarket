@@ -48,7 +48,6 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         Picasso.get().load(Utils.HOST_URL + mData.get(i).productUri).into(holder.productImg);
-        //holder.productImg.setImageResource(R.drawable.ic_image);
         holder.productPrice.setText(mData.get(i).productPrice);
         holder.productSeller.setText(mData.get(i).productSeller);
         holder.productName.setText(mData.get(i).productName);

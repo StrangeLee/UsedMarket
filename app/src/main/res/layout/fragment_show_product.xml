@@ -13,35 +13,61 @@
         android:layout_height="match_parent">
 
 
+        <TextView
+            android:id="@+id/showTextProductName"
+            android:layout_width="396dp"
+            android:layout_height="75dp"
+            android:layout_margin="5dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="left|center|bottom"
+            android:text="상품 명 : "
+            android:textSize="15pt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/showImageProduct"
             android:layout_width="130dp"
             android:layout_height="144dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showTextProductName"
             tools:src="@tools:sample/avatars" />
 
         <LinearLayout
             android:id="@+id/relativeLayout"
             android:layout_width="260dp"
             android:layout_height="142dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/showImageProduct"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toEndOf="@+id/showImageProduct"
+            app:layout_constraintTop_toTopOf="@+id/showImageProduct">
 
+
+            <TextView
+                android:id="@+id/showTextCategory"
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/text_bottom_line"
+                android:gravity="left|center"
+                android:text="카테고리 : " />
 
             <TextView
                 android:id="@+id/showTextSellerName"
                 android:layout_width="248dp"
                 android:layout_height="26dp"
                 android:layout_margin="5dp"
-                android:gravity="left|center"
                 android:background="@drawable/text_bottom_line"
+                android:gravity="left|center"
                 android:text="판매자 : " />
 
             <TextView
@@ -49,18 +75,9 @@
                 android:layout_width="248dp"
                 android:layout_height="26dp"
                 android:layout_margin="5dp"
-                android:gravity="left|center"
                 android:background="@drawable/text_bottom_line"
+                android:gravity="left|center"
                 android:text="가격 : " />
-
-            <TextView
-                android:id="@+id/showTextProductName"
-                android:layout_width="248dp"
-                android:layout_height="26dp"
-                android:layout_margin="5dp"
-                android:gravity="left|center"
-                android:background="@drawable/text_bottom_line"
-                android:text="상품 명 : " />
 
         </LinearLayout>
 
@@ -72,8 +89,8 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/edittextborder"
-            android:text="설명"
             android:padding="8dp"
+            android:text="설명"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,8 +98,8 @@
 
         <TextView
             android:id="@+id/showTextHashTag"
-            android:layout_width="393dp"
-            android:layout_height="85dp"
+            android:layout_width="389dp"
+            android:layout_height="59dp"
             android:layout_marginTop="8dp"
             android:text="해시태그"
             app:layout_constraintEnd_toEndOf="@+id/showTextContents"
