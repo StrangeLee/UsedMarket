@@ -1,5 +1,8 @@
 package com.wedontanything.usedmarket;
 
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,6 +21,9 @@ public final class Utils {
 
     private static OkHttpClient getClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(1, TimeUnit.MINUTES);
+        builder.readTimeout(30, TimeUnit.SECONDS);
+        builder.writeTimeout(15, TimeUnit.SECONDS);
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             builder.addInterceptor(interceptor);

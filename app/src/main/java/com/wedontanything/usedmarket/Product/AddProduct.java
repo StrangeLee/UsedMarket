@@ -2,19 +2,36 @@ package com.wedontanything.usedmarket.Product;
 
 public class AddProduct {
 
-    String prodcutName;
+    int id;
+    String UserId;
+    String productName;
     String description;
-    String price;
+    int price;
     String hashtag;
     String category;
-    String image;
 
-    public String getProdcutName() {
-        return prodcutName;
+    public int getId() {
+        return id;
     }
 
-    public void setProdcutName(String prodcutName) {
-        this.prodcutName = prodcutName;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getDescription() {
@@ -25,11 +42,11 @@ public class AddProduct {
         this.description = description;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -47,13 +64,5 @@ public class AddProduct {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }

@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="bottom"
+            android:inputType="number"
             android:hint="상품 가격"
             android:textSize="8pt"
             app:layout_constraintEnd_toEndOf="@+id/addEditProductName"

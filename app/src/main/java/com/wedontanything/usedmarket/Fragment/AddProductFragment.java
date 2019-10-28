@@ -49,12 +49,8 @@ import retrofit2.Response;
 
 
 public class AddProductFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private static final int PICK_FROM_ALBUM = 1;
 
-    private String mParam1;
-    private String mParam2;
 
     Spinner categorySpinner;
 
@@ -77,22 +73,9 @@ public class AddProductFragment extends Fragment {
 
     }
 
-    public static AddProductFragment newInstance(String param1, String param2) {
-        AddProductFragment fragment = new AddProductFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -120,26 +103,30 @@ public class AddProductFragment extends Fragment {
         //imageListView = v.findViewById(R.id.addImageList);
 
         // image 클릭 처리
-        addImageView.setOnClickListener(e -> setImage());
+        //addImageView.setOnClickListener(e -> setImage());
 
         Basic basic = new Basic();
         List<String> addString = new ArrayList<>();
 
+//        addButton.setOnClickListener(e -> {
+//            for (int i = 0 ; i < 5; i ++) {
+//                Log.d("add", "" + addString.size());
+////                if (addString.get(i).isEmpty()) {
+////                    basic.showDialog(getActivity(), "Message", addString.get(i));
+////                    return;
+////                }
+//            }
         addButton.setOnClickListener(e -> {
-            for (int i = 0 ; i < 5; i ++) {
-                if (addString.get(i).isEmpty()) {
-                    basic.showDialog(getActivity(), "Message", addString.get(i));
-                    return;
-                }
-            }
+            int price = 0;
 
+            price = Integer.parseInt(addPrice.getText().toString());
             //----------------------------------------------------------------------------------------------------------
             // data send to server
             manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
-            Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(),
-                    addString.get(0), addString.get(2), Integer.parseInt(addString.get(1)), addString.get(3), addString.get(4), "A"
-            );
+            Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(), addProductName.getText().toString(),
+                    addDescription.getText().toString(), price, addHashTag.getText().toString(), categorySpinner.getSelectedItem().toString(), "");
+
 
             addProduct.enqueue(new Callback<AddProduct>() {
                 @Override
@@ -149,10 +136,14 @@ public class AddProductFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<AddProduct> call, Throwable t) {
-
+                    Log.d("TAG", t.toString());
+                    Log.d("TAG", "상품 추가 실패");
                 }
             });
         });
+
+
+        //});
 
         addPicture.setOnClickListener(e -> {
             getPermission();

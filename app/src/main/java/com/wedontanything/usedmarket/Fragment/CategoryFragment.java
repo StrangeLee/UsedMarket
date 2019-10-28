@@ -64,7 +64,7 @@ public class CategoryFragment extends Fragment {
         //--------------------------------------------------------------
 
         categoryAdapter = new CategoryAdapter(categoryListItems);
-        categoryList.setAdapter(categoryAdapter);
+        //categoryList.setAdapter(categoryAdapter);
 
         return v;
     }

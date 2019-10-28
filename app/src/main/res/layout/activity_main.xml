@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#000000"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainFrameLayout" />
-
 
     <FrameLayout
         android:id="@+id/mainFrameLayout"

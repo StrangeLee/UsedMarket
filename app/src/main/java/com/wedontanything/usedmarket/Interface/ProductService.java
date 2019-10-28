@@ -21,7 +21,7 @@ import retrofit2.http.Query;
 public interface ProductService {
 
     @FormUrlEncoded
-    @POST("/api/product")
+    @POST("/api/product/")
     Call<AddProduct> postProductApply(
             @Header("token") String token,
             @Field("productName") String productName,
