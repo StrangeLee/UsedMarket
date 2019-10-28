@@ -91,25 +91,19 @@ public class AddProductFragment extends Fragment {
         categorySpinner.setAdapter(spinnerAdapter);
         //----------------------------------------------------------------------------------------------------------
         // 항목 null 체크
-        addButton = getActivity().findViewById(R.id.addButtonCommit);
-        addProductName = getActivity().findViewById(R.id.addEditProductName);
-        addPrice = getActivity().findViewById(R.id.addEditProductPrice);
-        addDescription = getActivity().findViewById(R.id.addEditProductContents);
-        addHashTag = getActivity().findViewById(R.id.addEditHashTag);
+        addButton = v.findViewById(R.id.addButtonCommit);
+        addProductName = v.findViewById(R.id.addEditProductName);
+        addPrice = v.findViewById(R.id.addEditProductPrice);
+        addDescription = v.findViewById(R.id.addEditProductContents);
+        addHashTag = v.findViewById(R.id.addEditHashTag);
 
         Basic basic = new Basic();
-        List<String> errMsg = new ArrayList<>();
-
-        errMsg.add(addProductName.getText().toString());
-        errMsg.add(addPrice.getText().toString());
-        errMsg.add(addDescription.getText().toString());
-        errMsg.add(addHashTag.getText().toString());
-        errMsg.add(categorySpinner.getSelectedItem().toString());
+        List<String> addString = new ArrayList<>();
 
         addButton.setOnClickListener(e -> {
             for (int i = 0 ; i < 5; i ++) {
-                if (errMsg.get(i).isEmpty()) {
-                    basic.showDialog(getActivity(), "Message", errMsg.get(i));
+                if (addString.get(i).isEmpty()) {
+                    basic.showDialog(getActivity(), "Message", addString.get(i));
                     return;
                 }
             }
@@ -119,7 +113,7 @@ public class AddProductFragment extends Fragment {
             manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
             Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(),
-                    errMsg.get(0), errMsg.get(2), Integer.parseInt(errMsg.get(1)), errMsg.get(3), errMsg.get(4), "A"
+                    addString.get(0), addString.get(2), Integer.parseInt(addString.get(1)), addString.get(3), addString.get(4), "A"
             );
 
             addProduct.enqueue(new Callback<AddProduct>() {

@@ -40,6 +40,7 @@ import retrofit2.Callback;
 
 public class MainFragment extends Fragment {
 
+    // TODO: 추천상품 생성되었다가 사라지는 오류 고치기
     private RecyclerView recentlyAddRecyclerView, recommendRecyclerView;
     private RecentlyAddAdapter lastAddAdapter;
     private RecommendProductAdapter recommendAdapter;

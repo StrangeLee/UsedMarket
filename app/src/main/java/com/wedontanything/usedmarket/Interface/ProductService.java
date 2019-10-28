@@ -15,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ProductService {
@@ -37,9 +38,10 @@ public interface ProductService {
     );
 
     @FormUrlEncoded
-    @PATCH("/api/product/updateProduct/:id")
+    @PATCH("/api/product/updateProduct/{id}")
     Call<Response> putUpdateProduct(
-            @Header("tokecn") String token,
+            @Path("id") String id,
+            @Header("token") String token,
             @Field("productName") String productName,
             @Field("description") String description,
             @Field("price") int price,

@@ -111,18 +111,18 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
 
         tradeCommit.setOnClickListener(e -> {
             manager = TokenManager.getInstance(getActivity().getApplicationContext());
-            Call<Response> updateProdcut = service.putUpdateProduct(manager.getToken().getToken(),
+            Call<Response> updateProduct = service.putUpdateProduct(showProduct.getId().toString(), manager.getToken().getToken(),
                     productNameText.getText().toString(), productContentsText.getText().toString(),
                     showProduct.getMoney(),
                     productHashTagText.getText().toString(), productCategoryText.getText().toString(),
-                    "거래중", "A"
+                    "거래중", ""
                     );
-
-            updateProdcut.enqueue(new Callback<Response>() {
+            Log.d("LOG", updateProduct.request().url().toString() + "A");
+            updateProduct.enqueue(new Callback<Response>() {
                 @Override
                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                     Toast.makeText(getActivity(), "거래중", Toast.LENGTH_LONG).show();
-                    //Log.d("LOG", response.body().toString());
+                    //Log.d("LOG", response.body().toString() + " A");
                     // TODO: 결과값 서버에 요청하기
                 }
 
