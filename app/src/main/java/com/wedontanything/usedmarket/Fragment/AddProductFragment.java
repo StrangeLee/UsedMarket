@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -60,9 +61,12 @@ public class AddProductFragment extends Fragment {
     EditText addProductName, addPrice, addDescription, addHashTag;
     Button addButton, addPicture;
     ListView imageListView;
+    ImageView addImageView;
+    int imageIndex = 0;
 
     File tempFile;
-    List<Bitmap> imageList = new ArrayList<>();
+    //List<Bitmap> imageList = new ArrayList<>();
+    Bitmap [] imageList = new Bitmap[3];
 
     ProductService service = Utils.RETROFIT.create(ProductService.class);
     TokenManager manager;
@@ -112,7 +116,11 @@ public class AddProductFragment extends Fragment {
         addDescription = v.findViewById(R.id.addEditProductContents);
         addHashTag = v.findViewById(R.id.addEditHashTag);
         addPicture = v.findViewById(R.id.addButtonImage);
-        imageListView = v.findViewById(R.id.addImageList);
+        addImageView = v.findViewById(R.id.addImageProductImage);
+        //imageListView = v.findViewById(R.id.addImageList);
+
+        // image 클릭 처리
+        addImageView.setOnClickListener(e -> setImage());
 
         Basic basic = new Basic();
         List<String> addString = new ArrayList<>();
@@ -228,20 +236,25 @@ public class AddProductFragment extends Fragment {
             }
 
             setImage();
+
         }
     }
 
     private void setImage() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
-        if (imageList.size() > 3) {
+        if (imageIndex > 3) {
             Toast.makeText(getActivity(), "이미지는 최대 3개까지만 등록할 수 있습니다.", Toast.LENGTH_LONG);
+            imageIndex = 0;
         } else {
-            imageList.add(bitmap);
+            imageList[imageIndex] = bitmap;
+            Log.d("TAG", imageIndex + "");
         }
-        AddImageAdapter addImageAdapter = new AddImageAdapter(imageList);
-        imageListView.setAdapter(addImageAdapter);
-        addImageAdapter.notifyDataSetChanged();
+//        AddImageAdapter addImageAdapter = new AddImageAdapter(imageList);
+//        imageListView.setAdapter(addImageAdapter);
+//        addImageAdapter.notifyDataSetChanged();
+        addImageView.setImageBitmap(imageList[imageIndex]);
+        imageIndex++;
 
     }
 

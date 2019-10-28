@@ -70,18 +70,19 @@
             app:layout_constraintStart_toStartOf="@+id/addEditProductContents"
             app:layout_constraintTop_toBottomOf="@+id/addEditProductContents" />
 
-        <ListView
-            android:id="@+id/addImageList"
-            android:layout_width="379dp"
-            android:layout_height="103dp"
-            android:layout_marginTop="8dp"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/addEditHashTag"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/addEditHashTag"
-            app:layout_constraintTop_toBottomOf="@+id/addEditHashTag">
 
-        </ListView>
+        <!--<ListView-->
+        <!--android:id="@+id/addImageList"-->
+        <!--android:layout_width="379dp"-->
+        <!--android:layout_height="103dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:visibility="invisible"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/addEditHashTag"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/addEditHashTag"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/addEditHashTag">-->
+
+        <!--</ListView>-->
 
         <Button
             android:id="@+id/addButtonImage"
@@ -99,12 +100,12 @@
             android:id="@+id/addButtonCommit"
             android:layout_width="90dp"
             android:layout_height="35dp"
-            android:layout_marginTop="256dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/btn_line_rect_border"
             android:text="상품 등록"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <android.support.constraint.Guideline
@@ -113,6 +114,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="296dp" />
+
+        <ImageView
+            android:id="@+id/addImageProductImage"
+            android:layout_width="246dp"
+            android:layout_height="196dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/narsh_product_test_img"
+            app:layout_constraintEnd_toEndOf="@+id/addEditHashTag"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addEditHashTag" />
 
     </android.support.constraint.ConstraintLayout>
 
