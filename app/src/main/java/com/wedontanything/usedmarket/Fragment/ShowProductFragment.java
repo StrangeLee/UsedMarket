@@ -117,7 +117,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
                     productHashTagText.getText().toString(), productCategoryText.getText().toString(),
                     "거래중", ""
                     );
-            Log.d("LOG", updateProduct.request().url().toString() + "A");
+            Log.d("LOG", updateProduct.toString());
             updateProduct.enqueue(new Callback<Response>() {
                 @Override
                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {

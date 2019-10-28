@@ -1,9 +1,15 @@
 package com.wedontanything.usedmarket.Fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +19,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.wedontanything.usedmarket.Activity.Basic;
+import com.wedontanything.usedmarket.Adapter.AddImageAdapter;
 import com.wedontanything.usedmarket.DataBase.TokenManager;
 import com.wedontanything.usedmarket.Interface.ProductService;
 import com.wedontanything.usedmarket.Product.AddProduct;
@@ -24,8 +34,10 @@ import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Utils;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -38,6 +50,7 @@ import retrofit2.Response;
 public class AddProductFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int PICK_FROM_ALBUM = 1;
 
     private String mParam1;
     private String mParam2;
@@ -45,9 +58,11 @@ public class AddProductFragment extends Fragment {
     Spinner categorySpinner;
 
     EditText addProductName, addPrice, addDescription, addHashTag;
-    List<Image> iamgeList = new ArrayList<Image>();
-    Button addButton;
-    Button addPicture;
+    Button addButton, addPicture;
+    ListView imageListView;
+
+    File tempFile;
+    List<Bitmap> imageList = new ArrayList<>();
 
     ProductService service = Utils.RETROFIT.create(ProductService.class);
     TokenManager manager;
@@ -96,6 +111,8 @@ public class AddProductFragment extends Fragment {
         addPrice = v.findViewById(R.id.addEditProductPrice);
         addDescription = v.findViewById(R.id.addEditProductContents);
         addHashTag = v.findViewById(R.id.addEditHashTag);
+        addPicture = v.findViewById(R.id.addButtonImage);
+        imageListView = v.findViewById(R.id.addImageList);
 
         Basic basic = new Basic();
         List<String> addString = new ArrayList<>();
@@ -129,10 +146,39 @@ public class AddProductFragment extends Fragment {
             });
         });
 
-
-
+        addPicture.setOnClickListener(e -> {
+            getPermission();
+        });
 
         return v;
+    }
+
+    private void getPermission() {
+        PermissionListener permissionListener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Log.d("Log", "권한 요청 성공");
+                goToAlbume();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+
+            }
+        };
+
+        TedPermission.with(getActivity())
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage(getResources().getString(R.string.permission2))
+                .setDeniedMessage(getResources().getString(R.string.permission1))
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .check();
+    }
+
+    private void goToAlbume() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -155,8 +201,51 @@ public class AddProductFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_FROM_ALBUM) {
+            Uri photoUri = data.getData();
+
+            Cursor cursor = null;
+            try {
+                String [] proj = { MediaStore.Images.Media.DATA};
+                assert photoUri != null;
+                cursor = getContext().getContentResolver().query(photoUri, proj, null, null, null);
+
+                assert cursor != null;
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                cursor.moveToFirst();
+
+                tempFile = new File(cursor.getString(column_index));
+
+            } catch (Exception e) {
+                Log.d("TAG", e.getMessage() + "");
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+
+            setImage();
+        }
+    }
+
+    private void setImage() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
+        if (imageList.size() > 3) {
+            Toast.makeText(getActivity(), "이미지는 최대 3개까지만 등록할 수 있습니다.", Toast.LENGTH_LONG);
+        } else {
+            imageList.add(bitmap);
+        }
+        AddImageAdapter addImageAdapter = new AddImageAdapter(imageList);
+        imageListView.setAdapter(addImageAdapter);
+        addImageAdapter.notifyDataSetChanged();
+
+    }
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
