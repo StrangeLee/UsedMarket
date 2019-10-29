@@ -98,16 +98,16 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         tradeCommit = v.findViewById(R.id.showButtonRequest);
         productCategoryText = v.findViewById(R.id.showTextCategory);
 
-        productSellerText.setText(showProduct.getMember_id());
+        productSellerText.setText("판매자 : " + showProduct.getMember_id());
         productNameText.setText(showProduct.getProduct_name());
-        productPriceText.setText(new DecimalFormat("#,##0원").format(showProduct.getMoney()));
+        productPriceText.setText("가격 : " + new DecimalFormat("#,##0원").format(showProduct.getMoney()));
         productContentsText.setText(showProduct.getDescription());
         productHashTagText.setText(showProduct.getHashtag());
-        productCategoryText.setText(showProduct.getCategory());
+        productCategoryText.setText("카테고리 : " + showProduct.getCategory());
         Log.d("LOG", productNameText.getText().toString());
         Picasso.get().load(Utils.HOST_URL + showProduct.getImage()).into(productImage);
 
-        tradeCommit.setText(showProduct.getState());
+        tradeCommit.setText("판매중");
 
         tradeCommit.setOnClickListener(e -> {
             manager = TokenManager.getInstance(getActivity().getApplicationContext());

@@ -68,6 +68,9 @@ public class MyPageFragment extends Fragment {
         schoolName = v.findViewById(R.id.myPageEditSchoolName);
         productListBtn = v.findViewById(R.id.myPageButtonProductList);
         LogoutBtn = v.findViewById(R.id.myPageButtonLogout);
+        userImage = v.findViewById(R.id.myPageImageUserImage);
+
+        userImage.setImageResource(R.drawable.main_logo);
 
         userName.setText("A");
 

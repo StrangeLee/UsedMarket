@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.wedontanything.usedmarket.DataBase.TokenManager;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText pw;
 
     private EditText name;
+    private ImageView loginImage;
 
     UserService service = Utils.RETROFIT.create(UserService.class);
 
@@ -45,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButtonLogin);
         signupButton = findViewById(R.id.loginButtonSignUp);
         passwordFindButton = findViewById(R.id.passwordFind);
+        loginImage = findViewById(R.id.loginImage);
+
+        loginImage.setImageResource(R.drawable.name_logo_cute);
 
 //        if (manager.getToken().getToken() != "") {
 //            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -54,7 +59,8 @@ public class LoginActivity extends AppCompatActivity {
        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+
+               login();
             }
         });
 
@@ -82,11 +88,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-
         id = findViewById(R.id.loginEditId);
         pw = findViewById(R.id.loginEditPassword);
 
         name = findViewById(R.id.myPageEditUserName);
+
+        if (id.getText().toString().equals("") || pw.getText().toString().equals("")) {
+            Toast.makeText(this, "아이디나 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Call<Response<LoginData>> postLogin = service.postLogin(id.getText().toString(),
                 pw.getText().toString());

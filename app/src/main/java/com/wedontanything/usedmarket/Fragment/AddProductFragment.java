@@ -124,6 +124,7 @@ public class AddProductFragment extends Fragment {
             // data send to server
             manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
+            // TODO : 이미지 처리하기
             Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(), addProductName.getText().toString(),
                     addDescription.getText().toString(), price, addHashTag.getText().toString(), categorySpinner.getSelectedItem().toString(), "");
 
