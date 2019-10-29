@@ -106,7 +106,6 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         productImage = v.findViewById(R.id.showImageProduct);
         tradeCommit = v.findViewById(R.id.showButtonRequest);
         productCategoryText = v.findViewById(R.id.showTextCategory);
-        deleteBtn = v.findViewById(R.id.showButtonDelete);
         heart = v.findViewById(R.id.showButtonHeart);
 
         productSellerText.setText("판매자 : " + showProduct.getMember_id());
