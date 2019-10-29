@@ -9,8 +9,6 @@ public class Response<T> {
     @SerializedName(value = "data")
     private T data;
 
-    private String message;
-
     public Integer getStatus() {
         return status;
     }
@@ -25,13 +23,5 @@ public class Response<T> {
 
     public void setData(T data) {
         this.data = data;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

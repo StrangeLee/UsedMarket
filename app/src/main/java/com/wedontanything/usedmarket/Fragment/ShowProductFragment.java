@@ -21,6 +21,7 @@ import com.wedontanything.usedmarket.Activity.Basic;
 import com.wedontanything.usedmarket.Activity.MainActivity;
 import com.wedontanything.usedmarket.Data.ProductData;
 import com.wedontanything.usedmarket.DataBase.TokenManager;
+import com.wedontanything.usedmarket.Interface.HeartService;
 import com.wedontanything.usedmarket.Interface.ProductService;
 import com.wedontanything.usedmarket.Product.Product;
 import com.wedontanything.usedmarket.Product.UpdateProduct;
@@ -52,9 +53,15 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
 
     Button tradeCommit;
     Button heart;
+    Button deleteBtn;
 
+    private static final String UNHEART = "♡";
+    private static final String HEART = "♥";
+
+    Boolean heartCheck = false;
     // server connection
-    ProductService service = Utils.RETROFIT.create(ProductService.class);
+    ProductService productservice = Utils.RETROFIT.create(ProductService.class);
+    HeartService heartService = Utils.RETROFIT.create(HeartService.class);
     TokenManager manager;
 
     private OnFragmentInteractionListener mListener;
@@ -89,6 +96,8 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_show_product, container, false);
 
+        manager = TokenManager.getInstance(getActivity().getApplicationContext());
+
         productSellerText = v.findViewById(R.id.showTextSellerName);
         productPriceText = v.findViewById(R.id.showTextProductPrice);
         productNameText = v.findViewById(R.id.showTextProductName);
@@ -97,6 +106,8 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         productImage = v.findViewById(R.id.showImageProduct);
         tradeCommit = v.findViewById(R.id.showButtonRequest);
         productCategoryText = v.findViewById(R.id.showTextCategory);
+        deleteBtn = v.findViewById(R.id.showButtonDelete);
+        heart = v.findViewById(R.id.showButtonHeart);
 
         productSellerText.setText("판매자 : " + showProduct.getMember_id());
         productNameText.setText(showProduct.getProduct_name());
@@ -109,9 +120,59 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
 
         tradeCommit.setText("판매중");
 
+//        deleteBtn.setOnClickListener(e -> {
+//            Call<Response> deleteProduct = service.deleteProduct(manager.getToken().getToken(), showProduct.getId());
+//
+//            deleteProduct.enqueue(new Callback<Response>() {
+//                @Override
+//                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Response> call, Throwable t) {
+//
+//                }
+//            });
+//        });
+        heart.setOnClickListener(e -> {
+            if (heartCheck == false) {
+                Call<Response> heartcheck = heartService.postClickHeart(manager.getToken().getToken(), showProduct.getId());
+                heartCheck = true;
+                heart.setText(HEART);
+                heartcheck.enqueue(new Callback<Response>() {
+                    @Override
+                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+
+                        Log.d("찜하기 성공", "" + response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Response> call, Throwable t) {
+                        Log.d("찜하기 실패", t.toString());
+                    }
+                });
+            }
+            else if(heartCheck == true) {
+                Call<Response> unHeart = heartService.postUnClickHeart(manager.getToken().getToken(), showProduct.getId());
+                heartCheck = false;
+                heart.setText(UNHEART);
+                unHeart.enqueue(new Callback<Response>() {
+                    @Override
+                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                        Log.d("찜하기 취소", "" + response.body());
+
+                    }
+                    @Override
+                    public void onFailure(Call<Response> call, Throwable t) {
+                        Log.d("찜하기 취소 실패", t.toString());
+                    }
+                });
+            }
+        });
+
         tradeCommit.setOnClickListener(e -> {
-            manager = TokenManager.getInstance(getActivity().getApplicationContext());
-            Call<Response> updateProduct = service.putUpdateProduct(showProduct.getId().toString(), manager.getToken().getToken(),
+            Call<Response> updateProduct = productservice.putUpdateProduct(showProduct.getId().toString(), manager.getToken().getToken(),
                     productNameText.getText().toString(), productContentsText.getText().toString(),
                     showProduct.getMoney(),
                     productHashTagText.getText().toString(), productCategoryText.getText().toString(),
@@ -123,6 +184,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                     Toast.makeText(getActivity(), "거래중", Toast.LENGTH_LONG).show();
                     //Log.d("LOG", response.body().toString() + " A");
+
                     // TODO: 결과값 서버에 요청하기
                 }
 

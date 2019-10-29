@@ -72,18 +72,20 @@ public class SignUpActivity extends AppCompatActivity {
                 inputPassword.getText().toString(), inputemail.getText().toString(), inputPhoneNumber.getText().toString(),
                 inputSchoolName.getText().toString());
 
+        for (int i = 0; i < inputList.size(); i++) {
+            if (inputList.get(i).equals("")) {
+                Toast.makeText(SignUpActivity.this, "비어있는 항목이 있습니다. 빈 값을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
         postSignup.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
                 //TODO: 예외처리
 
-                for (int i = 0; i < inputList.size(); i++) {
-                    if (inputList.get(i).equals("")) {
-                        Toast.makeText(SignUpActivity.this, "비어있는 항목이 있습니다. 빈 값을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
+
 
                 Log.d("성공", "onResponse: " + response.message());
                 Toast.makeText(SignUpActivity.this, "회원 가입이 되었습니다. ", Toast.LENGTH_LONG).show();

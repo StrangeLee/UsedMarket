@@ -1,23 +1,24 @@
 package com.wedontanything.usedmarket.Interface;
 
+import com.wedontanything.usedmarket.Response.Response;
+
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface HeartService {
-    @FormUrlEncoded
-    @POST("/api/heart/click/:id")
+    @POST("/api/heart/click/{id}")
     Call<Response> postClickHeart(
-            @Field("product_id") String product_id,
-            @Field("member_id") String member_id
+            @Header("token") String token,
+            @Path("id") int id
     );
 
-    @FormUrlEncoded
-    @POST("/api/heart/unClick/:id")
+    @POST("/api/heart/unClick/{id}")
     Call<Response> postUnClickHeart(
-            @Field("product_id") String product_id,
-            @Field("member_id") String member_id
+            @Header("token") String token,
+            @Path("id") Integer id
     );
 }

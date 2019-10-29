@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,169 +6,166 @@
     android:layout_height="match_parent"
     tools:context=".Activity.SignUpActivity">
 
-    <android.support.constraint.ConstraintLayout
+  <android.support.constraint.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+    </ScrollView>
 
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/signUpEditId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="아이디 입력"
+        android:inputType="textPersonName"
+        android:textSize="5pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:met_baseColor="@color/cardview_dark_background"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="15"
+        app:met_minCharacters="6" />
 
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/signUpEditName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="이름"
+        android:inputType="textPersonName"
+        android:textSize="5pt"
+        app:layout_constraintStart_toStartOf="@+id/signUpEditCheckPassword"
+        app:layout_constraintTop_toBottomOf="@+id/signUpEditCheckPassword"
+        app:met_baseColor="@color/cardview_dark_background"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="14"
+        app:met_minCharacters="2"/>
 
-        </ScrollView>
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/signUpEditPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="text"
+        android:textSize="5pt"
+        app:layout_constraintStart_toStartOf="@+id/signUpEditId"
+        app:layout_constraintTop_toBottomOf="@+id/signUpEditId"
+        app:met_baseColor="@color/cardview_dark_background"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="16"
+        app:met_minCharacters="8"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/signUpEditId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:ems="10"
-            android:hint="아이디 입력"
-            android:inputType="textPersonName"
-            android:textSize="5pt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:met_baseColor="@color/cardview_dark_background"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="15"
-            app:met_minCharacters="6" />
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/signUpEditCheckPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        android:textSize="5pt"
+        app:layout_constraintStart_toStartOf="@+id/signUpEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/signUpEditPassword"
+        app:met_baseColor="@color/cardview_dark_background"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="16"
+        app:met_minCharacters="8"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/signUpEditName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="이름"
-            android:inputType="textPersonName"
-            android:textSize="5pt"
-            app:layout_constraintStart_toStartOf="@+id/signUpEditCheckPassword"
-            app:layout_constraintTop_toBottomOf="@+id/signUpEditCheckPassword"
-            app:met_baseColor="@color/cardview_dark_background"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="14"
-            app:met_minCharacters="2"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/signUpEditPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="비밀번호"
-            android:inputType="text"
-            android:textSize="5pt"
-            app:layout_constraintStart_toStartOf="@+id/signUpEditId"
-            app:layout_constraintTop_toBottomOf="@+id/signUpEditId"
-            app:met_baseColor="@color/cardview_dark_background"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="16"
-            app:met_minCharacters="8"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/signUpEditCheckPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="비밀번호 확인"
-            android:inputType="textPassword"
-            android:textSize="5pt"
-            app:layout_constraintStart_toStartOf="@+id/signUpEditPassword"
-            app:layout_constraintTop_toBottomOf="@+id/signUpEditPassword"
-            app:met_baseColor="@color/cardview_dark_background"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="16"
-            app:met_minCharacters="8"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/signUpEditSchool"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="학교"
-            android:inputType="text"
-            android:textSize="5pt"
-            app:layout_constraintStart_toStartOf="@+id/signUpEditName"
-            app:layout_constraintTop_toBottomOf="@+id/signUpEditName"
-            app:met_baseColor="@color/cardview_dark_background"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="15"
-            app:met_minCharacters="2"
-            />
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/signUpEditSchool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="학교"
+        android:inputType="text"
+        android:textSize="5pt"
+        app:layout_constraintStart_toStartOf="@+id/signUpEditName"
+        app:layout_constraintTop_toBottomOf="@+id/signUpEditName"
+        app:met_baseColor="@color/cardview_dark_background"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="15"
+        app:met_minCharacters="2"
+        />
 
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/signUpEditEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="이메일"
-            android:inputType="textPersonName"
-            android:textSize="5pt"
-            app:layout_constraintStart_toStartOf="@+id/signUpEditSchool"
-            app:layout_constraintTop_toBottomOf="@+id/signUpEditSchool"
-            app:met_baseColor="@color/cardview_dark_background"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="18"
-            app:met_minCharacters="10"/>
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/signUpEditEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="이메일"
+        android:inputType="textPersonName"
+        android:textSize="5pt"
+        app:layout_constraintStart_toStartOf="@+id/signUpEditSchool"
+        app:layout_constraintTop_toBottomOf="@+id/signUpEditSchool"
+        app:met_baseColor="@color/cardview_dark_background"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="18"
+        app:met_minCharacters="10"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/signUpEditPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="휴대폰 번호(- 제외)"
-            android:inputType="textPersonName"
-            android:textSize="5pt"
-            app:layout_constraintStart_toStartOf="@+id/signUpEditEmail"
-            app:layout_constraintTop_toBottomOf="@+id/signUpEditEmail"
-            app:met_baseColor="@color/cardview_dark_background"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="15"
-            app:met_minCharacters="9"/>
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/signUpEditPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="휴대폰 번호(- 제외)"
+        android:inputType="textPersonName"
+        android:textSize="5pt"
+        app:layout_constraintStart_toStartOf="@+id/signUpEditEmail"
+        app:layout_constraintTop_toBottomOf="@+id/signUpEditEmail"
+        app:met_baseColor="@color/cardview_dark_background"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="15"
+        app:met_minCharacters="9"/>
 
-        <Button
-            android:id="@+id/signUpButtonCommit"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="회원가입"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/btn_border_rect_purple"
-            app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/signUpButtonCommit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="회원가입"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/btn_border_rect_purple"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-    </android.support.constraint.ConstraintLayout>
+  </android.support.constraint.ConstraintLayout>
 
 
 </FrameLayout>
-

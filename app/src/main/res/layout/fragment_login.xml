@@ -47,26 +47,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="287dp" />
 
-        <CheckBox
-            android:id="@+id/loginCheckKeepLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="로그인 유지"
-            app:layout_constraintStart_toStartOf="@+id/loginEditPassword"
-            app:layout_constraintTop_toBottomOf="@+id/loginEditPassword" />
-
-        <CheckBox
-            android:id="@+id/loginCheckKeepId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:text="아이디 저장"
-            app:layout_constraintBottom_toBottomOf="@+id/loginCheckKeepLogin"
-            app:layout_constraintStart_toEndOf="@+id/loginCheckKeepLogin"
-            app:layout_constraintTop_toTopOf="@+id/loginCheckKeepLogin"
-            app:layout_constraintVertical_bias="0.0" />
-
         <Button
             android:id="@+id/loginButtonLogin"
             android:layout_width="295dp"
