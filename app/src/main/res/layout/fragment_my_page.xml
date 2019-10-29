@@ -102,13 +102,13 @@
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
         <Button
-            android:id="@+id/myPageButtonTradeList"
+            android:id="@+id/myPageButtonHeartList"
             android:layout_width="165dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/btn_line_rect_border"
-            android:text="거래내역"
+            android:text="찜한 상품 목록"
             android:textSize="10pt"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="parent" />

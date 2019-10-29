@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.wedontanything.usedmarket.Activity.HeartProductActivity;
 import com.wedontanything.usedmarket.Activity.LoginActivity;
 import com.wedontanything.usedmarket.Activity.MyProductActivity;
 import com.wedontanything.usedmarket.Activity.MyProductListActivity;
@@ -34,13 +35,12 @@ import retrofit2.Callback;
  * Activities that contain this fragment must implement the
  * {@link MyPageFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MyPageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class MyPageFragment extends Fragment {
     EditText schoolName, userName;
     ImageView userImage;
-    Button modifyBtn, productListBtn, LogoutBtn;
+    Button modifyBtn, productListBtn, LogoutBtn, heartListBtn;
 
     UserService service = Utils.RETROFIT.create(UserService.class);
 
@@ -68,6 +68,7 @@ public class MyPageFragment extends Fragment {
         schoolName = v.findViewById(R.id.myPageEditSchoolName);
         productListBtn = v.findViewById(R.id.myPageButtonProductList);
         LogoutBtn = v.findViewById(R.id.myPageButtonLogout);
+        heartListBtn = v.findViewById(R.id.myPageButtonHeartList);
         userImage = v.findViewById(R.id.myPageImageUserImage);
 
         userImage.setImageResource(R.drawable.main_logo);
@@ -113,6 +114,11 @@ public class MyPageFragment extends Fragment {
         LogoutBtn.setOnClickListener(e -> {
 //            manager.setToken("");
             Intent intent = new Intent(v.getContext(), LoginActivity.class);
+            startActivity(intent);
+        });
+
+        heartListBtn.setOnClickListener(e -> {
+            Intent intent = new Intent(v.getContext(), HeartProductActivity.class);
             startActivity(intent);
         });
 
