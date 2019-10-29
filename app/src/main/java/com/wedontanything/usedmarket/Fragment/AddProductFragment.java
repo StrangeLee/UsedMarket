@@ -66,6 +66,7 @@ public class AddProductFragment extends Fragment {
     int imageIndex = 0;
 
     File tempFile;
+    File file;
     //List<Bitmap> imageList = new ArrayList<>();
     Bitmap [] imageList = new Bitmap[3];
 
@@ -119,21 +120,30 @@ public class AddProductFragment extends Fragment {
             manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
             // 예외처리
-            for (int i = 0 ; i < addString.size(); i ++) {
-                if (addString.get(i).equals("") || imageList[0] == null) {
-                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있거나 사진을 추가해주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
+//            for (int i = 0 ; i < addString.size(); i ++) {
+//                if (addString.get(i).equals("") || imageList[0] == null) {
+//                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있거나 사진을 추가해주세요.", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//            }
 
-            int price = 0;
+//            int price = 0;
+//            price = Integer.parseInt(addPrice.getText().toString());
 
-            price = Integer.parseInt(addPrice.getText().toString());
+            // 인터페이스 인자값 생성
+            RequestBody reqImage = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), reqImage);
+
+            RequestBody productName = RequestBody.create(MediaType.parse("text/plain"), addProductName.getText().toString());
+            RequestBody description = RequestBody.create(MediaType.parse("text/plain"), addDescription.getText().toString());
+            RequestBody hashTag = RequestBody.create(MediaType.parse("text/plain"), addHashTag.getText().toString());
+            RequestBody category = RequestBody.create(MediaType.parse("text/plain"), categorySpinner.getSelectedItem().toString());
+            RequestBody price = RequestBody.create(MediaType.parse("text/plain"), addPrice.getText().toString());
+
 
             // TODO : 이미지 처리하기
-            Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(), addProductName.getText().toString(),
-                    addDescription.getText().toString(), price, addHashTag.getText().toString(), categorySpinner.getSelectedItem().toString(), "");
-
+            Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(), productName,
+                    description, price, hashTag, category, part);
 
             addProduct.enqueue(new Callback<AddProduct>() {
                 @Override
@@ -250,16 +260,8 @@ public class AddProductFragment extends Fragment {
             Log.d("TAG", imageIndex + "");
         }
 
-        File file = new File(tempFile.getAbsolutePath());
+        file = new File(tempFile.getAbsolutePath());
         // Create a request body with file and image media type
-        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
-        // Create MultipartBody.Part using file request-body,file name and part name
-        MultipartBody.Part part = MultipartBody.Part.createFormData("upload", file.getName(), fileReqBody);
-        //Create request body with text description and text media type
-        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
-
-        //Log.d("LOG", );
-        // -> enque함수 실행
 
         addImageView.setImageBitmap(imageList[imageIndex]);
         imageIndex++;

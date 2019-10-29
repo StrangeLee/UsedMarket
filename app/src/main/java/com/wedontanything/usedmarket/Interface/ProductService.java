@@ -8,6 +8,8 @@ import com.wedontanything.usedmarket.Response.Response;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -28,12 +30,12 @@ public interface ProductService {
     @POST("/api/product/")
     Call<AddProduct> postProductApply(
             @Header("token") String token,
-            @Part("productName") String productName,
-            @Part("description") String description,
-            @Part("price") int price,
-            @Part("hashtag") String hashtag,
-            @Part("category") String category,
-            @Part("image") String image
+            @Part("productName") RequestBody productName,
+            @Part("description") RequestBody description,
+            @Part("price") RequestBody price,
+            @Part("hashtag") RequestBody hashtag,
+            @Part("category") RequestBody category,
+            @Part MultipartBody.Part image
     );
 
     @GET("/api/product/all")
