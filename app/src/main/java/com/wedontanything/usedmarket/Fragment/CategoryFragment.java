@@ -22,6 +22,7 @@ import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
+    // TODO : Product 에서 카테고리만 분류해서 띄우기
     ListView categoryList;
     CategoryAdapter categoryAdapter;
 
@@ -29,7 +30,6 @@ public class CategoryFragment extends Fragment {
 
     public CategoryFragment() {
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

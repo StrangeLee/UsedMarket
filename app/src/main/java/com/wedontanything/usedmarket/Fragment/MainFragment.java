@@ -40,7 +40,7 @@ import retrofit2.Callback;
 
 public class MainFragment extends Fragment {
 
-    // TODO: 추천상품 생성되었다가 사라지는 오류 고치기
+    // TODO : XML고치기, 배너 생성, font바꾸기, 카테고리 바꾸고, Border 추가하고, 예외처리 알고리즘 한번 확인해보기 사진이 문제인듯
     private RecyclerView recentlyAddRecyclerView, recommendRecyclerView;
     private RecentlyAddAdapter lastAddAdapter;
     private RecommendProductAdapter recommendAdapter;

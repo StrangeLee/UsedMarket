@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Response<LoginData>> call, retrofit2.Response<Response<LoginData>> response) {
                 // Todo: 에러 메시지 뛰우기
+                // TODO : 회원가입 하고 새로 만든 아이디의 토큰이 반환되지 않은 경우 처리
                 manager.setToken(response.body().getData().getToken().getToken());
 
 //                name.setText(response.body().getData().getUser().getName());
@@ -122,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else if(response.code() == 401) {
                     Toast.makeText(LoginActivity.this, "아이디나 비밀번호를 확인해 주세요.", LENGTH_LONG).show();
+                    // TODO : 로그인 실패 request 값
                 } else {
                     Toast.makeText(LoginActivity. this, "서버 에러", LENGTH_LONG).show();
                 }

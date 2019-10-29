@@ -38,6 +38,9 @@ import retrofit2.Callback;
  * create an instance of this fragment.
  */
 public class MyPageFragment extends Fragment {
+
+    // TODO : 문의하기 눌렀을때 준비중 다이얼로그 뜨기, 등록한 상품 찜한 상품 각자 타이틀 만들어주기
+
     EditText schoolName, userName;
     ImageView userImage;
     Button modifyBtn, productListBtn, LogoutBtn, heartListBtn;

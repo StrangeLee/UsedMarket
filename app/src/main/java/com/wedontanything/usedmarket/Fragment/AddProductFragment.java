@@ -56,9 +56,7 @@ import retrofit2.Retrofit;
 public class AddProductFragment extends Fragment {
     private static final int PICK_FROM_ALBUM = 1;
 
-
     Spinner categorySpinner;
-
     EditText addProductName, addPrice, addDescription, addHashTag;
     Button addButton, addPicture;
     ListView imageListView;
@@ -67,12 +65,10 @@ public class AddProductFragment extends Fragment {
 
     File tempFile;
     File file;
-    //List<Bitmap> imageList = new ArrayList<>();
     Bitmap [] imageList = new Bitmap[3];
 
     ProductService service = Utils.RETROFIT.create(ProductService.class);
     TokenManager manager;
-
     private OnFragmentInteractionListener mListener;
 
     public AddProductFragment() {
@@ -144,7 +140,7 @@ public class AddProductFragment extends Fragment {
                 @Override
                 public void onResponse(Call<AddProduct> call, Response<AddProduct> response) {
                     Log.d("TAG", "상품 추가 성공");
-                    //Intent intent = new Intent(v.getContext(), Ma);
+                    // TODO : 성공시 메인으로 이동 및 TOAST 띄우기 TOAST띄우기 먼저
                 }
 
                 @Override

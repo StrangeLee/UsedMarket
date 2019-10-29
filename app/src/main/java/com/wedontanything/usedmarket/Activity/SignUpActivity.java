@@ -42,6 +42,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         signupButton = findViewById(R.id.signUpButtonCommit);
 
+        // Todo: 키보드가 나타나면 안드로이드 화면도 올라가게
+
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,9 +85,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
-                //TODO: 예외처리
-
-
 
                 Log.d("성공", "onResponse: " + response.message());
                 Toast.makeText(SignUpActivity.this, "회원 가입이 되었습니다. ", Toast.LENGTH_LONG).show();

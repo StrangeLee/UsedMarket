@@ -39,8 +39,8 @@ import retrofit2.Callback;
 
 public class ShowProductFragment extends Fragment implements MainActivity.OnKeyBackPressedListener {
 
+    // TODO : 사진 크기 고정, 해쉬태그 짤리는거, 삭제 버튼 삭제, 판매중 버튼 작동 똑바로(구매가능 ,거래중, 거래완료), Heart Button Background 색 White 로 바꾸기
     private Product showProduct;
-
     ProductData data = new ProductData();
 
     TextView productCategoryText;
