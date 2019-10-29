@@ -87,7 +87,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
             showProduct = getArguments().getParcelable("LIST");
         } else {
             showProduct = new Product(1, "a", "A", "a", 1, 1, "a", "a", "A", "a", "A");
-            // TODO: 다이얼로그 표시
+            Toast.makeText(getActivity(), "네트워크 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
         }
     }
 

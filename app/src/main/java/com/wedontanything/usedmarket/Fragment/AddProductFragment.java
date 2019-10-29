@@ -137,7 +137,6 @@ public class AddProductFragment extends Fragment {
             RequestBody category = RequestBody.create(MediaType.parse("text/plain"), categorySpinner.getSelectedItem().toString());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), addPrice.getText().toString());
 
-            // TODO : 이미지 처리하기
             Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(), productName,
                     description, price, hashTag, category, part);
 
