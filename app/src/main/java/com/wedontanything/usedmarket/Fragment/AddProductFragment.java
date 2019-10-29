@@ -120,15 +120,12 @@ public class AddProductFragment extends Fragment {
             manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
             // 예외처리
-//            for (int i = 0 ; i < addString.size(); i ++) {
-//                if (addString.get(i).equals("") || imageList[0] == null) {
-//                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있거나 사진을 추가해주세요.", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//            }
-
-//            int price = 0;
-//            price = Integer.parseInt(addPrice.getText().toString());
+            for (int i = 0 ; i < addString.size(); i ++) {
+                if (addString.get(i).equals("") || imageList[0] == null) {
+                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있거나 사진을 추가해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
 
             // 인터페이스 인자값 생성
             RequestBody reqImage = RequestBody.create(MediaType.parse("image/*"), file);
@@ -139,7 +136,6 @@ public class AddProductFragment extends Fragment {
             RequestBody hashTag = RequestBody.create(MediaType.parse("text/plain"), addHashTag.getText().toString());
             RequestBody category = RequestBody.create(MediaType.parse("text/plain"), categorySpinner.getSelectedItem().toString());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), addPrice.getText().toString());
-
 
             // TODO : 이미지 처리하기
             Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(), productName,
@@ -158,9 +154,6 @@ public class AddProductFragment extends Fragment {
                 }
             });
         });
-
-
-        //});
 
         addPicture.setOnClickListener(e -> {
             getPermission();
