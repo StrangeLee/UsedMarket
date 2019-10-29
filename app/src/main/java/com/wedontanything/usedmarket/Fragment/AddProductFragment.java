@@ -120,12 +120,12 @@ public class AddProductFragment extends Fragment {
             manager = TokenManager.getInstance(getActivity().getApplicationContext());
 
             // 예외처리
-            for (int i = 0 ; i < addString.size(); i ++) {
-                if (addString.get(i).equals("") || imageList[0] == null) {
-                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있거나 사진을 추가해주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
+//            for (int i = 0 ; i < addString.size(); i ++) {
+//                if (addString.get(i).equals("") || imageList[0] == null) {
+//                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있거나 사진을 추가해주세요.", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//            }
 
             // 인터페이스 인자값 생성
             RequestBody reqImage = RequestBody.create(MediaType.parse("image/*"), file);
@@ -144,6 +144,7 @@ public class AddProductFragment extends Fragment {
                 @Override
                 public void onResponse(Call<AddProduct> call, Response<AddProduct> response) {
                     Log.d("TAG", "상품 추가 성공");
+                    //Intent intent = new Intent(v.getContext(), Ma);
                 }
 
                 @Override
