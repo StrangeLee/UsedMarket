@@ -105,29 +105,30 @@ public class AddProductFragment extends Fragment {
         addHashTag = v.findViewById(R.id.addEditHashTag);
         addPicture = v.findViewById(R.id.addButtonImage);
         addImageView = v.findViewById(R.id.addImageProductImage);
-        //imageListView = v.findViewById(R.id.addImageList);
 
-        // image 클릭 처리
-        //addImageView.setOnClickListener(e -> setImage());
-
-        Basic basic = new Basic();
         List<String> addString = new ArrayList<>();
 
-//        addButton.setOnClickListener(e -> {
-//            for (int i = 0 ; i < 5; i ++) {
-//                Log.d("add", "" + addString.size());
-////                if (addString.get(i).isEmpty()) {
-////                    basic.showDialog(getActivity(), "Message", addString.get(i));
-////                    return;
-////                }
-//            }
-        addButton.setOnClickListener(e -> {
-            int price = 0;
+        addString.add(addProductName.getText().toString());
+        addString.add(addPrice.getText().toString());
+        addString.add(addDescription.getText().toString());
 
-            price = Integer.parseInt(addPrice.getText().toString());
+        addButton.setOnClickListener(e -> {
+
             //----------------------------------------------------------------------------------------------------------
             // data send to server
             manager = TokenManager.getInstance(getActivity().getApplicationContext());
+
+            // 예외처리
+            for (int i = 0 ; i < addString.size(); i ++) {
+                if (addString.get(i).equals("") || imageList[0] == null) {
+                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있거나 사진을 추가해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            int price = 0;
+
+            price = Integer.parseInt(addPrice.getText().toString());
 
             // TODO : 이미지 처리하기
             Call<AddProduct> addProduct = service.postProductApply(manager.getToken().getToken(), addProductName.getText().toString(),

@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 Toast.makeText(getApplicationContext(), "종료하려면 한번 더 누르세요.", Toast.LENGTH_LONG).show();
             } else {
-                super.onBackPressed();
+                finish();
             }
         }
     }

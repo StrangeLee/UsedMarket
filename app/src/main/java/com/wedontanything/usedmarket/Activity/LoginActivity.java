@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ import com.wedontanything.usedmarket.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginButton;
@@ -32,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText name;
     private ImageView loginImage;
+
+    private CheckBox loginCheckBox;
 
     UserService service = Utils.RETROFIT.create(UserService.class);
 
@@ -48,13 +53,15 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.loginButtonSignUp);
         passwordFindButton = findViewById(R.id.passwordFind);
         loginImage = findViewById(R.id.loginImage);
+        loginCheckBox = findViewById(R.id.loginCheckKeepLogin);
 
         loginImage.setImageResource(R.drawable.name_logo_cute);
-
-//        if (manager.getToken().getToken() != "") {
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
-//        }
+        if (loginCheckBox.isChecked()) {
+            if (manager.getToken().getToken() != "") {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
 
        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,22 +116,21 @@ public class LoginActivity extends AppCompatActivity {
 //                name.setText(response.body().getData().getUser().getName());
                 Log.d("성공", "onResponse: " + response.message() + response.body().getData().getToken().getToken() + " " + manager.getToken().getToken());
 
-
                 if (response.code() == 200) {
-                    Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다.", LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
                 else if(response.code() == 401) {
-                    Toast.makeText(LoginActivity.this, "아이디나 비밀번호를 확인해 주세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "아이디나 비밀번호를 확인해 주세요.", LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(LoginActivity. this, "서버 에러", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity. this, "서버 에러", LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Response<LoginData>> call, Throwable t) {
-
+                Toast.makeText(LoginActivity.this, "서버와 연결이 끊겼습니다.\n네트워크 연결을 확인해주세요.", LENGTH_LONG).show();
             }
         });
     }

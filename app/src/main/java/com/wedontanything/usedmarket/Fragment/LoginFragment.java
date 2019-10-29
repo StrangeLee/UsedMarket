@@ -22,14 +22,6 @@ import retrofit2.Callback;
 
 
 public class LoginFragment extends Fragment {
-    private Button loginButton;
-    private Button signupButton;
-    private Button passwordFindButton;
-
-    private EditText id;
-    private EditText pw;
-
-    UserService service = Utils.RETROFIT.create(UserService.class);
 
     private OnFragmentInteractionListener mListener;
 
