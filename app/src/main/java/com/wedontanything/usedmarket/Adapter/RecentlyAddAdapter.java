@@ -43,8 +43,8 @@ public class RecentlyAddAdapter extends RecyclerView.Adapter<RecentlyAddAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
-        Picasso.get().load(Utils.HOST_URL + list.get(i).productUri).into(holder.productImg);
         holder.productImg.setImageResource(R.drawable.ic_image);
+        Picasso.get().load(Utils.HOST_URL + list.get(i).productUri).into(holder.productImg);
         holder.productPrice.setText(list.get(i).productPrice);
         holder.productText.setText(list.get(i).productName);
     }

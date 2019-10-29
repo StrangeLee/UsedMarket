@@ -12,8 +12,10 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="390dp"
-            android:layout_height="192dp"
+            android:layout_width="394dp"
+            android:layout_height="194dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -38,9 +40,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="153dp"
                 android:orientation="horizontal"
-                tools:listitem=""
                 app:layout_constraintStart_toStartOf="@+id/mainTextRecentlyAddList"
-                app:layout_constraintTop_toBottomOf="@+id/mainTextRecentlyAddList">
+                app:layout_constraintTop_toBottomOf="@+id/mainTextRecentlyAddList"
+                tools:listitem="">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -48,13 +50,17 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintVertical_bias="0.347">
 
             <TextView
                 android:id="@+id/mainTextRecommendList"
@@ -71,12 +77,17 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mainRecyclerViewRecommendList"
-                android:layout_width="400dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/mainTextRecommendList"
-                app:layout_constraintTop_toBottomOf="@+id/mainTextRecommendList">
+                app:layout_constraintTop_toBottomOf="@+id/mainTextRecommendList"
+                app:layout_constraintVertical_bias="0.0">
 
             </android.support.v7.widget.RecyclerView>
 

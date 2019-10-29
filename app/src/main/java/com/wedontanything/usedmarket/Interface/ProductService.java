@@ -15,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -24,12 +25,12 @@ public interface ProductService {
     @POST("/api/product/")
     Call<AddProduct> postProductApply(
             @Header("token") String token,
-            @Field("productName") String productName,
-            @Field("description") String description,
-            @Field("price") int price,
-            @Field("hashtag") String hashtag,
-            @Field("category") String category,
-            @Field("image") String image
+            @Part("productName") String productName,
+            @Part("description") String description,
+            @Part("price") int price,
+            @Part("hashtag") String hashtag,
+            @Part("category") String category,
+            @Part("image") String image
     );
 
     @GET("/api/product/all")

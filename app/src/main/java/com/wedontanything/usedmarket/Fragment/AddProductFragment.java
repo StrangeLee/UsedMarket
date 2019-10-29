@@ -43,9 +43,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import io.reactivex.Observable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class AddProductFragment extends Fragment {
@@ -235,6 +240,7 @@ public class AddProductFragment extends Fragment {
     private void setImage() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
+        Log.d("LOG", tempFile.getAbsolutePath()); // -> 파일 경로
         if (imageIndex > 3) {
             Toast.makeText(getActivity(), "이미지는 최대 3개까지만 등록할 수 있습니다.", Toast.LENGTH_LONG);
             imageIndex = 0;
@@ -242,9 +248,18 @@ public class AddProductFragment extends Fragment {
             imageList[imageIndex] = bitmap;
             Log.d("TAG", imageIndex + "");
         }
-//        AddImageAdapter addImageAdapter = new AddImageAdapter(imageList);
-//        imageListView.setAdapter(addImageAdapter);
-//        addImageAdapter.notifyDataSetChanged();
+
+        File file = new File(tempFile.getAbsolutePath());
+        // Create a request body with file and image media type
+        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
+        // Create MultipartBody.Part using file request-body,file name and part name
+        MultipartBody.Part part = MultipartBody.Part.createFormData("upload", file.getName(), fileReqBody);
+        //Create request body with text description and text media type
+        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+
+        //Log.d("LOG", );
+        // -> enque함수 실행
+
         addImageView.setImageBitmap(imageList[imageIndex]);
         imageIndex++;
 
@@ -253,4 +268,6 @@ public class AddProductFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

@@ -120,12 +120,13 @@ public class MainFragment extends Fragment {
 
                     recommendItemList.add(new RecommandProductItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), productList.get(i).getUserId(),
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
+                    Log.d("LOG", productList.get(i).getImages().get(0).getSrc());
 
                     recentlyItemList.add(new RecentlyAddItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
 
                 }
-                lastAddAdapter.setItem(recentlyItemList);
                 recommendAdapter.setItem(recommendItemList);
+                lastAddAdapter.setItem(recentlyItemList);
             }
             @Override
             public void onFailure(Call<TestResponse> call, Throwable t) {
