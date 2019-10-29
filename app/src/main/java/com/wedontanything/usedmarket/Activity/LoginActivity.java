@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         postLogin.enqueue(new Callback<Response<LoginData>>() {
             @Override
             public void onResponse(Call<Response<LoginData>> call, retrofit2.Response<Response<LoginData>> response) {
+                // Todo: 에러 메시지 뛰우기
                 manager.setToken(response.body().getData().getToken().getToken());
 
 //                name.setText(response.body().getData().getUser().getName());

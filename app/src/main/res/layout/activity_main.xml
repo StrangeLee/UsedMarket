@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
 
-
+    <!-- TODO: 디자인 수정, 폰트, 콘텐츠 구분 등 -->
     <FrameLayout
         android:id="@+id/mainFrameLayout"
         android:layout_width="0dp"

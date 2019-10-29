@@ -120,21 +120,6 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
 
         tradeCommit.setText("판매중");
 
-//        deleteBtn.setOnClickListener(e -> {
-//            Call<Response> deleteProduct = service.deleteProduct(manager.getToken().getToken(), showProduct.getId());
-//
-//            deleteProduct.enqueue(new Callback<Response>() {
-//                @Override
-//                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-//
-//                }
-//
-//                @Override
-//                public void onFailure(Call<Response> call, Throwable t) {
-//
-//                }
-//            });
-//        });
         heart.setOnClickListener(e -> {
             if (heartCheck == false) {
                 Call<Response> heartcheck = heartService.postClickHeart(manager.getToken().getToken(), showProduct.getId());

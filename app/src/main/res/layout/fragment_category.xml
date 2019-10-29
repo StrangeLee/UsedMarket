@@ -5,9 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.CategoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
     <ListView
         android:id="@+id/categoryListView"
         android:layout_width="match_parent"
