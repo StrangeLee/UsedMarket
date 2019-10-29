@@ -14,13 +14,14 @@ import com.wedontanything.usedmarket.Adapter.CategoryAdapter;
 import com.wedontanything.usedmarket.Data.CategoryListItem;
 import com.wedontanything.usedmarket.R;
 
+import android.support.v7.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CategoryFragment extends Fragment {
-
-
+    
     ListView categoryList;
     CategoryAdapter categoryAdapter;
 
@@ -40,7 +41,7 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_category, container, false);
-        categoryList = getActivity().findViewById(R.id.categoryListView);
+        categoryList = v.findViewById(R.id.categoryListView);
 
         // category item 생성
         ArrayList<String> names = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.spinnerArray)));
@@ -64,7 +65,8 @@ public class CategoryFragment extends Fragment {
         //--------------------------------------------------------------
 
         categoryAdapter = new CategoryAdapter(categoryListItems);
-        //categoryList.setAdapter(categoryAdapter);
+        categoryList.setAdapter(categoryAdapter);
+
 
         return v;
     }
