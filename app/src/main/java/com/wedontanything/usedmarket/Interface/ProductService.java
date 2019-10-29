@@ -1,10 +1,12 @@
 package com.wedontanything.usedmarket.Interface;
 
 import com.wedontanything.usedmarket.Product.AddProduct;
+import com.wedontanything.usedmarket.Product.HeartProduct;
 import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.Response.Response;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -13,6 +15,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -21,7 +24,7 @@ import retrofit2.http.Query;
 
 public interface ProductService {
 
-    @FormUrlEncoded
+    @Multipart
     @POST("/api/product/")
     Call<AddProduct> postProductApply(
             @Header("token") String token,
@@ -73,9 +76,9 @@ public interface ProductService {
             @Query("product_name") String product_name
     );
 
-    @GET("/api/product/heartProduct?member_id=")
-    Call<Response> getheartProduct(
-            @Query("member_id") String member_id
+    @GET("/api/product/heartProductList")
+    Call<List<HeartProduct>> getheartProduct(
+            @Header("token") String token
     );
 
     @GET("/api/product/mypageProductDetails?id=")

@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CategoryFragment extends Fragment {
-    
+
     ListView categoryList;
     CategoryAdapter categoryAdapter;
 
