@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".Fragment.ShowProductFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,7 +12,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <TextView
             android:id="@+id/showTextProductName"
@@ -35,6 +35,7 @@
             android:layout_height="144dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showTextProductName"
             tools:src="@tools:sample/avatars" />
@@ -78,6 +79,14 @@
                 android:background="@drawable/text_bottom_line"
                 android:gravity="left|center"
                 android:text="가격 : " />
+            <TextView
+                android:id="@+id/showTextDate"
+                android:layout_width="248dp"
+                android:layout_height="26dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/text_bottom_line"
+                android:gravity="left|center"
+                android:text="등록일 : " />
 
         </LinearLayout>
 
@@ -98,9 +107,9 @@
 
         <TextView
             android:id="@+id/showTextHashTag"
-            android:layout_width="389dp"
+            android:layout_width="match_parent"
             android:layout_height="59dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="해시태그"
             android:textColor="@color/colorBlue"
@@ -112,11 +121,11 @@
         <!-- TODO : 판매버튼도 백그라운드 바꾸기-->
         <Button
             android:id="@+id/showButtonHeart"
-            android:layout_width="wrap_content"
-            android:layout_height="54dp"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:background="#ffffff"
+            android:background="@color/colorWhite"
             android:textSize="12pt"
             android:text="♡"
             android:textColor="@color/colorPink"
@@ -129,11 +138,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/btn_line_rect_border"
+            android:background="@drawable/edittextborder"
             android:text="거래요청"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/showButtonHeart" />
-
+        <!--android:background="@drawable/btn_line_rect_border"-->
 
     </android.support.constraint.ConstraintLayout>
 

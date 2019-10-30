@@ -58,12 +58,8 @@ public class MyProductActivity extends AppCompatActivity {
 
                 for (int i = 0; i < productList.size(); i++) {
                     myproductList.add(new RecommandProductItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), productList.get(i).getUserId(),
-                            new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
+                            new DecimalFormat("#,##0원").format(productList.get(i).getPrice()), productList.get(i).getUpdateDay()));
                 }
-                    myproductList.add(new RecommandProductItem("ff", "mue6328", "abcd123",
-                                    "asdf"));
-                myproductList.add(new RecommandProductItem("ffff", "mue632833", "abcd12344",
-                        "asdf55"));
 
                 myProductAdapter.setItem(myproductList);
             }

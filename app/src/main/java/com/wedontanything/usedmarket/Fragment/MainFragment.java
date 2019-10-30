@@ -40,7 +40,7 @@ import retrofit2.Callback;
 
 public class MainFragment extends Fragment {
 
-    // TODO : XML고치기, 배너 생성, font바꾸기, 카테고리 바꾸고, Border 추가하고, 예외처리 알고리즘 한번 확인해보기 사진이 문제인듯
+    // TODO : XML고치기, 배너 생성, font바꾸기, 카테고리 바꾸고, Border 추가하고
     private RecyclerView recentlyAddRecyclerView, recommendRecyclerView;
     private RecentlyAddAdapter lastAddAdapter;
     private RecommendProductAdapter recommendAdapter;
@@ -112,14 +112,17 @@ public class MainFragment extends Fragment {
                 Toast.makeText(getActivity(), "성공", Toast.LENGTH_SHORT).show();
 
                 List<TestResponse.TestProduct> productList = response.body().getProductList();
-
+                Log.d("LOG", productList.get(0).getUpdateDay());
+                productAllList.clear();
+                recommendItemList.clear();
+                recentlyItemList.clear();
                 for (int i = 0; i < productList.size(); i++) {
                     productAllList.add(new Product(productList.get(i).getId(), productList.get(i).getUserId(), productList.get(i).getProductName(),
                             productList.get(i).getDescription(), productList.get(i).getPrice(), productList.get(i).getHeart(), productList.get(i).getHashtag(),
                             productList.get(i).getUpdateDay(), productList.get(i).getState(), productList.get(i).getImages().get(0).getSrc(), productList.get(i).getCategory()));
 
                     recommendItemList.add(new RecommandProductItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), productList.get(i).getUserId(),
-                            new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
+                            new DecimalFormat("#,##0원").format(productList.get(i).getPrice()), productList.get(i).getUpdateDay()));
                     Log.d("LOG", productList.get(i).getImages().get(0).getSrc());
 
                     recentlyItemList.add(new RecentlyAddItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));

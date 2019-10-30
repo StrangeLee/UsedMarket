@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,6 +119,12 @@ public class AddProductFragment extends Fragment {
 
             // 예외처리
 //            for (int i = 0 ; i < addString.size(); i ++) {
+//
+//                if (imageList[0] != null) {
+//                    Log.d("LOG", imageList[0].toString());
+//                } else {
+//                    return;
+//                }
 //                if (addString.get(i).equals("") || imageList[0] == null) {
 //                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있거나 사진을 추가해주세요.", Toast.LENGTH_SHORT).show();
 //                    return;
@@ -140,7 +148,13 @@ public class AddProductFragment extends Fragment {
                 @Override
                 public void onResponse(Call<AddProduct> call, Response<AddProduct> response) {
                     Log.d("TAG", "상품 추가 성공");
-                    // TODO : 성공시 메인으로 이동 및 TOAST 띄우기 TOAST띄우기 먼저
+                    Toast.makeText(getActivity(), "상품을 등록 하였습니다.", Toast.LENGTH_SHORT);
+                    MainFragment mf = new MainFragment();
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.replace(R.id.showFrameLayout, mf);
+                    transaction.commit();
                 }
 
                 @Override
@@ -233,7 +247,6 @@ public class AddProductFragment extends Fragment {
             }
 
             setImage();
-
         }
     }
 
@@ -250,9 +263,14 @@ public class AddProductFragment extends Fragment {
         }
 
         file = new File(tempFile.getAbsolutePath());
-        // Create a request body with file and image media type
 
         addImageView.setImageBitmap(imageList[imageIndex]);
+        if (imageList[imageIndex].toString() != null) {
+            Log.d("IMAGE", imageList[imageIndex].toString());
+        } else {
+            Log.d("IMAGE", "null임");
+        }
+
         imageIndex++;
 
     }

@@ -1,5 +1,7 @@
 package com.wedontanything.usedmarket.Fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -39,11 +41,9 @@ import retrofit2.Callback;
  */
 public class MyPageFragment extends Fragment {
 
-    // TODO : 문의하기 눌렀을때 준비중 다이얼로그 뜨기, 등록한 상품 찜한 상품 각자 타이틀 만들어주기
-
     EditText schoolName, userName;
     ImageView userImage;
-    Button modifyBtn, productListBtn, LogoutBtn, heartListBtn;
+    Button modifyBtn, productListBtn, LogoutBtn, heartListBtn, askButton;
 
     UserService service = Utils.RETROFIT.create(UserService.class);
 
@@ -73,12 +73,20 @@ public class MyPageFragment extends Fragment {
         LogoutBtn = v.findViewById(R.id.myPageButtonLogout);
         heartListBtn = v.findViewById(R.id.myPageButtonHeartList);
         userImage = v.findViewById(R.id.myPageImageUserImage);
+        askButton = v.findViewById(R.id.myPageButtonAsk);
 
+        // 기본이미지 세팅
         userImage.setImageResource(R.drawable.main_logo);
 
-        userName.setText("A");
-
         manager = TokenManager.getInstance(getActivity().getApplicationContext());
+
+        //문의하기
+        askButton.setOnClickListener(e -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("서비스 준비중입니다.").setTitle("알림");
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        });
 
         Call<Response<UserInfo>> userInfo = service.getUserInfo(manager.getToken().getToken());
 

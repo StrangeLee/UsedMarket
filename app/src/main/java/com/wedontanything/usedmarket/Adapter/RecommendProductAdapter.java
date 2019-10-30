@@ -3,6 +3,7 @@ package com.wedontanything.usedmarket.Adapter;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,18 @@ import com.wedontanything.usedmarket.Product.TestResponse;
 import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProductAdapter.Holder> {
 
     private RecyclerViewClickListener clickListener;
     private List<RecommandProductItem> mData = new ArrayList<>();
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일'T'hh:mm");
+    private Date date;
 
     public RecommendProductAdapter(RecyclerViewClickListener clickListener) {
         this.clickListener = clickListener;
@@ -47,10 +53,17 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
+        String [] date1 = mData.get(i).productDate.split("T");
+//        String [] time = date1[1].split("");
+//        Log.d("LOG", time[0]);
         Picasso.get().load(Utils.HOST_URL + mData.get(i).productUri).into(holder.productImg);
         holder.productPrice.setText(mData.get(i).productPrice);
-        holder.productSeller.setText(mData.get(i).productSeller);
+        holder.productSeller.setText("판매자 : " + mData.get(i).productSeller);
         holder.productName.setText(mData.get(i).productName);
+        holder.productDate.setText("등록 날짜 " + date1[0] + " ");
+
+
+        //Log.d("LOG", "어댑터 등록 날짜 " + sdf.format(date));
     }
 
     @Override
@@ -64,6 +77,7 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
         public TextView productName;
         public TextView productSeller;
         public TextView productPrice;
+        public TextView productDate;
 
         private RecyclerViewClickListener listener;
 
@@ -76,6 +90,7 @@ public class RecommendProductAdapter extends RecyclerView.Adapter<RecommendProdu
             productName = itemView.findViewById(R.id.mainTextProductNameRecommendItem);
             productSeller = itemView.findViewById(R.id.mainTextProductSellerRecommendItem);
             productPrice = itemView.findViewById(R.id.mainTextProductPriceRecommendItem);
+            productDate = itemView.findViewById(R.id.mainTextDateRecommendItem);
         }
 
         @Override

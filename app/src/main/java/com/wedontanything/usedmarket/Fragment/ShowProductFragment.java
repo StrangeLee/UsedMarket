@@ -1,6 +1,8 @@
 package com.wedontanything.usedmarket.Fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,9 +31,13 @@ import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Response.Response;
 import com.wedontanything.usedmarket.Utils;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +45,7 @@ import retrofit2.Callback;
 
 public class ShowProductFragment extends Fragment implements MainActivity.OnKeyBackPressedListener {
 
-    // TODO : 사진 크기 고정, 해쉬태그 짤리는거, 삭제 버튼 삭제, 판매중 버튼 작동 똑바로(구매가능 ,거래중, 거래완료), Heart Button Background 색 White 로 바꾸기
+    // TODO : 해쉬태그 짤리는거, 삭제 버튼 삭제, 판매중 버튼 작동 똑바로(구매가능 ,거래중, 거래완료), Heart Button Background 색 White 로 바꾸기
     private Product showProduct;
     ProductData data = new ProductData();
 
@@ -49,11 +55,17 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     TextView productNameText;
     TextView productContentsText;
     TextView productHashTagText;
+    TextView productDateText;
     ImageView productImage;
 
     Button tradeCommit;
     Button heart;
     Button deleteBtn;
+
+    File tempFile;
+    File file;
+
+    Bitmap bitmapImage;
 
     private static final String UNHEART = "♡";
     private static final String HEART = "♥";
@@ -106,6 +118,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         productImage = v.findViewById(R.id.showImageProduct);
         tradeCommit = v.findViewById(R.id.showButtonRequest);
         productCategoryText = v.findViewById(R.id.showTextCategory);
+        productDateText = v.findViewById(R.id.showTextDate);
         heart = v.findViewById(R.id.showButtonHeart);
 
         productSellerText.setText("판매자 : " + showProduct.getMember_id());
@@ -114,10 +127,11 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         productContentsText.setText(showProduct.getDescription());
         productHashTagText.setText(showProduct.getHashtag());
         productCategoryText.setText("카테고리 : " + showProduct.getCategory());
+        productDateText.setText("등록일 : " + showProduct.getUpdate_day());
         Log.d("LOG", productNameText.getText().toString());
         Picasso.get().load(Utils.HOST_URL + showProduct.getImage()).into(productImage);
 
-        tradeCommit.setText("판매중");
+        tradeCommit.setText(showProduct.getState());
 
         heart.setOnClickListener(e -> {
             if (heartCheck == false) {
@@ -167,7 +181,6 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
                 @Override
                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                     Toast.makeText(getActivity(), "거래중", Toast.LENGTH_LONG).show();
-                    //Log.d("LOG", response.body().toString() + " A");
 
                     // TODO: 결과값 서버에 요청하기
                 }
@@ -203,4 +216,5 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
 }

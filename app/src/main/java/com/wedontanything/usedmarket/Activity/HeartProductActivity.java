@@ -54,16 +54,20 @@ public class HeartProductActivity extends AppCompatActivity {
         getHeartProduct.enqueue(new Callback<List<HeartProduct>>() {
             @Override
             public void onResponse(Call<List<HeartProduct>> call, Response<List<HeartProduct>> response) {
+                Log.d("success : ", "" + response.body());
+                //heartproductList.add(new RecommandProductItem("", "ㄹㄹ", "mue6328", 3000, ""))
                 if(response.body() != null) {
-                    Log.d("success : ", "" + response.body());
+
+                    Log.d("HEART", heartProductAdapter.getItemCount() + " 아이템 갯수");
                     for (int i = 0; i < response.body().size(); i++) {
+
                         heartproductList.add(new RecommandProductItem(response.body().get(i).getImages().get(0).getSrc(), response.body().get(i).getProductName(),
-                                response.body().get(i).getUserId(), new DecimalFormat("#,##0원").format(response.body().get(i).getPrice())));
+                                response.body().get(i).getUserId(), new DecimalFormat("#,##0원").format(response.body().get(i).getPrice()), response.body().get(i).getUpdateDay()));
                     }
-                    heartproductList.add(new RecommandProductItem("ff", "mue6328", "abcd123",
-                            "asdf"));
+
 
                     heartProductAdapter.setItem(heartproductList);
+                    Log.d("HEART", heartProductAdapter.getItemCount() + " 아이템 갯수");
                 }
             }
 

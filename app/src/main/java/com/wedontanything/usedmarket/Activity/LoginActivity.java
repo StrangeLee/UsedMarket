@@ -109,11 +109,9 @@ public class LoginActivity extends AppCompatActivity {
         postLogin.enqueue(new Callback<Response<LoginData>>() {
             @Override
             public void onResponse(Call<Response<LoginData>> call, retrofit2.Response<Response<LoginData>> response) {
-                // Todo: 에러 메시지 뛰우기
                 // TODO : 회원가입 하고 새로 만든 아이디의 토큰이 반환되지 않은 경우 처리
                 manager.setToken(response.body().getData().getToken().getToken());
 
-//                name.setText(response.body().getData().getUser().getName());
                 Log.d("성공", "onResponse: " + response.message() + response.body().getData().getToken().getToken() + " " + manager.getToken().getToken());
 
                 if (response.code() == 200) {
