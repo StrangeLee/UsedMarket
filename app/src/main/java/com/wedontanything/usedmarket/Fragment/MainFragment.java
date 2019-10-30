@@ -50,7 +50,6 @@ public class MainFragment extends Fragment {
 
     // RecyclerView Listener 구현
     RecyclerViewClickListener listener = (view, position) -> {
-        Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_LONG).show();
 
         ShowProductFragment sf = ShowProductFragment.newInstance(productAllList.get(position));
         Log.d("TAG", productAllList.get(position).getProduct_name());
@@ -109,7 +108,6 @@ public class MainFragment extends Fragment {
         getAllProduct.enqueue(new Callback<TestResponse>() {
             @Override
             public void onResponse(Call<TestResponse> call, retrofit2.Response<TestResponse> response) {
-                Toast.makeText(getActivity(), "성공", Toast.LENGTH_SHORT).show();
 
                 List<TestResponse.TestProduct> productList = response.body().getProductList();
                 Log.d("LOG", productList.get(0).getUpdateDay());

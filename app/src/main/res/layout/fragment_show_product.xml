@@ -79,6 +79,7 @@
                 android:background="@drawable/text_bottom_line"
                 android:gravity="left|center"
                 android:text="가격 : " />
+
             <TextView
                 android:id="@+id/showTextDate"
                 android:layout_width="248dp"
@@ -93,7 +94,7 @@
         <TextView
             android:id="@+id/showTextContents"
             android:layout_width="match_parent"
-            android:layout_height="264dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
@@ -108,15 +109,17 @@
         <TextView
             android:id="@+id/showTextHashTag"
             android:layout_width="match_parent"
-            android:layout_height="59dp"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="69dp"
             android:text="해시태그"
             android:textColor="@color/colorBlue"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/showTextContents"
             app:layout_constraintStart_toStartOf="@+id/showTextContents"
-            app:layout_constraintTop_toBottomOf="@+id/showTextContents" />
+            app:layout_constraintTop_toBottomOf="@+id/commentRecyclerView" />
 
         <!-- TODO : 판매버튼도 백그라운드 바꾸기-->
         <Button
@@ -126,9 +129,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:background="@color/colorWhite"
-            android:textSize="12pt"
             android:text="♡"
             android:textColor="@color/colorPink"
+            android:textSize="12pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -143,6 +146,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/showButtonHeart" />
         <!--android:background="@drawable/btn_line_rect_border"-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/commentRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/showTextContents"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            tools:listitem="@layout/comment_item"/>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Response<LoginData>> call, Throwable t) {
+                Log.d("error", t.toString());
                 Toast.makeText(LoginActivity.this, "서버와 연결이 끊겼습니다.\n네트워크 연결을 확인해주세요.", LENGTH_LONG).show();
             }
         });

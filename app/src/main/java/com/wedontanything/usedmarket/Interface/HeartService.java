@@ -19,6 +19,6 @@ public interface HeartService {
     @POST("/api/heart/unClick/{id}")
     Call<Response> postUnClickHeart(
             @Header("token") String token,
-            @Path("id") Integer id
+            @Path("id") int id
     );
 }

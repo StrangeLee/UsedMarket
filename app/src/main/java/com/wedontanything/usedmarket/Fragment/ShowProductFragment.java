@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +17,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.wedontanything.usedmarket.Activity.Basic;
 import com.wedontanything.usedmarket.Activity.MainActivity;
+import com.wedontanything.usedmarket.Adapter.CommentAdapter;
+import com.wedontanything.usedmarket.Adapter.HeartProductAdapter;
+import com.wedontanything.usedmarket.Comment.CommentList;
+import com.wedontanything.usedmarket.Data.CommentItem;
 import com.wedontanything.usedmarket.Data.ProductData;
 import com.wedontanything.usedmarket.DataBase.TokenManager;
+import com.wedontanything.usedmarket.Interface.CommentService;
 import com.wedontanything.usedmarket.Interface.HeartService;
 import com.wedontanything.usedmarket.Interface.ProductService;
 import com.wedontanything.usedmarket.Product.Product;
@@ -31,9 +39,11 @@ import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Response.Response;
 import com.wedontanything.usedmarket.Utils;
 
+
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -48,6 +58,11 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     // TODO : 해쉬태그 짤리는거, 삭제 버튼 삭제, 판매중 버튼 작동 똑바로(구매가능 ,거래중, 거래완료), Heart Button Background 색 White 로 바꾸기
     private Product showProduct;
     ProductData data = new ProductData();
+
+    RecyclerView commentRecyclerView;
+    CommentAdapter commentAdapter;
+
+    List<CommentItem> item = new ArrayList<>();
 
     TextView productCategoryText;
     TextView productSellerText;
@@ -74,6 +89,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     // server connection
     ProductService productservice = Utils.RETROFIT.create(ProductService.class);
     HeartService heartService = Utils.RETROFIT.create(HeartService.class);
+    CommentService commentService = Utils.RETROFIT.create(CommentService.class);
     TokenManager manager;
 
     private OnFragmentInteractionListener mListener;
@@ -121,17 +137,46 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         productDateText = v.findViewById(R.id.showTextDate);
         heart = v.findViewById(R.id.showButtonHeart);
 
+        String [] date = showProduct.getUpdate_day().split("T");
+
         productSellerText.setText("판매자 : " + showProduct.getMember_id());
         productNameText.setText(showProduct.getProduct_name());
         productPriceText.setText("가격 : " + new DecimalFormat("#,##0원").format(showProduct.getMoney()));
         productContentsText.setText(showProduct.getDescription());
         productHashTagText.setText(showProduct.getHashtag());
         productCategoryText.setText("카테고리 : " + showProduct.getCategory());
-        productDateText.setText("등록일 : " + showProduct.getUpdate_day());
+        productDateText.setText("등록일 : " + date[0]);
         Log.d("LOG", productNameText.getText().toString());
         Picasso.get().load(Utils.HOST_URL + showProduct.getImage()).into(productImage);
 
         tradeCommit.setText(showProduct.getState());
+
+        commentRecyclerView = v.findViewById(R.id.commentRecyclerView);
+
+        commentAdapter = new CommentAdapter();
+        commentRecyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayout.VERTICAL, false));
+        commentRecyclerView.setAdapter(commentAdapter);
+        commentRecyclerView.setHasFixedSize(true);
+
+        Call<List<CommentList>> commentList = commentService.getCommentList(manager.getToken().getToken(), showProduct.getId());
+
+        commentList.enqueue(new Callback<List<CommentList>>() {
+            @Override
+            public void onResponse(Call<List<CommentList>> call, retrofit2.Response<List<CommentList>> response) {
+                Log.d("body", "" + response.body() + response.code() + response.message());
+                if (response.body() != null) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        item.add(new CommentItem(response.body().get(i).getUserId(), response.body().get(i).getContent()));
+                    }
+                    commentAdapter.setItem(item);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CommentList>> call, Throwable t) {
+                Log.d("error", t.toString());
+            }
+        });
 
         heart.setOnClickListener(e -> {
             if (heartCheck == false) {
@@ -180,14 +225,14 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
             updateProduct.enqueue(new Callback<Response>() {
                 @Override
                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                    Toast.makeText(getActivity(), "거래중", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "거래중", Toast.LENGTH_LONG).show();
 
                     // TODO: 결과값 서버에 요청하기
                 }
 
                 @Override
                 public void onFailure(Call<Response> call, Throwable t) {
-                    Toast.makeText(getActivity(), "실패", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "실패", Toast.LENGTH_LONG).show();
                 }
             });
 
