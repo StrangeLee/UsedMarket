@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -15,15 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.MyProductListActivity"></activity>
+        <activity android:name=".Activity.CategoryShowActivity"></activity>
+        <activity android:name=".Activity.MyProductListActivity" />
         <activity android:name=".Activity.ShowProductActivity" />
         <activity android:name=".Activity.CategoryActivity" />
         <activity android:name=".Activity.AddProductActivity" />
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.PasswordFindActivity" />
         <activity android:name=".Activity.SignUpActivity" />
-        <activity android:name=".Activity.MyProductActivity"/>
-        <activity android:name=".Activity.HeartProductActivity"/>
+        <activity android:name=".Activity.MyProductActivity" />
+        <activity android:name=".Activity.HeartProductActivity" />
         <activity
             android:name=".Activity.LoginActivity"
             android:label="교내 중고나라">

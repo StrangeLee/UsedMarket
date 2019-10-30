@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,12 +18,12 @@ import com.wedontanything.usedmarket.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeartProductAdapter extends RecyclerView.Adapter<HeartProductAdapter.Holder> {
+public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapter.Holder>{
 
     private RecyclerViewClickListener clickListener;
     private List<RecommandProductItem> myProduct = new ArrayList<>();
 
-    public HeartProductAdapter() {
+    public CategoryShowAdapter() {
 
     }
 
@@ -32,17 +33,16 @@ public class HeartProductAdapter extends RecyclerView.Adapter<HeartProductAdapte
     }
 
     @Override
-    public HeartProductAdapter.Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public CategoryShowAdapter.Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_recommend_product_item, viewGroup, false);
-        HeartProductAdapter.Holder holder = new HeartProductAdapter.Holder(view);
+        CategoryShowAdapter.Holder holder = new CategoryShowAdapter.Holder(view);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HeartProductAdapter.Holder holder, int i) {
+    public void onBindViewHolder(@NonNull CategoryShowAdapter.Holder holder, int i) {
         Picasso.get().load(Utils.HOST_URL + myProduct.get(i).productUri).into(holder.productImg);
-        //holder.productImg.setImageResource(R.drawable.ic_image);
         holder.productPrice.setText(myProduct.get(i).productPrice);
         holder.productSeller.setText(myProduct.get(i).productSeller);
         holder.productName.setText(myProduct.get(i).productName);

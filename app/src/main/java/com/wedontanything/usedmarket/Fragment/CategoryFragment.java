@@ -1,6 +1,7 @@
 package com.wedontanything.usedmarket.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.wedontanything.usedmarket.Activity.CategoryShowActivity;
 import com.wedontanything.usedmarket.Adapter.CategoryAdapter;
+import com.wedontanything.usedmarket.Adapter.CategoryShowAdapter;
 import com.wedontanything.usedmarket.Data.CategoryListItem;
 import com.wedontanything.usedmarket.R;
 
@@ -62,6 +65,12 @@ public class CategoryFragment extends Fragment {
             categoryListItems.add(new CategoryListItem(names.get(i + 1), images.get(i)));
             Log.d("List", categoryListItems.get(i).getCategoryName());
         }
+
+        categoryList.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(v.getContext(), CategoryShowActivity.class);
+            intent.putExtra("CATEGORY", categoryAdapter.getSelectedItem(position));
+            startActivity(intent);
+        });
         //--------------------------------------------------------------
 
         categoryAdapter = new CategoryAdapter(categoryListItems);

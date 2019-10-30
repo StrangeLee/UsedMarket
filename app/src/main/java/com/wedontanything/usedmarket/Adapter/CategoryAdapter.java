@@ -21,6 +21,8 @@ public class CategoryAdapter extends BaseAdapter {
     TextView categoryName;
     ImageView categoryImage;
 
+    String selectedCategoryName;
+
     public CategoryAdapter(List<CategoryListItem> categoryList) {
         this.categoryList = categoryList;
     }
@@ -32,7 +34,12 @@ public class CategoryAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+
         return categoryList.get(position);
+    }
+
+    public String getSelectedItem(int i){
+        return categoryList.get(i).getCategoryName();
     }
 
     @Override
