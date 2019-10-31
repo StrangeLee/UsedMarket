@@ -8,11 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.LinearLayout;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+
 import com.wedontanything.usedmarket.Adapter.CategoryShowAdapter;
 import com.wedontanything.usedmarket.Adapter.HeartProductAdapter;
 import com.wedontanything.usedmarket.Data.RecommandProductItem;
 import com.wedontanything.usedmarket.DataBase.TokenManager;
+import com.wedontanything.usedmarket.Fragment.ShowProductFragment;
 import com.wedontanything.usedmarket.Interface.ProductService;
+import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
 import com.wedontanything.usedmarket.Product.HeartProduct;
 import com.wedontanything.usedmarket.R;
 import com.wedontanything.usedmarket.Utils;
@@ -36,6 +42,16 @@ public class CategoryShowActivity extends AppCompatActivity {
     private CategoryShowAdapter categoryShowAdapter;
     private RecyclerView categoryShowRecyclerView;
 
+    RecyclerViewClickListener listener = (view, position) -> {
+        ShowProductFragment sf = new ShowProductFragment();
+        Log.d("Tag", "f");
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.mainFrameLayout, sf);
+        transaction.commit();
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +64,7 @@ public class CategoryShowActivity extends AppCompatActivity {
 
         categoryShowRecyclerView = findViewById(R.id.categoryShowRecyclerView);
 
-        categoryShowAdapter = new CategoryShowAdapter();
+        categoryShowAdapter = new CategoryShowAdapter(listener);
         categoryShowRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
         categoryShowRecyclerView.setAdapter(categoryShowAdapter);
         categoryShowRecyclerView.setHasFixedSize(true);
@@ -80,5 +96,11 @@ public class CategoryShowActivity extends AppCompatActivity {
                 Log.d("error : ", t.toString());
             }
         });
+
+
+
+       // categoryShowRecyclerView.setOnClickListener(new );
+
+
     }
 }

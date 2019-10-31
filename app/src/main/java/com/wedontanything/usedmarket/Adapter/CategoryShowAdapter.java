@@ -23,8 +23,8 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
     private RecyclerViewClickListener clickListener;
     private List<RecommandProductItem> myProduct = new ArrayList<>();
 
-    public CategoryShowAdapter() {
-
+    public CategoryShowAdapter(RecyclerViewClickListener listener) {
+        this.clickListener = listener;
     }
 
     public void setItem(List<RecommandProductItem> list) {

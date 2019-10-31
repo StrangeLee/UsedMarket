@@ -5,16 +5,20 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.wedontanything.usedmarket.Activity.CategoryShowActivity;
 import com.wedontanything.usedmarket.Adapter.CategoryAdapter;
 import com.wedontanything.usedmarket.Adapter.CategoryShowAdapter;
 import com.wedontanything.usedmarket.Data.CategoryListItem;
+import com.wedontanything.usedmarket.Interface.RecyclerViewClickListener;
 import com.wedontanything.usedmarket.R;
 
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +35,8 @@ public class CategoryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+
+
     public CategoryFragment() {
     }
 
@@ -45,6 +51,20 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_category, container, false);
         categoryList = v.findViewById(R.id.categoryListView);
+
+        categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShowProductFragment sf = new ShowProductFragment();
+                Log.d("tag", "" + sf);
+                //Log.d("TAG", productAllList.get(position).getProduct_name());
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.mainFrameLayout, sf);
+                transaction.commit();
+            }
+        });
 
         // category item 생성
         ArrayList<String> names = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.spinnerArray)));
@@ -77,6 +97,22 @@ public class CategoryFragment extends Fragment {
 
         return v;
     }
+
+
+
+
+//    RecyclerViewClickListener listener = (view, position) -> {
+//
+//        ShowProductFragment sf = ShowProductFragment.newInstance(productAllList.get(position));
+//        Log.d("TAG", productAllList.get(position).getProduct_name());
+//
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.mainFrameLayout, sf);
+//        transaction.commit();
+//    };
+
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

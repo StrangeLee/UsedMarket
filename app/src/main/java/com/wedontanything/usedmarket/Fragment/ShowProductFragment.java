@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class ShowProductFragment extends Fragment implements MainActivity.OnKeyBackPressedListener {
+public class ShowProductFragment extends Fragment {
 
     // TODO : 해쉬태그 짤리는거, 삭제 버튼 삭제, 판매중 버튼 작동 똑바로(구매가능 ,거래중, 거래완료), Heart Button Background 색 White 로 바꾸기
     private Product showProduct;
@@ -244,7 +245,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((MainActivity)context).setOnKeyBackPressedListener(this);
+        //((MainActivity)context).setOnKeyBackPressedListener(this);
     }
 
     @Override
@@ -253,10 +254,7 @@ public class ShowProductFragment extends Fragment implements MainActivity.OnKeyB
         mListener = null;
     }
 
-    @Override
-    public void onBackKey() {
 
-    }
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
