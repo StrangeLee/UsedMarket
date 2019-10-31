@@ -15,8 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.wedontanything.usedmarket.Adapter.RecentlyAddAdapter;
 import com.wedontanything.usedmarket.Data.RecentlyAddItem;
@@ -41,12 +43,20 @@ import retrofit2.Callback;
 public class MainFragment extends Fragment {
 
     // TODO : XML고치기, 배너 생성, font바꾸기, 카테고리 바꾸고, Border 추가하고
-    private RecyclerView recentlyAddRecyclerView, recommendRecyclerView;
+    //private RecyclerView recentlyAddRecyclerView;
+    private RecyclerView recommendRecyclerView;
     private RecentlyAddAdapter lastAddAdapter;
     private RecommendProductAdapter recommendAdapter;
     private List<RecommandProductItem> recommendItemList = new ArrayList<>();
     private List<RecentlyAddItem> recentlyItemList = new ArrayList<>();
     private ArrayList<Product> productAllList = new ArrayList<>();
+
+    private ViewFlipper viewFlipper;
+
+    int [] images = {
+            R.drawable.narsh_product_test_img,
+            R.drawable.narsha_test_user_pic
+    };
 
     // RecyclerView Listener 구현
     RecyclerViewClickListener listener = (view, position) -> {
@@ -83,9 +93,15 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-        recentlyAddRecyclerView = v.findViewById(R.id.mainRecyclerViewRecentlyAddList);
+        //recentlyAddRecyclerView = v.findViewById(R.id.mainRecyclerViewRecentlyAddList);
         recommendRecyclerView = v.findViewById(R.id.mainRecyclerViewRecommendList);
         //------------------------------------------------------------------------------
+
+        // 상단배너
+        viewFlipper = v.findViewById(R.id.imageSlide);
+        for (int image : images) {
+            imageSlider(image);
+        }
 
         // 서버 API 받아오기-----------------------------------------------------------------------------
         manager = TokenManager.getInstance(getActivity().getApplicationContext());
@@ -95,9 +111,9 @@ public class MainFragment extends Fragment {
         //------------------------------------------------------------------
         // 최근 본 상품
         lastAddAdapter = new RecentlyAddAdapter(listener);
-        recentlyAddRecyclerView.setHasFixedSize(true);
-        recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
-        recentlyAddRecyclerView.setAdapter(lastAddAdapter);
+//        recentlyAddRecyclerView.setHasFixedSize(true);
+//        recentlyAddRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
+//        recentlyAddRecyclerView.setAdapter(lastAddAdapter);
 
         // 추천 상품
         recommendAdapter = new RecommendProductAdapter(listener);
@@ -123,11 +139,11 @@ public class MainFragment extends Fragment {
                             new DecimalFormat("#,##0원").format(productList.get(i).getPrice()), productList.get(i).getUpdateDay()));
                     Log.d("LOG", productList.get(i).getImages().get(0).getSrc());
 
-                    recentlyItemList.add(new RecentlyAddItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
+                    //recentlyItemList.add(new RecentlyAddItem(productList.get(i).getImages().get(0).getSrc(), productList.get(i).getProductName(), new DecimalFormat("#,##0원").format(productList.get(i).getPrice())));
 
                 }
                 recommendAdapter.setItem(recommendItemList);
-                lastAddAdapter.setItem(recentlyItemList);
+                //lastAddAdapter.setItem(recentlyItemList);
             }
             @Override
             public void onFailure(Call<TestResponse> call, Throwable t) {
@@ -136,6 +152,19 @@ public class MainFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void imageSlider(int image) {
+        ImageView imageView = new ImageView(getContext());
+        imageView.setBackgroundResource(image);
+
+        viewFlipper.addView(imageView);
+        viewFlipper.setFlipInterval(5000);
+        viewFlipper.setAutoStart(true);
+
+        //animation
+        viewFlipper.setInAnimation(getContext(), android.R.anim.slide_in_left);
+        viewFlipper.setOutAnimation(getContext(), android.R.anim.slide_out_right);
     }
 
     @Override
