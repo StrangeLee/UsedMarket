@@ -54,8 +54,9 @@ public class MainFragment extends Fragment {
     private ViewFlipper viewFlipper;
 
     int [] images = {
-            R.drawable.narsh_product_test_img,
-            R.drawable.narsha_test_user_pic
+            R.drawable.banner_1,
+            R.drawable.banner_2,
+            R.drawable.banner_3
     };
 
     // RecyclerView Listener 구현

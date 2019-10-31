@@ -106,6 +106,9 @@ public class LoginActivity extends AppCompatActivity {
         Call<Response<LoginData>> postLogin = service.postLogin(id.getText().toString(),
                 pw.getText().toString());
 
+//        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//        startActivity(intent);
+
         postLogin.enqueue(new Callback<Response<LoginData>>() {
             @Override
             public void onResponse(Call<Response<LoginData>> call, retrofit2.Response<Response<LoginData>> response) {

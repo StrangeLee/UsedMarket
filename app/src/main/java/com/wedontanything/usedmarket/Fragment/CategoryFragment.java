@@ -53,12 +53,10 @@ public class CategoryFragment extends Fragment {
                 R.drawable.ic_action_book,
                 R.drawable.ic_action_clothes,
                 R.drawable.ic_action_digital,
-                R.drawable.ic_action_food,
                 R.drawable.ic_action_hobby,
                 R.drawable.ic_action_makeup,
                 R.drawable.ic_action_schoolsupplies,
-                R.drawable.ic_action_sports,
-                R.drawable.ic_action_ticket
+                R.drawable.ic_action_sports
         );
 
         for (int i = 0; i < names.size() - 1; i++) {

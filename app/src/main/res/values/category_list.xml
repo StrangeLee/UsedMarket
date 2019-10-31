@@ -2,14 +2,12 @@
 <resources>
     <string-array name="spinnerArray">
         <item>카테고리를 선택하세요.</item>
-        <item> 책 / 문제집</item>
+        <item> 도서 </item>
         <item> 의류 </item>
-        <item> 전자제품</item>
-        <item> 음식 </item>
-        <item> 취미 </item>
-        <item> 화장품 </item>
+        <item> 전자기기</item>
+        <item> 굿즈 </item>
+        <item> 뷰티 </item>
         <item> 학용품 </item>
-        <item> 스포츠 용품 </item>
-        <item> 티켓 / 상품권</item>
+        <item> 기타 </item>
     </string-array>
 </resources>
